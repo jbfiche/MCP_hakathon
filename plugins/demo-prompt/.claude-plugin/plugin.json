@@ -1,0 +1,21 @@
+{
+  "name": "demo-prompt",
+  "displayName": "Demo: prompt",
+  "version": "0.1.0",
+  "description": "No tools; one prompt, summarise_gene, to see how a prompt appears in the host's menu.",
+  "author": {
+    "name": "Laurence Calzone and Eliott Jacopin",
+    "email": "eliott.jacopin@riken.jp"
+  },
+  "homepage": "https://github.com/sysbio-curie/MCP_Hackaton",
+  "repository": "https://github.com/sysbio-curie/MCP_Hackaton",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "teaching",
+    "cancer",
+    "systems-biology",
+    "hackathon"
+  ],
+  "mcpServers": "./.claude-plugin/mcp.json"
+}

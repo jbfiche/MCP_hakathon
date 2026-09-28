@@ -1,0 +1,36 @@
+{
+  "name": "demo-elicitation",
+  "version": "0.1.0",
+  "description": "One tool, greet, that asks the user for their name before answering (elicitation via a Resolve resolver).",
+  "author": {
+    "name": "Laurence Calzone and Eliott Jacopin",
+    "email": "eliott.jacopin@riken.jp"
+  },
+  "homepage": "https://github.com/sysbio-curie/MCP_Hackaton",
+  "repository": "https://github.com/sysbio-curie/MCP_Hackaton",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "teaching",
+    "cancer",
+    "systems-biology",
+    "hackathon"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Demo: elicitation",
+        "shortDescription": "A tool that asks the user a question before answering.",
+        "longDescription": "One tool, greet, that elicits the user's name mid-call using the MCP Python SDK v2 Resolve/Elicit pattern (protocol revision 2026-07-28), then greets them by name, showing the accepted/declined/cancelled outcomes.",
+        "developerName": "Laurence Calzone and Eliott Jacopin",
+        "category": "Developer Tools",
+        "capabilities": [
+          "Interactive"
+        ],
+        "defaultPrompt": [
+          "Use demo-elicitation to greet me."
+        ]
+      }
+    }
+  }
+}

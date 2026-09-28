@@ -1,0 +1,21 @@
+{
+  "name": "demo-tools",
+  "displayName": "Demo: tools",
+  "version": "0.1.0",
+  "description": "Four arithmetic tools (add, subtract, multiply, divide); divide by zero shows how a tool raises an error the model can read.",
+  "author": {
+    "name": "Laurence Calzone and Eliott Jacopin",
+    "email": "eliott.jacopin@riken.jp"
+  },
+  "homepage": "https://github.com/sysbio-curie/MCP_Hackaton",
+  "repository": "https://github.com/sysbio-curie/MCP_Hackaton",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "teaching",
+    "cancer",
+    "systems-biology",
+    "hackathon"
+  ],
+  "mcpServers": "./.claude-plugin/mcp.json"
+}

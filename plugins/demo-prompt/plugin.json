@@ -1,0 +1,36 @@
+{
+  "name": "demo-prompt",
+  "version": "0.1.0",
+  "description": "No tools; one prompt, summarise_gene, to see how a prompt appears in the host's menu.",
+  "author": {
+    "name": "Laurence Calzone and Eliott Jacopin",
+    "email": "eliott.jacopin@riken.jp"
+  },
+  "homepage": "https://github.com/sysbio-curie/MCP_Hackaton",
+  "repository": "https://github.com/sysbio-curie/MCP_Hackaton",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "teaching",
+    "cancer",
+    "systems-biology",
+    "hackathon"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Demo: prompt",
+        "shortDescription": "One canned prompt, picked by the user, not the model.",
+        "longDescription": "No tools, one MCP prompt, summarise_gene, that asks for a three-bullet cancer-biology summary of a gene. Prompts are picked by a person from the host's menu (a slash command in Claude Code), never invoked by the model on its own.",
+        "developerName": "Laurence Calzone and Eliott Jacopin",
+        "category": "Developer Tools",
+        "capabilities": [
+          "Read"
+        ],
+        "defaultPrompt": [
+          "Run the summarise_gene prompt for TP53."
+        ]
+      }
+    }
+  }
+}

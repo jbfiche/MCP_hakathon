@@ -1,0 +1,21 @@
+{
+  "name": "demo-elicitation",
+  "displayName": "Demo: elicitation",
+  "version": "0.1.0",
+  "description": "One tool, greet, that asks the user for their name before answering (elicitation via a Resolve resolver).",
+  "author": {
+    "name": "Laurence Calzone and Eliott Jacopin",
+    "email": "eliott.jacopin@riken.jp"
+  },
+  "homepage": "https://github.com/sysbio-curie/MCP_Hackaton",
+  "repository": "https://github.com/sysbio-curie/MCP_Hackaton",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "teaching",
+    "cancer",
+    "systems-biology",
+    "hackathon"
+  ],
+  "mcpServers": "./.claude-plugin/mcp.json"
+}

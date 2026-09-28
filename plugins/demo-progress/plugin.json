@@ -1,0 +1,36 @@
+{
+  "name": "demo-progress",
+  "version": "0.1.0",
+  "description": "One slow tool, count_to, that reports progress after each one-second step.",
+  "author": {
+    "name": "Laurence Calzone and Eliott Jacopin",
+    "email": "eliott.jacopin@riken.jp"
+  },
+  "homepage": "https://github.com/sysbio-curie/MCP_Hackaton",
+  "repository": "https://github.com/sysbio-curie/MCP_Hackaton",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "teaching",
+    "cancer",
+    "systems-biology",
+    "hackathon"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Demo: progress",
+        "shortDescription": "A slow tool that reports progress as it runs.",
+        "longDescription": "One tool, count_to, that counts from 1 to n with a one-second delay per step and calls the MCP Python SDK v2 progress API after each step, so the host can render a live progress bar.",
+        "developerName": "Laurence Calzone and Eliott Jacopin",
+        "category": "Developer Tools",
+        "capabilities": [
+          "Read"
+        ],
+        "defaultPrompt": [
+          "Use demo-progress to count to 10."
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+[project]
+name = "curie-mcp-hackathon"
+version = "0.1.0"
+description = "Teaching materials and MCP server inventory for the Institut Curie MCP/agent hackathon (17-18 September 2026)."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+dependencies = [
+    "mcp[cli]>=2.1,<3",
+]
+
+[project.optional-dependencies]
+live = [
+    "httpx",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+    "pytest-asyncio>=0.24",
+    "anyio>=4",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["plugins", "tests"]
+asyncio_mode = "auto"
+
+[tool.uv]
+package = false

@@ -1,0 +1,685 @@
+<title>Python SDK Conformance Matrix</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#f2f4f8;
+  --surface:#ffffff;
+  --surface-2:#e7eaf1;
+  --ink:#171b26;
+  --ink-soft:#4b5164;
+  --border:#d7dbe6;
+  --accent:#3658c9;
+  --accent-soft:#eef1fb;
+  --good:#1f8a5f; --good-bg:#e6f5ee;
+  --warn:#b4790a; --warn-bg:#fbf1de;
+  --bad:#c23b3b;  --bad-bg:#fbe9e9;
+  --muted:#6b7280; --muted-bg:#eceef2;
+  --unk:#6a4fd1;  --unk-bg:#efeafa;
+  --shadow: 0 1px 2px rgba(23,27,38,0.06), 0 8px 24px rgba(23,27,38,0.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#11141c;
+    --surface:#171b26;
+    --surface-2:#1e2330;
+    --ink:#e7e9f2;
+    --ink-soft:#a3a8bd;
+    --border:#2b3040;
+    --accent:#8ba0f3;
+    --accent-soft:#202a4a;
+    --good:#4fd393; --good-bg:#163226;
+    --warn:#e0ab52; --warn-bg:#3a2c12;
+    --bad:#ef6f6f;  --bad-bg:#3a1a1a;
+    --muted:#8b90a3; --muted-bg:#232838;
+    --unk:#a996f2;  --unk-bg:#2a2246;
+    --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.35);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#11141c;
+  --surface:#171b26;
+  --surface-2:#1e2330;
+  --ink:#e7e9f2;
+  --ink-soft:#a3a8bd;
+  --border:#2b3040;
+  --accent:#8ba0f3;
+  --accent-soft:#202a4a;
+  --good:#4fd393; --good-bg:#163226;
+  --warn:#e0ab52; --warn-bg:#3a2c12;
+  --bad:#ef6f6f;  --bad-bg:#3a1a1a;
+  --muted:#8b90a3; --muted-bg:#232838;
+  --unk:#a996f2;  --unk-bg:#2a2246;
+  --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.35);
+}
+
+*{ box-sizing:border-box; }
+body{ background:var(--bg); color:var(--ink); }
+.wrap{
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  color: var(--ink);
+}
+.mono{ font-family:"IBM Plex Mono", ui-monospace, monospace; }
+h1,h2,h3{ text-wrap: balance; font-weight:700; margin:0; }
+p{ margin:0; }
+
+/* ---------- masthead ---------- */
+.masthead{ display:flex; flex-direction:column; gap:10px; margin-bottom:28px; }
+.eyebrow{
+  font-family:"IBM Plex Mono", monospace;
+  font-size:11.5px; letter-spacing:.09em; text-transform:uppercase;
+  color: var(--accent); font-weight:600;
+}
+.masthead h1{ font-size: 30px; line-height:1.15; }
+.masthead .sub{ color:var(--ink-soft); font-size:15px; max-width:64ch; line-height:1.55; }
+.meta-row{ display:flex; flex-wrap:wrap; gap:8px; margin-top:6px; }
+.tag{
+  font-family:"IBM Plex Mono", monospace; font-size:12px;
+  border:1px solid var(--border); border-radius:6px;
+  padding:4px 9px; color:var(--ink-soft); background:var(--surface);
+}
+.tag b{ color:var(--ink); font-weight:600; }
+
+/* ---------- jump nav ---------- */
+.jumpnav{
+  display:flex; gap:6px; flex-wrap:wrap;
+  padding:10px; margin-bottom:22px;
+  background:var(--surface); border:1px solid var(--border); border-radius:10px;
+}
+.jumpnav a{
+  font-size:13px; font-weight:500; color:var(--ink-soft);
+  text-decoration:none; padding:6px 10px; border-radius:6px;
+}
+.jumpnav a:hover, .jumpnav a:focus-visible{ background:var(--accent-soft); color:var(--accent); }
+
+/* ---------- stats ---------- */
+.stats{
+  display:grid; grid-template-columns:repeat(5,1fr); gap:10px;
+  margin-bottom:26px;
+}
+.stat{
+  background:var(--surface); border:1px solid var(--border); border-radius:10px;
+  padding:14px 14px 12px; border-left:3px solid var(--muted);
+  box-shadow: var(--shadow);
+}
+.stat .n{ font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; font-size:26px; font-weight:600; line-height:1; }
+.stat .l{ font-size:11.5px; color:var(--ink-soft); margin-top:4px; text-transform:uppercase; letter-spacing:.05em; }
+.stat.full{ border-left-color:var(--good); }
+.stat.partial{ border-left-color:var(--warn); }
+.stat.none{ border-left-color:var(--bad); }
+.stat.na{ border-left-color:var(--muted); }
+.stat.unknown{ border-left-color:var(--unk); }
+
+/* ---------- flagged ---------- */
+.flagged{ margin-bottom:30px; }
+.flagged h2{ font-size:18px; margin-bottom:4px; }
+.flagged .sub{ color:var(--ink-soft); font-size:13.5px; margin-bottom:14px; display:block; }
+.flag-list{ display:flex; flex-direction:column; gap:8px; }
+.flag{
+  background:var(--surface); border:1px solid var(--border); border-radius:8px;
+  padding:11px 14px; border-left:3px solid var(--muted);
+  display:flex; flex-direction:column; gap:3px;
+}
+.flag.bad{ border-left-color:var(--bad); }
+.flag.warn{ border-left-color:var(--warn); }
+.flag.unk{ border-left-color:var(--unk); }
+.flag.good{ border-left-color:var(--good); }
+.flag .t{ font-weight:600; font-size:14px; }
+.flag .n{ color:var(--ink-soft); font-size:13px; line-height:1.5; }
+
+/* ---------- controls ---------- */
+.controls{
+  display:flex; flex-wrap:wrap; align-items:center; gap:8px;
+  margin-bottom: 22px; padding:12px; background:var(--surface);
+  border:1px solid var(--border); border-radius:10px;
+}
+.controls input[type="search"]{
+  flex:1 1 220px; min-width:160px;
+  font-family:inherit; font-size:14px; color:var(--ink);
+  background:var(--bg); border:1px solid var(--border); border-radius:7px;
+  padding:8px 11px;
+}
+.controls input[type="search"]:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
+.chip{
+  font-family:"IBM Plex Mono",monospace; font-size:12px; font-weight:500;
+  border:1px solid var(--border); background:var(--bg); color:var(--ink-soft);
+  border-radius:20px; padding:6px 12px; cursor:pointer;
+}
+.chip[aria-pressed="true"]{ background:var(--accent); color:#fff; border-color:var(--accent); }
+.chip:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
+.count{ font-size:12.5px; color:var(--ink-soft); margin-left:auto; font-family:"IBM Plex Mono",monospace; }
+
+/* ---------- domain sections ---------- */
+.domain{ margin-bottom:34px; }
+.domain-head{
+  display:flex; align-items:baseline; justify-content:space-between; gap:10px;
+  margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid var(--border);
+}
+.domain-head h2{ font-size:18px; }
+.domain-head .cnt{ font-size:12.5px; color:var(--ink-soft); font-family:"IBM Plex Mono",monospace; }
+
+.rows{ display:flex; flex-direction:column; gap:8px; }
+.row{
+  background:var(--surface); border:1px solid var(--border); border-radius:9px;
+  padding:12px 14px; box-shadow: var(--shadow);
+}
+.row-main{
+  display:grid;
+  grid-template-columns: minmax(150px,1fr) minmax(220px,1.7fr) 84px 58px;
+  gap:14px; align-items:start;
+}
+.row-feature{ font-weight:600; font-size:14px; line-height:1.35; }
+.row-req{ font-size:13px; color:var(--ink-soft); line-height:1.5; }
+.pill{
+  font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:600;
+  text-transform:uppercase; letter-spacing:.03em;
+  padding:3px 8px; border-radius:5px; text-align:center; white-space:nowrap; justify-self:start;
+}
+.pill-full{ background:var(--good-bg); color:var(--good); }
+.pill-partial{ background:var(--warn-bg); color:var(--warn); }
+.pill-none{ background:var(--bad-bg); color:var(--bad); }
+.pill-na{ background:var(--muted-bg); color:var(--muted); }
+.pill-unknown{ background:var(--unk-bg); color:var(--unk); }
+.src{
+  font-size:12px; color:var(--accent); text-decoration:none; font-weight:500; white-space:nowrap;
+}
+.src:hover, .src:focus-visible{ text-decoration:underline; }
+
+.row-evidence{ margin-top:8px; }
+.row-evidence summary{
+  cursor:pointer; font-size:12px; color:var(--ink-soft); font-weight:500;
+  list-style:none; display:inline-flex; align-items:center; gap:5px;
+}
+.row-evidence summary::before{ content:"▸"; font-size:10px; color:var(--accent); }
+.row-evidence[open] summary::before{ content:"▾"; }
+.row-evidence summary::-webkit-details-marker{ display:none; }
+.row-evidence p{
+  font-size:13px; color:var(--ink-soft); line-height:1.6; margin-top:7px;
+  padding-left:16px; border-left:2px solid var(--border);
+}
+.row-evidence code{ font-family:"IBM Plex Mono",monospace; font-size:12.3px; background:var(--surface-2); padding:1px 5px; border-radius:4px; color:var(--ink); }
+
+.row[hidden]{ display:none; }
+.domain[data-empty="true"] .rows::after{
+  content:"No rows match the current filters.";
+  font-size:13px; color:var(--ink-soft); padding:10px 2px;
+}
+
+/* ---------- methodology ---------- */
+.methodology{
+  margin-top: 40px; padding-top:20px; border-top:1px solid var(--border);
+  font-size:12.5px; color:var(--ink-soft); line-height:1.7; max-width:70ch;
+}
+.methodology b{ color:var(--ink); }
+
+@media (max-width: 720px){
+  .stats{ grid-template-columns:repeat(2,1fr); }
+  .row-main{ grid-template-columns: 1fr; }
+  .pill{ justify-self:start; }
+}
+</style>
+
+<div class="wrap">
+
+  <div class="masthead">
+    <span class="eyebrow">Spec conformance audit</span>
+    <h1>MCP Python SDK v2 vs. the 2026&#8209;07&#8209;28 specification</h1>
+    <p class="sub">Every normative feature in the latest Model Context Protocol revision, checked against what the official Python SDK (<code class="mono">modelcontextprotocol/python-sdk</code>) actually implements &mdash; not what its own docs claim. Rust SDK excluded from this pass by request.</p>
+    <div class="meta-row">
+      <span class="tag">Spec rev <b>2026-07-28</b></span>
+      <span class="tag">SDK <b>Python v2</b></span>
+      <span class="tag"><b>67</b> features audited</span>
+      <span class="tag"><b>5</b> parallel research agents</span>
+      <span class="tag">Compiled <b>2026-09-10</b></span>
+    </div>
+  </div>
+
+  <nav class="jumpnav" aria-label="Jump to section">
+    <a href="#flagged">Read first</a>
+    <a href="#base">Base protocol &amp; lifecycle</a>
+    <a href="#transport">Transports &amp; utilities</a>
+    <a href="#server">Server features</a>
+    <a href="#client">Client features</a>
+    <a href="#auth">Authorization &amp; security</a>
+  </nav>
+
+  <section class="stats" id="stats" aria-label="Summary counts"></section>
+
+  <section class="flagged" id="flagged">
+    <h2>Read this before you build on it</h2>
+    <span class="sub">The eight things most likely to bite a hackathon build, pulled out of the full matrix below.</span>
+    <div class="flag-list">
+      <div class="flag bad">
+        <span class="t">Long-running / async tool execution (Tasks extension) is not implemented</span>
+        <span class="n">The SDK's own source comments confirm task types are defined for 2025-11-25 but every <code class="mono">tasks/*</code> method is deliberately excluded &mdash; no wire handlers, no transport plumbing. If your demo needs a tool that runs longer than one request, this SDK gives you nothing built-in for it.</span>
+      </div>
+      <div class="flag warn">
+        <span class="t">Token storage is a bare interface, not a secure implementation</span>
+        <span class="n">The spec says clients/servers MUST store tokens securely. The SDK ships only a <code class="mono">TokenStorage</code> protocol plus an explicitly non-persistent <code class="mono">InMemoryTokenStorage</code> example &mdash; real storage is on you.</span>
+      </div>
+      <div class="flag warn">
+        <span class="t">Security Best Practices doc has no confirmed code-level enforcement</span>
+        <span class="n">Confused-deputy consent, token-passthrough guarding, open-redirect exact-matching, and OAuth-URL scheme allowlisting: none turned up a named class or function in either research pass. Treat these as your responsibility, not the SDK's, until proven otherwise.</span>
+      </div>
+      <div class="flag bad">
+        <span class="t">Client ID Metadata Documents (CIMD) only work on the client side</span>
+        <span class="n">CIMD is the spec's new preferred client-registration method. The Python SDK supports it as an OAuth <i>client</i>, but the auth-server-side routes only speak the old Dynamic Client Registration &mdash; there is no fetch-and-validate path for a client-supplied metadata URL.</span>
+      </div>
+      <div class="flag unk">
+        <span class="t">Two code paths disagree on the default protocol version</span>
+        <span class="n"><code class="mono">ClientSession.initialize()</code> always offers 2025-11-25, while the docs describe the high-level <code class="mono">Client</code> as defaulting to 2026-07-28. Plausibly two intentional eras of the same SDK &mdash; but unresolved from docs alone. Verify directly before depending on either default.</span>
+      </div>
+      <div class="flag unk">
+        <span class="t">Newer auth mitigations (RFC 9207 <code class="mono">iss</code> check, exact redirect-URI match) are unverified</span>
+        <span class="n">No code evidence surfaced either way for the mix-up-attack mitigation or strict redirect-URI validation added by this revision. Don't assume coverage just because older OAuth mechanics are solid.</span>
+      </div>
+      <div class="flag warn">
+        <span class="t">Sampling and Roots are themselves deprecated by this spec revision</span>
+        <span class="n">Both still work (for talking to pre-2026 servers) but SEP-2577 marks them deprecated in favor of calling an LLM API directly or passing paths through tool params. Don't build new functionality on top of either.</span>
+      </div>
+      <div class="flag good">
+        <span class="t">Ping and JSON-RPC batching being absent is correct, not a gap</span>
+        <span class="n">Both were removed from the spec itself (ping outright, batching since 2025-06-18). The SDK not implementing them is conformance, not a shortfall.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="controls">
+    <input type="search" id="search" placeholder="Search features, requirements, evidence&hellip;" aria-label="Search">
+    <button class="chip" data-status="full" aria-pressed="true">Full</button>
+    <button class="chip" data-status="partial" aria-pressed="true">Partial</button>
+    <button class="chip" data-status="none" aria-pressed="true">Gap</button>
+    <button class="chip" data-status="na" aria-pressed="true">N/A</button>
+    <button class="chip" data-status="unknown" aria-pressed="true">Unknown</button>
+    <span class="count" id="count"></span>
+  </section>
+
+  <section class="domain" id="base">
+    <div class="domain-head"><h2>Base protocol &amp; lifecycle</h2><span class="cnt" data-domain-count="base"></span></div>
+    <div class="rows" data-domain="base"></div>
+  </section>
+
+  <section class="domain" id="transport">
+    <div class="domain-head"><h2>Transports &amp; cross-cutting utilities</h2><span class="cnt" data-domain-count="transport"></span></div>
+    <div class="rows" data-domain="transport"></div>
+  </section>
+
+  <section class="domain" id="server">
+    <div class="domain-head"><h2>Server features &mdash; tools, resources, prompts</h2><span class="cnt" data-domain-count="server"></span></div>
+    <div class="rows" data-domain="server"></div>
+  </section>
+
+  <section class="domain" id="client">
+    <div class="domain-head"><h2>Client features &mdash; sampling, roots, elicitation</h2><span class="cnt" data-domain-count="client"></span></div>
+    <div class="rows" data-domain="client"></div>
+  </section>
+
+  <section class="domain" id="auth">
+    <div class="domain-head"><h2>Authorization &amp; security</h2><span class="cnt" data-domain-count="auth"></span></div>
+    <div class="rows" data-domain="auth"></div>
+  </section>
+
+  <div class="methodology">
+    <p><b>Methodology.</b> Five parallel research agents each fetched the live spec pages under <code class="mono">modelcontextprotocol.io/specification/2026-07-28</code> for one domain, then cross-checked every requirement they found against the Python SDK v2 source and docs surfaced through the context7 documentation index for <code class="mono">modelcontextprotocol/python-sdk</code>. &ldquo;Full&rdquo; means direct code or first-party-doc evidence was found; &ldquo;Partial&rdquo; means evidence covered one side of a two-sided requirement (e.g. client but not server) or was doc-asserted without a matching code snippet; &ldquo;Unknown&rdquo; means no evidence turned up either way &mdash; treated as absence of evidence, not evidence of absence; &ldquo;N/A&rdquo; marks a feature the spec itself removed, where the SDK correctly implements nothing. Self-reported SDK claims (READMEs, roadmaps) were deliberately weighed against actual code, not taken at face value. This pass covers the Python SDK only; the Rust SDK was excluded at the user&rsquo;s request.</p>
+  </div>
+
+</div>
+
+<script>
+const DATA = [
+// ---- base protocol & lifecycle ----
+{d:'base', f:'JSON-RPC message framing & resultType', s:'partial',
+ r:'Requests need a non-null id; responses carry result.resultType (complete / input_required); notifications have no id.',
+ e:'RequestParamsMeta, InputRequiredResult and CallToolResult model the split (mcp_types/_types.py; docs/handlers/multi-round-trip.md). No direct evidence found for the "absent resultType means complete" legacy-compat rule specifically.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic'},
+{d:'base', f:'MCP-specific error codes (-32020 / -32021 / -32022)', s:'full',
+ r:'HeaderMismatch, MissingRequiredClientCapability and UnsupportedProtocolVersion must use these exact codes; legacy -32002/-32042 must not be emitted by modern implementations.',
+ e:'docs/troubleshooting.md documents all three as real MCPError instances with matching JSON payloads, e.g. -32021 carrying data.requiredCapabilities.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic'},
+{d:'base', f:'Handshake, session & server-initiated-request removal', s:'full',
+ r:'Modern implementations must not use initialize, session IDs, or server-to-client requests; every request is self-contained.',
+ e:'HANDSHAKE_PROTOCOL_VERSIONS vs MODERN_PROTOCOL_VERSIONS split (version.py); the default Client(mcp) raises an explicit error if a handler attempts a server-initiated request over a back-channel-less transport.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/versioning'},
+{d:'base', f:'server/discover method', s:'full',
+ r:'Servers must implement it, returning supportedVersions / capabilities / serverInfo with cache hints; calling it is optional for clients.',
+ e:'Client side: client.session.discover_result, prior_discover reuse on reconnect (docs/protocol-versions.md). Server-side handler only inferred from a middleware timing-log example, not from source directly &mdash; moderate confidence.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/server/discover'},
+{d:'base', f:'Per-request version negotiation (_meta + MCP-Protocol-Version header)', s:'full',
+ r:'Every request carries io.modelcontextprotocol/protocolVersion; on HTTP the header must match it exactly or the server returns 400 + HeaderMismatch.',
+ e:'RequestParamsMeta models the _meta carrier; streamable_http.py _prepare_headers() sets the header from self._protocol_version_header.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/versioning'},
+{d:'base', f:'Capability negotiation structure', s:'full',
+ r:'Capabilities gate what a peer may send; a missing required capability must produce -32021 with data.requiredCapabilities.',
+ e:'ClientSession._build_capabilities() conditionally builds ClientCapabilities(sampling=&hellip;, elicitation=&hellip;, roots=&hellip;); the -32021 payload shape matches the spec wording almost verbatim.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/architecture'},
+{d:'base', f:'Extension negotiation (capabilities.extensions)', s:'full',
+ r:'Vendor-prefixed extension identifiers (io.modelcontextprotocol/* reserved); an unsupported extension on either side must fall back to core behavior or error.',
+ e:'docs/advanced/extensions.md: advertise("com.example/search") helper, identifier format validated at class-definition time, server can refuse a connection missing a required client extension.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/versioning'},
+{d:'base', f:'MRTR (InputRequiredResult) replacing server-initiated requests', s:'full',
+ r:'Servers return InputRequiredResult instead of an out-of-band request; the client resolves it and retries the same call. Exclusive to 2026-07-28.',
+ e:'run_input_required_driver() (mcp/client/_input_required.py) implements the full retry/backoff loop; docs confirm pre-2026 sessions get -32603 if a handler tries this on a legacy connection.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/mrtr'},
+{d:'base', f:'Dual-era detection &mdash; stdio', s:'full',
+ r:'Client should probe with server/discover first; any error or timeout means a legacy server, falling back to initialize.',
+ e:'mode="auto" (the default) sends the discover probe first and falls back to the classic handshake on error (docs/protocol-versions.md); the detected era is cached via prior_discover.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/transports/stdio'},
+{d:'base', f:'Dual-era detection &mdash; Streamable HTTP', s:'full',
+ r:'A server may serve both eras on one endpoint, routed by whether a request carries modern _meta or is a classic initialize call.',
+ e:'docs/run/legacy-clients.md: a single app serves both eras via MCP-Protocol-Version header routing; modern connections stay sessionless regardless of session config.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/transports/streamable-http'},
+{d:'base', f:'Legacy surface removal (405 on GET/DELETE, ignore stray session headers)', s:'unknown',
+ r:'Modern servers must reject GET/DELETE on the MCP endpoint and ignore stray Mcp-Session-Id / Last-Event-ID sent by old clients.',
+ e:'No SDK evidence found either way; the session-manager code found governs the legacy leg&rsquo;s own session config, not modern-endpoint rejection behavior.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/transports/streamable-http'},
+{d:'base', f:'Custom header mirroring (Mcp-Param-*, x-mcp-header)', s:'full',
+ r:'Tool arguments annotated with x-mcp-header must be mirrored into Mcp-Param-* request headers, with base64 escaping for unsafe values.',
+ e:'ClientSession.call_tool() docstring describes exactly this mirroring, read from the tool&rsquo;s last list_tools entry.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/transports/streamable-http'},
+{d:'base', f:'Versioning scheme (date-based revisions)', s:'full',
+ r:'Revisions are ISO date strings; 2026-07-28 is "modern", everything before it is "legacy".',
+ e:'KNOWN_PROTOCOL_VERSIONS tuple matches exactly; the HANDSHAKE_PROTOCOL_VERSIONS / MODERN_PROTOCOL_VERSIONS split mirrors the spec&rsquo;s own legacy/modern terms.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/versioning'},
+
+// ---- transports & utilities ----
+{d:'transport', f:'stdio transport', s:'full',
+ r:'Newline-delimited JSON-RPC over stdin/stdout of a client-launched subprocess; the server must not write non-MCP data to stdout.',
+ e:'stdio_server() (src/mcp/server/stdio.py) wraps anyio streams, dedicates stdout to JSON-RPC only, diverts stray writes to stderr.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/transports/stdio'},
+{d:'transport', f:'Streamable HTTP transport', s:'full',
+ r:'Single POST-only endpoint; modern requests are sessionless &mdash; no Mcp-Session-Id, no GET stream, no resumability.',
+ e:'docs/whats-new.md and docs/run/legacy-clients.md confirm modern connections stay sessionless regardless of config; StreamableHTTPSessionManager retains Mcp-Session-Id machinery, but it only activates for pre-2026-07-28 clients, routed by header.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/transports/streamable-http'},
+{d:'transport', f:'Session/handshake removal', s:'full',
+ r:'Replaced by per-request _meta plus server/discover.',
+ e:'mode="auto" sends a discover probe and falls back to initialize only for legacy servers (docs/whats-new.md, docs/protocol-versions.md).',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/versioning'},
+{d:'transport', f:'Origin/Host validation & DNS-rebinding protection', s:'full',
+ r:'Servers must validate Origin and reject with 403; should bind to localhost only when running locally.',
+ e:'TransportSecuritySettings (allowed_hosts / allowed_origins), _validate_host(); docs/run/deploy.md documents the 421 (bad Host) / 403 (bad Origin) responses.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/transports/streamable-http'},
+{d:'transport', f:'HTTP+SSE legacy transport', s:'partial',
+ r:'Deprecated since 2025-03-26 and not yet removed; new implementations should not adopt it.',
+ e:'MCPServer.run(transport=&hellip;) still accepts the "sse" literal in v2.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/deprecated'},
+{d:'transport', f:'JSON-RPC batching', s:'na',
+ r:'Removed since revision 2025-06-18 and still absent in 2026-07-28.',
+ e:'No batch-array API found anywhere in SDK docs or code across multiple queries &mdash; consistent with continued removal, though no explicit rejection path was directly confirmed either.',
+ u:'https://modelcontextprotocol.io/specification/2025-06-18/changelog'},
+{d:'transport', f:'Cancellation (notifications/cancelled)', s:'full',
+ r:'Client cancels via a notification (stdio) or by closing the SSE stream (HTTP); the server must stop sending for a cancelled request.',
+ e:'JSONRPCDispatcher intercepts the notification and cancels the handler&rsquo;s anyio.CancelScope; Context.cancel_requested is exposed to every handler.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/cancellation'},
+{d:'transport', f:'Progress notifications', s:'full',
+ r:'Server-to-client only as of this revision &mdash; client-to-server progress was removed.',
+ e:'Context.report_progress(progress, total=None, message=None) is one-directional; docs/whats-new.md confirms the spec change matches this API.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/progress'},
+{d:'transport', f:'Pagination (cursor-based)', s:'full',
+ r:'Opaque cursor / nextCursor on all four list methods; clients must not assume a fixed page size.',
+ e:'list_tools(cursor=&hellip;) is routed through _cached_fetch, integrated with ttlMs/cacheScope caching.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/server/utilities/pagination'},
+{d:'transport', f:'Ping / health-check', s:'na',
+ r:'Removed entirely in 2026-07-28 (not deprecated &mdash; gone), since modern requests already imply liveness.',
+ e:'docs/deprecated.md states this explicitly; modern ping calls issue deprecation warnings and fail; only the legacy-era handler path can still override it.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/changelog'},
+{d:'transport', f:'Logging (log level + notifications/message)', s:'full',
+ r:'Deprecated, not removed; logging/setLevel is replaced by a per-request _meta.logLevel; migration path is stderr or OpenTelemetry.',
+ e:'docs/handlers/logging.md states the deprecation directly; the SDK emits a real MCPDeprecationWarning (SEP-2577) at runtime, and the mechanism still functions.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/server/utilities/logging'},
+{d:'transport', f:'Completion / autocompletion', s:'full',
+ r:'completion/complete against ref/prompt or ref/resource, capped at 100 returned values.',
+ e:'@mcp.completion() decorator; client.complete() / result.completion.values confirmed in docs.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/server/utilities/completion'},
+{d:'transport', f:'Subscriptions (subscriptions/listen)', s:'full',
+ r:'A single long-lived stream replaces the old GET-stream plus subscribe/unsubscribe; clients opt in per notification type.',
+ e:'listen() (mcp/client/subscriptions.py) is version-gated to the modern protocol, raising ListenNotSupportedError on legacy; the server exposes notify_resource_updated()/notify_tools_changed() plus a pluggable SubscriptionBus for multi-replica deployments.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/subscriptions'},
+{d:'transport', f:'MRTR (server-initiated interactions)', s:'full',
+ r:'A server returns InputRequiredResult instead of opening a request; gated to protocol 2026-07-28 and above.',
+ e:'_uses_input_required() (mcp/server/mcpserver/resolve.py) gates on protocol version; older protocols keep the old synchronous back-channel.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/mrtr'},
+
+// ---- server features ----
+{d:'server', f:'Capability declaration (tools / resources / prompts)', s:'full',
+ r:'Servers must declare listChanged/subscribe capabilities so clients know what notifications to expect.',
+ e:'Inferred from decorator-based registration (@mcp.tool() / @mcp.resource() / @server.prompt()) plus working notification and subscription machinery; the literal capability JSON object itself was never directly quoted in a doc snippet.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/server/tools'},
+{d:'server', f:'tools/list (pagination + cache hints)', s:'full',
+ r:'Must return the current tool set with cursor/nextCursor; 2026-07-28 adds ttlMs/cacheScope cache hints.',
+ e:'tools/list is explicitly listed in the CacheableMethod literal alongside its resources/prompts equivalents; the client honors ttlMs/cacheScope via ResponseCacheStore. Deterministic-ordering (a SHOULD) was not directly evidenced.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/server/tools'},
+{d:'server', f:'Tool definition fields (schema, icons, annotations, _meta)', s:'full',
+ r:'inputSchema must be valid JSON Schema; 2026-07-28 loosens this to any 2020-12 keyword, previously restricted to type:object.',
+ e:'The Tool class (mcp_types/_types.py) carries all fields; its docstring explicitly notes the 2026-07-28 loosening versus the pre-2025-11-25 restriction.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/server/tools'},
+{d:'server', f:'Tool annotations / hints (readOnly, destructive, idempotent, openWorld)', s:'full',
+ r:'Optional and informational only; clients must treat these as untrusted unless they come from a trusted server.',
+ e:'ToolAnnotations(read_only_hint=True, idempotent_hint=True) example; docs explicitly flag these as informational-only.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/server/tools'},
+{d:'server', f:'Icons on tools, resources & prompts', s:'full',
+ r:'Optional icons array (mime_type / sizes / theme) on any of the three primitives.',
+ e:'A shared Icon type is documented in docs/servers/media.md, usable on tools, resources, prompts, and the server itself.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/server/tools'},
+{d:'server', f:'tools/call', s:'full',
+ r:'Invoke by name plus arguments; returns content, an optional structuredContent, and isError.',
+ e:'Client.call_tool(name, arguments) returns a CallToolResult with .content / .structured_content / .is_error, documented directly.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/server/tools'},
+{d:'server', f:'Structured tool output / outputSchema mechanism', s:'full',
+ r:'Structured results must conform to outputSchema; a text fallback is recommended for backward compatibility.',
+ e:'docs/servers/structured-output.md: a return-type annotation defines the schema and is exposed in tools/list; result.structured_content is populated alongside result.content; opt-out via structured_output=False.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/server/tools'},
+{d:'server', f:'List-changed notifications (tools / resources / prompts)', s:'full',
+ r:'Servers should notify clients that opted in via subscriptions/listen.',
+ e:'send_tool_list_changed() / send_resource_list_changed() / send_prompt_list_changed() (docs/handlers/context.md); the client cache is evicted on the matching notification.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/server/tools'},
+{d:'server', f:'subscriptions/listen (unified stream, SEP-2575)', s:'full',
+ r:'A single opt-in stream replaces the old subscribe/unsubscribe plus SSE GET mechanism.',
+ e:'listen() is explicitly documented as 2026-07-28-only and raises ListenNotSupportedError on older protocols; a wire example shows notifications/subscriptions/acknowledged plus a subscriptionId.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/subscriptions'},
+{d:'server', f:'MRTR / InputRequiredResult for tools, resources & prompts', s:'full',
+ r:'A call may return resultType: input_required instead of completing; the client retries with inputResponses and requestState.',
+ e:'run_input_required_driver() implements the exact retry loop (dispatch, retry with echoed request_state, exponential backoff, round limit); the PromptResult union explicitly includes InputRequiredResult.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/mrtr'},
+{d:'server', f:'Async/long-running task execution (Tasks extension)', s:'none',
+ r:'Lets a server return a taskId immediately; the client polls tasks/get and sends tasks/update or tasks/cancel.',
+ e:'The SDK&rsquo;s own source comment states task types (Task, CreateTaskResult, etc.) are fully defined for 2025-11-25, but every tasks/* method is deliberately excluded from the method surface &mdash; "no wire handlers, session integration, or transport plumbing exists." No equivalent to the Rust SDK&rsquo;s task_support hint was found.',
+ u:'https://modelcontextprotocol.io/extensions/tasks/overview'},
+{d:'server', f:'resources/read + templates (RFC 6570 URI templates)', s:'full',
+ r:'Returns one or more contents items (text or blob); templates are registered via {param} syntax in the URI.',
+ e:'The @mcp.resource() decorator auto-detects a {param} in the URI and registers a template instead of a static FunctionResource.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/server/resources'},
+{d:'server', f:'Resource subscriptions (resourceSubscriptions)', s:'full',
+ r:'A client lists watched URIs in notifications.resourceSubscriptions; the server tags updates with a subscriptionId.',
+ e:'listen(resource_subscriptions=[&hellip;]); docs show the exact wire trace: an acknowledgment listing the watched URI, then notifications/resources/updated carrying the subscriptionId.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/server/resources'},
+{d:'server', f:'Resource not-found error code (-32002 to -32602)', s:'unknown',
+ r:'Servers must return -32602; clients should still accept the legacy -32002 for backward compatibility.',
+ e:'No direct SDK snippet was found for this specific error-code emission.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/server/resources'},
+{d:'server', f:'prompts/get (with arguments; may return InputRequiredResult)', s:'full',
+ r:'Returns a description plus messages[] carrying text, image, audio, or embedded resource content.',
+ e:'@server.prompt() examples return a list of Message objects, including embedded-resource content blocks.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/server/prompts'},
+
+// ---- client features ----
+{d:'client', f:'Sampling &mdash; deprecation status', s:'full',
+ r:'Deprecated as of 2026-07-28 (SEP-2577); stays in-spec for at least 12 months; migrate to calling the LLM API directly.',
+ e:'docs/client/callbacks.md labels the sampling callback itself deprecated, while it remains fully functional for compatibility with older servers.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/client/sampling'},
+{d:'client', f:'Sampling &mdash; createMessage shape (messages, maxTokens, modelPreferences, tools)', s:'partial',
+ r:'Requires messages and maxTokens; optional modelPreferences, includeContext (itself now deprecated for two of its three values), and tool-enabled sampling behind a separate capability.',
+ e:'The legacy push path (SamplingMessage, max_tokens) matches exactly; the newer pull-pattern helper (Sample/Resolve) confirms the basic shape, but no evidence was found that tools/toolChoice or modelPreferences are wired through the new MRTR-based pull path specifically.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/client/sampling'},
+{d:'client', f:'Sampling &mdash; per-request capability declaration', s:'unknown',
+ r:'The spec now says clientCapabilities must be re-declared in _meta on every request, a change from the old one-time declaration.',
+ e:'The only evidence found is a one-shot _build_capabilities() call inside initialize() &mdash; the older model. Could not confirm whether per-request _meta injection happens elsewhere in the transport layer.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/client/sampling'},
+{d:'client', f:'Roots &mdash; deprecation & purpose', s:'full',
+ r:'Deprecated (SEP-2577); informational-only filesystem hints; migrate to passing paths via tool parameters or server config.',
+ e:'docs/client/callbacks.md and docs/deprecated.md both label roots callbacks deprecated; on_roots_list_changed warns at construction time.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/client/roots'},
+{d:'client', f:'Roots &mdash; roots/list via MRTR', s:'partial',
+ r:'A server issues an InputRequiredResult containing a roots/list request; the client answers with a roots array of uri/name pairs.',
+ e:'The generic MRTR driver dispatches sampling, elicitation and roots alike, so the retry mechanics exist; no first-class authoring helper analogous to sampling&rsquo;s Sample/Resolve was found for roots specifically &mdash; only the deprecated push callback is documented for server authors.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/mrtr'},
+{d:'client', f:'Elicitation &mdash; capability shape (form / url)', s:'full',
+ r:'A client must declare the elicitation capability shaped {form:{}, url:{}}; an empty {} is backward-compat shorthand for form-only.',
+ e:'_build_capabilities() builds ElicitationCapability(form=FormElicitationCapability(), url=UrlElicitationCapability()) &mdash; an exact structural match to the spec.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/client/elicitation'},
+{d:'client', f:'Elicitation &mdash; form mode', s:'full',
+ r:'message plus a flat JSON-Schema-subset requestedSchema; response is accept/decline/cancel; must never be used to request secrets.',
+ e:'docs/client/callbacks.md shows the callback receiving params.mode, params.message, and params.requested_schema with matching field names.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/client/elicitation'},
+{d:'client', f:'Elicitation &mdash; url mode', s:'full',
+ r:'message plus url for an out-of-band flow; response is accept-only with no content; the client must show the full URL and get explicit consent.',
+ e:'Docs state directly that callbacks branch on mode for both "form" and "url" &mdash; both modes are implemented, not just form.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/client/elicitation'},
+{d:'client', f:'Elicitation &mdash; missing-capability error path', s:'full',
+ r:'Implied by the rule that servers must not send a mode the client did not declare.',
+ e:'A -32021 error carrying data.requiredCapabilities: {elicitation:{form:{}}} is documented exactly.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/client/elicitation'},
+{d:'client', f:'MRTR &mdash; InputRequiredResult as the elicitation/sampling/roots carrier', s:'full',
+ r:'Carries inputRequests plus an opaque, integrity-protected requestState; exclusive to 2026-07-28; a retry uses a new id and echoes requestState byte-exact.',
+ e:'_uses_input_required() gates on protocol version 2026-07-28 and above; run_input_required_driver implements concurrent dispatch, exponential backoff, and a round-limit error.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/mrtr'},
+
+// ---- authorization & security ----
+{d:'auth', f:'Protected Resource Metadata discovery (RFC 9728)', s:'full',
+ r:'Servers must implement RFC 9728 including authorization_servers, discoverable via WWW-Authenticate or a well-known URI; clients must support both discovery mechanisms.',
+ e:'create_protected_resource_routes(&hellip;) serves /.well-known/oauth-protected-resource/mcp and sets WWW-Authenticate: resource_metadata on 401s &mdash; direct code evidence.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization/authorization-server-discovery'},
+{d:'auth', f:'Authorization Server Metadata discovery (RFC 8414 / OIDC)', s:'partial',
+ r:'The AS must provide at least one of RFC 8414 or OIDC Discovery; clients must try both in priority order and validate the returned issuer.',
+ e:'Server-side RFC 8414 metadata is confirmed (build_metadata / MetadataHandler); client-side multi-endpoint discovery order and issuer validation were not confirmed in code.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization/authorization-server-discovery'},
+{d:'auth', f:'Client ID Metadata Documents (CIMD)', s:'partial',
+ r:'The new preferred registration mechanism: an HTTPS URL as client_id. The AS must validate that the client_id matches the URL and apply SSRF protections when fetching it.',
+ e:'Client side: OAuthClientProvider(client_metadata_url=&hellip;), falling back to dynamic registration automatically if the AS does not advertise CIMD support. No AS/server-side CIMD fetch-and-validate implementation was found &mdash; RegistrationHandler only speaks RFC 7591 dynamic registration.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization/client-registration'},
+{d:'auth', f:'Dynamic Client Registration (RFC 7591) &mdash; now the deprecated fallback', s:'full',
+ r:'Retained only for compatibility with servers that do not support CIMD.',
+ e:'Server: RegistrationHandler mounts /register. Client: OAuthClientMetadata / OAuthClientInformationFull implement the RFC 7591 document.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization/client-registration'},
+{d:'auth', f:'PKCE (S256)', s:'partial',
+ r:'Clients must implement PKCE with S256 and verify AS support via metadata before proceeding.',
+ e:'The server enforces the exact SHA-256 challenge/verifier check (RFC 7636 &sect;4.6 cited in-code); client-side generation is described in docs but was not independently confirmed in source.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization/security-considerations'},
+{d:'auth', f:'Resource Indicators / token audience binding (RFC 8707)', s:'full',
+ r:'Clients must include resource in both the authorization and token requests; servers must validate the token audience.',
+ e:'resource is threaded through AuthorizationParams, AuthorizationCode, and AccessToken, tagged "RFC 8707" at each hop; client-side validate_resource_url rejects mismatches by default.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization/security-considerations'},
+{d:'auth', f:'Authorization response iss validation (RFC 9207 mix-up mitigation)', s:'unknown',
+ r:'The client must record the AS&rsquo;s issuer before redirecting and validate iss on the callback; PKCE alone does not mitigate this attack.',
+ e:'No class or function evidence was found for issuer-recording or iss validation &mdash; this is a 2026-07-28-specific addition, do not assume it carries over from older auth code.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization'},
+{d:'auth', f:'Token refresh', s:'partial',
+ r:'Refresh tokens must stay confidential; the AS must rotate refresh tokens for public clients.',
+ e:'_handle_refresh_response() implements the client-side flow correctly (carries forward scope, persists via storage, clears tokens on failure); mandatory rotation for public clients was not verified server-side.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization'},
+{d:'auth', f:'Token / credential storage', s:'partial',
+ r:'Clients and servers must implement secure token storage.',
+ e:'TokenStorage is only a Protocol; the shipped example (InMemoryTokenStorage) is explicitly non-persistent &mdash; persistence is pushed to the integrator. A real MUST-versus-"your problem" gap.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization/security-considerations'},
+{d:'auth', f:'Access token usage (Bearer header only, never in query string)', s:'full',
+ r:'Every request must send Authorization: Bearer; servers must validate per OAuth 2.1 &sect;5.2 and return 401 on an invalid or expired token.',
+ e:'TokenVerifier protocol plus BearerAuthBackend plus RequireAuthMiddleware; a production IntrospectionTokenVerifier (RFC 7662) pattern is named in the docs.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization'},
+{d:'auth', f:'Token passthrough prohibition', s:'unknown',
+ r:'Servers must not accept or forward tokens that were not explicitly issued for them.',
+ e:'The SDK supplies the audience-validation primitives that enable correct behavior, but whether to forward a token is inherently application logic; no explicit "reject forwarding" guard was found.',
+ u:'https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/security_best_practices'},
+{d:'auth', f:'Confused deputy problem (per-client consent for proxies)', s:'unknown',
+ r:'A proxy using a static third-party client ID must implement per-client consent before delegating to a third-party AS.',
+ e:'No named class or module implementing a consent registry, __Host- cookies, or the mandated state-before-consent ordering was found &mdash; treat as unimplemented until proven otherwise.',
+ u:'https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/security_best_practices'},
+{d:'auth', f:'State-handle / session security', s:'partial',
+ r:'Handles must be cryptographically secure, non-deterministic, expiring, and bound server-side to the authenticated user.',
+ e:'RequestStateSecurity(keys=[&hellip;]) requires signing keys of at least 32 bytes for MRTR resume tokens; StreamableHTTPSessionManager has sane idle-timeout and session-cap defaults. No evidence found of the session-ID generation call site itself, nor of user-binding of handles.',
+ u:'https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/security_best_practices'},
+{d:'auth', f:'Open redirection / exact-match redirect URI validation', s:'unknown',
+ r:'The AS must validate redirect URIs by exact match, with no wildcards; clients should use and verify state.',
+ e:'No direct code evidence surfaced either way.',
+ u:'https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization/security-considerations'},
+{d:'auth', f:'OAuth authorization URL validation & SSRF protections', s:'unknown',
+ r:'Clients must reject non-http(s) schemes for authorization URLs and never shell-execute them; metadata fetches should block private and reserved IP ranges.',
+ e:'Neither sub-item was investigated with direct code evidence in either research pass &mdash; flagged as unverified, not assumed absent or present.',
+ u:'https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/security_best_practices'},
+];
+
+const STATUS_LABEL = {full:'Full', partial:'Partial', none:'Gap', na:'N/A', unknown:'Unknown'};
+const DOMAIN_LABEL = {base:'base protocol', transport:'transports', server:'server features', client:'client features', auth:'authorization'};
+
+function esc(str){
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+function renderStats(){
+  const counts = {full:0, partial:0, none:0, na:0, unknown:0};
+  DATA.forEach(row => counts[row.s]++);
+  const order = ['full','partial','none','na','unknown'];
+  const el = document.getElementById('stats');
+  el.innerHTML = order.map(k => `
+    <div class="stat ${k}">
+      <div class="n">${counts[k]}</div>
+      <div class="l">${STATUS_LABEL[k]}</div>
+    </div>`).join('');
+}
+
+function renderRows(){
+  const domains = ['base','transport','server','client','auth'];
+  domains.forEach(dom => {
+    const container = document.querySelector(`.rows[data-domain="${dom}"]`);
+    const rows = DATA.filter(r => r.d === dom);
+    container.innerHTML = rows.map(row => `
+      <article class="row" data-status="${row.s}" data-domain="${row.d}">
+        <div class="row-main">
+          <div class="row-feature">${row.f}</div>
+          <div class="row-req">${row.r}</div>
+          <span class="pill pill-${row.s}">${STATUS_LABEL[row.s]}</span>
+          <a class="src" href="${row.u}" target="_blank" rel="noopener">Spec &#8599;</a>
+        </div>
+        <details class="row-evidence"><summary>Evidence</summary><p>${row.e}</p></details>
+      </article>`).join('');
+    document.querySelector(`[data-domain-count="${dom}"]`).textContent = rows.length + ' features';
+  });
+}
+
+function applyFilters(){
+  const q = document.getElementById('search').value.trim().toLowerCase();
+  const activeStatuses = new Set(
+    Array.from(document.querySelectorAll('.chip[aria-pressed="true"]')).map(c => c.dataset.status)
+  );
+  let visible = 0;
+  document.querySelectorAll('.domain').forEach(sec => {
+    const rowsEls = sec.querySelectorAll('.row');
+    let domVisible = 0;
+    rowsEls.forEach(rowEl => {
+      const data = DATA.find(r => r.d === rowEl.dataset.domain && rowEl.querySelector('.row-feature').textContent === r.f);
+      const haystack = (data.f + ' ' + data.r + ' ' + data.e).toLowerCase();
+      const statusOk = activeStatuses.has(rowEl.dataset.status);
+      const searchOk = !q || haystack.includes(q);
+      const show = statusOk && searchOk;
+      rowEl.hidden = !show;
+      if (show){ domVisible++; visible++; }
+    });
+    sec.dataset.empty = domVisible === 0 ? 'true' : 'false';
+  });
+  document.getElementById('count').textContent = `Showing ${visible} of ${DATA.length}`;
+}
+
+renderStats();
+renderRows();
+applyFilters();
+
+document.getElementById('search').addEventListener('input', applyFilters);
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    chip.setAttribute('aria-pressed', chip.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+    applyFilters();
+  });
+});
+</script>

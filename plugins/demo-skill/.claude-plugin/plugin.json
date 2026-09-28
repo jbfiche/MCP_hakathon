@@ -1,0 +1,21 @@
+{
+  "name": "demo-skill",
+  "displayName": "Demo: skill",
+  "version": "0.1.0",
+  "description": "A skill, to see the Agent Skills syntax once: authoring-an-mcp-server, a guide to writing an MCP server with the MCP Python SDK v2.",
+  "author": {
+    "name": "Laurence Calzone and Eliott Jacopin",
+    "email": "eliott.jacopin@riken.jp"
+  },
+  "homepage": "https://github.com/sysbio-curie/MCP_Hackaton",
+  "repository": "https://github.com/sysbio-curie/MCP_Hackaton",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "teaching",
+    "cancer",
+    "systems-biology",
+    "hackathon"
+  ],
+  "skills": "./skills/"
+}

@@ -1,0 +1,21 @@
+{
+  "name": "demo-progress",
+  "displayName": "Demo: progress",
+  "version": "0.1.0",
+  "description": "One slow tool, count_to, that reports progress after each one-second step.",
+  "author": {
+    "name": "Laurence Calzone and Eliott Jacopin",
+    "email": "eliott.jacopin@riken.jp"
+  },
+  "homepage": "https://github.com/sysbio-curie/MCP_Hackaton",
+  "repository": "https://github.com/sysbio-curie/MCP_Hackaton",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "teaching",
+    "cancer",
+    "systems-biology",
+    "hackathon"
+  ],
+  "mcpServers": "./.claude-plugin/mcp.json"
+}

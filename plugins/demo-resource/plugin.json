@@ -1,0 +1,36 @@
+{
+  "name": "demo-resource",
+  "version": "0.1.0",
+  "description": "No tools; one resource (genes://panel) and one resource template (genes://panel/{symbol}).",
+  "author": {
+    "name": "Laurence Calzone and Eliott Jacopin",
+    "email": "eliott.jacopin@riken.jp"
+  },
+  "homepage": "https://github.com/sysbio-curie/MCP_Hackaton",
+  "repository": "https://github.com/sysbio-curie/MCP_Hackaton",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "teaching",
+    "cancer",
+    "systems-biology",
+    "hackathon"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Demo: resource",
+        "shortDescription": "A gene panel exposed as MCP resources.",
+        "longDescription": "No tools, one fixed resource (genes://panel, a five-gene oncogene/tumour-suppressor panel as JSON) and one resource template (genes://panel/{symbol}) that the host or model reads by URI rather than calling as a tool.",
+        "developerName": "Laurence Calzone and Eliott Jacopin",
+        "category": "Developer Tools",
+        "capabilities": [
+          "Read"
+        ],
+        "defaultPrompt": [
+          "Read the resource genes://panel/KRAS from demo-resource."
+        ]
+      }
+    }
+  }
+}

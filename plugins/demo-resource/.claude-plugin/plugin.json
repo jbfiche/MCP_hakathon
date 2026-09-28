@@ -1,0 +1,21 @@
+{
+  "name": "demo-resource",
+  "displayName": "Demo: resource",
+  "version": "0.1.0",
+  "description": "No tools; one resource (genes://panel) and one resource template (genes://panel/{symbol}).",
+  "author": {
+    "name": "Laurence Calzone and Eliott Jacopin",
+    "email": "eliott.jacopin@riken.jp"
+  },
+  "homepage": "https://github.com/sysbio-curie/MCP_Hackaton",
+  "repository": "https://github.com/sysbio-curie/MCP_Hackaton",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "teaching",
+    "cancer",
+    "systems-biology",
+    "hackathon"
+  ],
+  "mcpServers": "./.claude-plugin/mcp.json"
+}

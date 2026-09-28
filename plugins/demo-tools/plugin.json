@@ -1,0 +1,36 @@
+{
+  "name": "demo-tools",
+  "version": "0.1.0",
+  "description": "Four arithmetic tools (add, subtract, multiply, divide); divide by zero shows how a tool raises an error the model can read.",
+  "author": {
+    "name": "Laurence Calzone and Eliott Jacopin",
+    "email": "eliott.jacopin@riken.jp"
+  },
+  "homepage": "https://github.com/sysbio-curie/MCP_Hackaton",
+  "repository": "https://github.com/sysbio-curie/MCP_Hackaton",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "teaching",
+    "cancer",
+    "systems-biology",
+    "hackathon"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Demo: tools",
+        "shortDescription": "Four arithmetic tools and one deliberate tool error.",
+        "longDescription": "Four arithmetic tools (add, subtract, multiply, divide) implemented with the MCP Python SDK v2. Dividing by zero raises a ToolError instead of crashing, so the model sees a readable failure it can react to.",
+        "developerName": "Laurence Calzone and Eliott Jacopin",
+        "category": "Developer Tools",
+        "capabilities": [
+          "Read"
+        ],
+        "defaultPrompt": [
+          "Use demo-tools to divide 10 by 4, then divide 1 by 0."
+        ]
+      }
+    }
+  }
+}
