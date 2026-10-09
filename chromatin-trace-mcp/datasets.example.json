@@ -1,0 +1,10 @@
+{
+  "experiment_A": {
+    "trace_file": "/home/jb/Desktop/Hackaton/data/merged_traces_214.ecsv",
+    "localization_file": ""
+  },
+  "experiment_B": {
+    "trace_file": "/home/jb/Desktop/Hackaton/data/merged_traces_231.ecsv",
+    "localization_file": ""
+  }
+}

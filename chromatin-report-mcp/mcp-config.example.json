@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "chromatin-report": {
+      "command": "/ABSOLUTE/PATH/TO/chromatin-report-mcp/.venv/bin/chromatin-report-mcp",
+      "env": {
+        "CHROMATIN_REPORT_OUTPUT_DIR": "/absolute/path/to/reports"
+      }
+    }
+  }
+}

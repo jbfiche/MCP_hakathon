@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "chromatin-trace": {
+      "command": "/ABSOLUTE/PATH/TO/chromatin-trace-mcp/.venv/bin/chromatin-trace-mcp",
+      "env": {
+        "CHROMATIN_TRACE_ECSV": "/absolute/path/to/trace.ecsv",
+        "CHROMATIN_LOCALIZATION_ECSV": "/absolute/path/to/localizations.ecsv",
+        "CHROMATIN_DATASETS_JSON": "/absolute/path/to/datasets.local.json",
+        "CHROMATIN_TRACE_OUTPUT_DIR": "/absolute/path/to/mcp_outputs"
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+# %ECSV 1.0
+# ---
+# datatype:
+# - {name: Buid, datatype: string}
+# - {name: 'ROI #', datatype: int64}
+# - {name: 'CellID #', datatype: int64}
+# - {name: 'Barcode #', datatype: int64}
+# - {name: id, datatype: string}
+# - {name: zcentroid, datatype: float64}
+# - {name: xcentroid, datatype: float64}
+# - {name: ycentroid, datatype: float64}
+# - {name: snr, datatype: float64}
+# - {name: spot_pixel_percentage, datatype: float64}
+# - {name: skew, datatype: float64}
+# - {name: patch_size, datatype: int64}
+# - {name: object_class, datatype: int64}
+# - {name: mean_intensity, datatype: float64}
+# - {name: flux, datatype: float64}
+# - {name: roundness, datatype: float64}
+# schema: astropy-2.0
+Buid "ROI #" "CellID #" "Barcode #" id zcentroid xcentroid ycentroid snr spot_pixel_percentage skew patch_size object_class mean_intensity flux roundness
+loc-1 24 1 1 spot-1 2.0 10.0 20.0 5.0 0.60 0.10 7 1 1200.0 6000.0 0.70
+loc-2 24 1 1 spot-2 2.5 11.0 21.0 6.0 0.65 0.15 7 1 1300.0 6500.0 0.75
+loc-3 24 1 2 spot-3 3.0 12.0 22.0 7.0 0.70 0.20 9 0 1400.0 7000.0 0.80
+loc-4 24 1 2 spot-4 3.5 13.0 23.0 8.0 0.75 0.25 9 1 1500.0 7500.0 0.85

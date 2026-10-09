@@ -1,0 +1,25 @@
+# Copy these two sections into ~/.codex/config.toml for Codex desktop.
+# They start local Python MCP servers through uv; do not launch the Inspector.
+
+[mcp_servers.chromatin_trace]
+command = "uv"
+args = ["run", "mcp", "run", "src/chromatin_trace_mcp/server.py:mcp"]
+cwd = "/home/jb/Repositories/MCP_hakathon_jb/chromatin-trace-mcp"
+startup_timeout_sec = 30
+tool_timeout_sec = 600
+default_tools_approval_mode = "writes"
+
+[mcp_servers.chromatin_trace.env]
+CHROMATIN_DATASETS_JSON = "/home/jb/Repositories/MCP_hakathon_jb/chromatin-trace-mcp/datasets.local.json"
+CHROMATIN_TRACE_OUTPUT_DIR = "/home/jb/Desktop/Hackaton/data/mcp_outputs"
+
+[mcp_servers.chromatin_report]
+command = "uv"
+args = ["run", "mcp", "run", "src/chromatin_report_mcp/server.py:mcp"]
+cwd = "/home/jb/Repositories/MCP_hakathon_jb/chromatin-report-mcp"
+startup_timeout_sec = 30
+tool_timeout_sec = 120
+default_tools_approval_mode = "writes"
+
+[mcp_servers.chromatin_report.env]
+CHROMATIN_REPORT_OUTPUT_DIR = "/home/jb/Desktop/Hackaton/data/reports"

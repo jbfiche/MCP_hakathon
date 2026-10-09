@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "chromatin-report-mcp"
+version = "0.1.0"
+description = "MCP server for reproducible chromatin dataset comparison reports"
+requires-python = ">=3.10"
+dependencies = ["mcp[cli]>=2.1", "pydantic>=2", "reportlab>=4.0", "matplotlib>=3.8"]
+
+[project.optional-dependencies]
+test = ["pytest>=8", "pytest-anyio>=0.0.0"]
+
+[project.scripts]
+chromatin-report-mcp = "chromatin_report_mcp.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/chromatin_report_mcp"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
