@@ -59,6 +59,19 @@ the scope of this assistant unless explicitly requested.
 
 ## MCP workflow
 
+- For experiment-wide Step 0 requests prefer `run_experiment_validation` and compact
+  output. Use cached `read_validation_details` to inspect further evidence.
+- Step 0 uses configured mask-based traces; ambiguous masks require an explicit
+  policy. Expected ROI/barcode sets must come from authoritative experiment metadata.
+- Step 0 is validation only. Do not invoke collection, Pearson, merge or analyzer
+  processing automatically. Scientific processing must delegate to Traceratops.
+- Keep provider-reported client token usage separate from server-side bytes, timing
+  and estimates. Scripted transport controls are not live agent benchmarks.
+- Later merging requires explicit human approval tied to the relevant QC report,
+  input files and parameters. Changed inputs/parameters require fresh approval.
+- See `references/step0.md` and `references/step0-benchmarking.md` for interfaces,
+  configuration and measurement limits. Existing QC tools remain available.
+
 - Use `skills/him-data-diagnosis/SKILL.md` for QC, SNR-threshold, filtering-comparison,
   and diagnosis-report requests.
 - Register new datasets through the Chromatin Trace MCP rather than bypassing its

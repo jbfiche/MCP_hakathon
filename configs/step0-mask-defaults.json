@@ -1,0 +1,50 @@
+{
+  "roi_pattern": "^[0-9]+$",
+  "required_directories": [
+    "tracing/data",
+    "localize_3d"
+  ],
+  "optional_directories": [],
+  "allowed_top_level_directories": null,
+  "trace_glob": "tracing/data/Trace_3D_barcode_mask-*_ROI-*.ecsv",
+  "localization_globs": [
+    "localize_3d/data/localizations_3D_barcode.ecsv",
+    "localize_3d/localizations_3D_barcode.ecsv"
+  ],
+  "required_trace_columns": [
+    "Spot_ID",
+    "Trace_ID",
+    "x",
+    "y",
+    "z",
+    "ROI #",
+    "Barcode #"
+  ],
+  "required_localization_columns": [
+    "Buid",
+    "ROI #",
+    "Barcode #",
+    "xcentroid",
+    "ycentroid",
+    "zcentroid"
+  ],
+  "allowed_trace_columns": null,
+  "allowed_localization_columns": null,
+  "expected_roi_ids": null,
+  "expected_barcodes": null,
+  "barcode_source": null,
+  "bed_file": null,
+  "bed_barcode_column": null,
+  "bed_required": false,
+  "require_each_barcode": false,
+  "max_depth": 12,
+  "max_entries": 100000,
+  "max_table_bytes": 100000000,
+  "max_records": 5000000,
+  "skip_directories": [
+    "full_pwd",
+    "PWD_comparison",
+    ".git",
+    ".venv"
+  ]
+}

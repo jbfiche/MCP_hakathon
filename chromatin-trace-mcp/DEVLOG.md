@@ -342,3 +342,30 @@ session-only without a catalog). The test fixture now clears
 `CHROMATIN_DATASETS_JSON`, so the tests can never write into a real catalog set in
 the user's shell. An additional manual check started the server twice over stdio
 (the way Codex launches it) and found the dataset in the second session.
+
+
+## 16 October 2026 — Step 0 experiment validation
+
+Added a deterministic validation module and seven tools to the existing trace
+server. Preserved all original tools and both existing comparison-report tools.
+The owner selected mask-based traces for this initial pipeline. Derived barcode
+index files are excluded by a terminal ROI filename check; several masks remain
+ambiguous. The supplied ROI's actual localization layout includes `data/`.
+
+Reports persist full evidence while MCP returns bounded summaries and cached
+follow-up detail. Missing expected ROI/barcode references produce INCOMPLETE;
+observed sets do not become authoritative references. Inputs remain unchanged.
+
+Added synthetic exact-result tests, a direct baseline, scripted MCP controls and
+an opt-in provider-usage agent harness. No API credentials were exposed during
+implementation, so no actual model-token counts or savings are claimed. Synthetic
+usage records are parser tests only. The backend audit uses the source commit
+already pinned in uv.lock, not the newer development checkout. See root reference
+documents for output gaps and the future Step 1 plan. Traceratops was not modified.
+
+Implementation validation used Python 3.13, MCP 2.3.0, Astropy 8.0.1 and Pydantic
+2.13.5 from an existing compatible environment, with the locked Traceratops source.
+The lockfile's MCP 2.2.0 environment was not provisioned because uv is not present.
+New direct dependency declarations reuse the lockfile's already-resolved Astropy
+and PyYAML entries; their versions were not changed. Existing PDF regression tests
+used the bundled ReportLab package because the analysis environment lacked it.

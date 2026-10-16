@@ -37,6 +37,9 @@ _DATASETS: dict[str, tuple[Path, Path | None]] = {}
 mcp = MCPServer(
     "Chromatin Trace",
     instructions=(
+        "For whole-experiment Step 0 checks prefer run_experiment_validation. "
+        "Use compact summaries and read_validation_details for cached evidence. "
+        "Step 0 never runs downstream processing or authorizes merging. "
         "Analyzes named chromatin-tracing datasets with native traceratops tools. "
         "Use list_datasets before selecting names; use compare_datasets for an "
         "explainable technical comparison of two datasets. Use localization_quality_summary "
@@ -1867,6 +1870,12 @@ async def read_current_trace() -> str:
         ) from exc
     except OSError as exc:
         raise ResourceError(f"Could not read the configured trace: {exc}") from exc
+
+
+# Step 0 extends this server; existing scientific tools remain registered.
+from .step0 import register_step0_tools
+
+register_step0_tools(mcp)
 
 
 def main() -> None:

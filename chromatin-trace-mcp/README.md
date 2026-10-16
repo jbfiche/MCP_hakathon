@@ -1,5 +1,48 @@
 # Chromatin Trace MCP
 
+## Experiment-wide Step 0 (16 October 2026)
+
+The existing server now also validates pyHiM experiment directories. Existing
+scientific/QC tools remain available. Step 0 is file/schema/metadata validation;
+it never starts collection, Pearson, merging or downstream analysis.
+
+Install this package with its existing test setup, or use `uv sync --extra test`.
+Astropy and PyYAML are now explicit direct dependencies; both were already in the
+resolved dependency graph. No new server, scientific backend or API SDK was added.
+
+Configure the server's allowed input root and a separate writable output location:
+
+```bash
+export CHROMATIN_EXPERIMENT_ROOTS=/absolute/path/to/experiments
+export CHROMATIN_STEP0_OUTPUT_DIR=/absolute/path/to/validation-results
+python scripts/check_step0.py /absolute/path/to/experiments/experiment_A
+```
+
+An unset allowlist denies new experiment reads. Restart the MCP server after
+changing environment configuration. A full run returns a compact summary plus
+`summary.json`, `details.json` and `report.md` paths in a unique run directory.
+It creates these for FAIL, ERROR and INCOMPLETE results as well as PASS when the
+output directory is available. Supply `--rules policy.json` when authoritative
+expected ROIs/barcodes and structure rules are available. Do not fill expected
+sets from observations merely to make validation pass.
+
+Defaults select **mask-based traces**, tolerate ROI zero-padding, support both
+observed localization layouts and never select the first of several matches.
+Read the root-level [Step 0 reference](../references/step0.md),
+[identification evidence](../references/ecsv-identification.md),
+[benchmark protocol](../references/step0-benchmarking.md) and
+[native output audit](../references/traceratops-output-audit.md).
+
+Run tests with `uv run --extra test pytest`. From an already activated environment,
+`python -m pytest` is equivalent. Run the reproducible transport benchmark using
+`benchmarks/create_fixture.py` and `benchmarks/benchmark_step0.py` as documented.
+Actual agent execution is opt-in and needs client-side credentials and an explicit
+model; no live model-token usage was measured in this implementation session.
+
+The rest of this README documents the existing single/named-dataset tools, which
+remain available and are separate from experiment-wide Step 0.
+
+
 This small MCP server exposes one chromatin-tracing ECSV file as a **read-only
 resource** and uses [traceratops](https://github.com/pyHi-M/traceratops) to open
 and inspect the trace through a read-only MCP tool.

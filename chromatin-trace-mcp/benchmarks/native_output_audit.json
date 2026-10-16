@@ -1,0 +1,246 @@
+{
+  "tools": [
+    {
+      "tool": "collect_files",
+      "returncode": 0,
+      "function_signatures": {
+        "build_pattern": "example_file: str, variable_part: str | None=None",
+        "scan_subdirectories": "root: Path, pattern: FilePattern",
+        "dest_name": "source: Path, subdir_name: str, rename: bool",
+        "check_collisions": "files: dict[str, Path], copy_to: Path, rename: bool=False",
+        "format_report": "result: ScanResult",
+        "collect_files": "root: Path, example_file: str, copy_to: Path, variable_part: str | None=None, force: bool=False, rename: bool=False",
+        "parse_arguments": "",
+        "main": "argv: list[str] | None=None"
+      },
+      "source_sha256": "c73d57668278418ff2bd66d5e4320fabf1a3c41ab30411cc5b57eb79be6c412d",
+      "artifacts": [
+        {
+          "path": "collect_files/collected/trace_92.ecsv",
+          "bytes": 19197
+        },
+        {
+          "path": "collect_files/collected/trace_93.ecsv",
+          "bytes": 19178
+        },
+        {
+          "path": "collect_files/stderr.log",
+          "bytes": 0
+        },
+        {
+          "path": "collect_files/stdout.log",
+          "bytes": 603
+        }
+      ],
+      "numerical_files": [
+        "collect_files/collected/trace_92.ecsv",
+        "collect_files/collected/trace_93.ecsv"
+      ],
+      "visual_files": [],
+      "input_copies": []
+    },
+    {
+      "tool": "trace_pearsons",
+      "returncode": 0,
+      "function_signatures": {
+        "silent_load_trace": "trace, path",
+        "parse_arguments": "",
+        "get_trace_files": "args",
+        "find_unique_substrings": "filenames",
+        "accumulate_distances": "trace_data",
+        "compare_distance_maps": "distance_maps",
+        "plot_correlation_matrix": "files, matrix, output_filename='trace_correlation_matrix.png', vmin=-10, vmax=10",
+        "main": ""
+      },
+      "source_sha256": "db5df6db26c701d86f4f0c3d3e0c680a3479be18188536e2dbc03823dd3b9041",
+      "artifacts": [
+        {
+          "path": "trace_pearsons/stderr.log",
+          "bytes": 0
+        },
+        {
+          "path": "trace_pearsons/stdout.log",
+          "bytes": 588
+        },
+        {
+          "path": "trace_pearsons/trace_correlation_matrix.npy",
+          "bytes": 160
+        },
+        {
+          "path": "trace_pearsons/trace_correlation_matrix.png",
+          "bytes": 88821
+        }
+      ],
+      "numerical_files": [
+        "trace_pearsons/trace_correlation_matrix.npy"
+      ],
+      "visual_files": [
+        "trace_pearsons/trace_correlation_matrix.png"
+      ],
+      "input_copies": []
+    },
+    {
+      "tool": "trace_merge",
+      "returncode": 0,
+      "function_signatures": {
+        "silent_load": "trace, path, verbose=False",
+        "parse_arguments": "",
+        "check_required_arg": "args, parser",
+        "get_files_from_args": "args",
+        "appends_traces": "traces, trace_files, verbose=False",
+        "load_traces": "trace_files=[], verbose=False",
+        "create_out_folder": "folder_path",
+        "main": ""
+      },
+      "source_sha256": "03add5450b2c4f69864f082fac9bbffd59f218b88fe7be3a8449ff6708aea6f1",
+      "artifacts": [
+        {
+          "path": "trace_merge/merged_traces.ecsv",
+          "bytes": 37767
+        },
+        {
+          "path": "trace_merge/stderr.log",
+          "bytes": 0
+        },
+        {
+          "path": "trace_merge/stdout.log",
+          "bytes": 412
+        }
+      ],
+      "numerical_files": [
+        "trace_merge/merged_traces.ecsv"
+      ],
+      "visual_files": [],
+      "input_copies": []
+    },
+    {
+      "tool": "localization_merge",
+      "returncode": 0,
+      "function_signatures": {
+        "parse_arguments": "",
+        "create_dict_args": "args",
+        "appends_traces": "loc_files",
+        "load_localizations": "loc_files=[]",
+        "run": "p",
+        "main": ""
+      },
+      "source_sha256": "1c1f0127d1d2c4580d6f95ba6203b8e7222e7524f8ef657e8bd6021463afee0e",
+      "artifacts": [
+        {
+          "path": "localization_merge/merged_localizations.ecsv",
+          "bytes": 70255
+        },
+        {
+          "path": "localization_merge/stderr.log",
+          "bytes": 0
+        },
+        {
+          "path": "localization_merge/stdout.log",
+          "bytes": 1646
+        }
+      ],
+      "numerical_files": [
+        "localization_merge/merged_localizations.ecsv"
+      ],
+      "visual_files": [],
+      "input_copies": []
+    },
+    {
+      "tool": "trace_analyzer",
+      "returncode": 0,
+      "function_signatures": {
+        "parse_arguments": "",
+        "create_dict_args": "args",
+        "get_barcode_statistics": "trace, output_filename='test_barcodes.png'",
+        "_get_genomic_barcode_order": "trace_table",
+        "_resolve_neighbor_distance_limits": "distance_range, distance_values",
+        "_plot_neighbor_hexbin": "ax, previous_distances, next_distances, title, axis_limits",
+        "plot_neighbor_distances": "trace, output_filename='neighbor_distances.png', neighbor_distance_range='1'",
+        "barcode_detection_efficiency": "trace, output_prefix='barcode_detection_efficiency', format='png'",
+        "plot_kde_projections": "trace_table, output_filename, target_ratio=0.5",
+        "analyze_trace": "trace, trace_file, plotXYZ=False, format='png', neighbor_distance_range='1'",
+        "process_traces": "p",
+        "main": ""
+      },
+      "source_sha256": "9a99c6f11dbea1900c03ce698b10fb1e898fda63e6feb8263b951bb81cf1db50",
+      "artifacts": [
+        {
+          "path": "trace_analyzer/stderr.log",
+          "bytes": 0
+        },
+        {
+          "path": "trace_analyzer/stdout.log",
+          "bytes": 724
+        },
+        {
+          "path": "trace_analyzer/trace.ecsv",
+          "bytes": 19197
+        },
+        {
+          "path": "trace_analyzer/trace_barcode_detection.png",
+          "bytes": 46516
+        },
+        {
+          "path": "trace_analyzer/trace_first_neighbor_distances.png",
+          "bytes": 100776
+        },
+        {
+          "path": "trace_analyzer/trace_kde_projections.png",
+          "bytes": 53381
+        },
+        {
+          "path": "trace_analyzer/trace_relative_barcode_frequencies.png",
+          "bytes": 27621
+        },
+        {
+          "path": "trace_analyzer/trace_trace_statistics.png",
+          "bytes": 79984
+        }
+      ],
+      "numerical_files": [],
+      "visual_files": [
+        "trace_analyzer/trace_barcode_detection.png",
+        "trace_analyzer/trace_first_neighbor_distances.png",
+        "trace_analyzer/trace_kde_projections.png",
+        "trace_analyzer/trace_relative_barcode_frequencies.png",
+        "trace_analyzer/trace_trace_statistics.png"
+      ],
+      "input_copies": [
+        "trace_analyzer/trace.ecsv"
+      ]
+    },
+    {
+      "tool": "localization_analyzer",
+      "returncode": 0,
+      "function_signatures": {
+        "parse_arguments": "",
+        "create_dict_args": "args",
+        "get_output_file": "output_file, output_format",
+        "run": "p",
+        "main": ""
+      },
+      "source_sha256": "34b659337bec32f70b97b5f0727c64427c8496f761d3ea3dc841fd5f55444b8a",
+      "artifacts": [
+        {
+          "path": "localization_analyzer/localization_qc.png",
+          "bytes": 303769
+        },
+        {
+          "path": "localization_analyzer/stderr.log",
+          "bytes": 0
+        },
+        {
+          "path": "localization_analyzer/stdout.log",
+          "bytes": 554
+        }
+      ],
+      "numerical_files": [],
+      "visual_files": [
+        "localization_analyzer/localization_qc.png"
+      ],
+      "input_copies": []
+    }
+  ],
+  "source_commit": "261a48fe92498abcb154891fe6e5a5ca8219b610",
+  "scope": "Native CLI smoke runs on synthetic fixtures; no experimental downstream processing."
+}

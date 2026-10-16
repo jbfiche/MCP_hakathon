@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "actual_agent_requested": false,
+  "limitations": [
+    "A/B/C are scripted MCP transport controls, not actual agent runs; their model usage and cost are unavailable.",
+    "No live provider usage was collected; no token-reduction claim is supported."
+  ],
+  "summary": {
+    "A": {
+      "runs": 18,
+      "successful_runs": 18,
+      "accuracy": 1.0,
+      "failure_rate": 0.0,
+      "mean_end_to_end_seconds": 0.012614439668444296,
+      "tool_calls_per_success": 5.0,
+      "tokens_per_success": null,
+      "actual_total_tokens": null,
+      "false_positives": 0,
+      "false_negatives": 0,
+      "cost_per_success": null,
+      "repeatability_fraction": 1.0,
+      "token_reduction_vs_A_percent": null
+    },
+    "B": {
+      "runs": 18,
+      "successful_runs": 18,
+      "accuracy": 1.0,
+      "failure_rate": 0.0,
+      "mean_end_to_end_seconds": 0.006261787448440575,
+      "tool_calls_per_success": 1.0,
+      "tokens_per_success": null,
+      "actual_total_tokens": null,
+      "false_positives": 0,
+      "false_negatives": 0,
+      "cost_per_success": null,
+      "repeatability_fraction": 1.0,
+      "token_reduction_vs_A_percent": null
+    },
+    "C": {
+      "runs": 18,
+      "successful_runs": 18,
+      "accuracy": 1.0,
+      "failure_rate": 0.0,
+      "mean_end_to_end_seconds": 0.006328765498538915,
+      "tool_calls_per_success": 1.3333333333333333,
+      "tokens_per_success": null,
+      "actual_total_tokens": null,
+      "false_positives": 0,
+      "false_negatives": 0,
+      "cost_per_success": null,
+      "repeatability_fraction": 1.0,
+      "token_reduction_vs_A_percent": null
+    },
+    "D": {
+      "runs": 18,
+      "successful_runs": 18,
+      "accuracy": 1.0,
+      "failure_rate": 0.0,
+      "mean_end_to_end_seconds": 0.0054512736678589135,
+      "tool_calls_per_success": 0.0,
+      "tokens_per_success": 0.0,
+      "actual_total_tokens": 0,
+      "false_positives": 0,
+      "false_negatives": 0,
+      "cost_per_success": 0.0,
+      "repeatability_fraction": 1.0
+    }
+  },
+  "measurement_scope": "Synthetic two-ROI experiment; 3 repeats of 6 prompts per strategy. A/B/C are scripted MCP transport controls; D is direct Python. Not live agent measurements."
+}
