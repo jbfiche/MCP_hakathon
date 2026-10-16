@@ -55,3 +55,11 @@ generated report contains `Summary of data`, `Recommendations`, and `Conclusion`
 
 The MCP servers do not call each other directly. This separation keeps scientific
 calculation in the traceratops-backed server and document formatting here.
+
+## Step 0 Data Quality Reports
+
+The trace server saves JSON evidence and Markdown/HTML Data Quality Reports in
+one validation call. Use its `human_report_path` or `html_report_path`, or retrieve
+those paths with trace `get_validation_summary`. No reporting server is required
+for Step 0. The report server retains the richer comparison/PDF tools. See the
+[Step 0 interface](../references/step0.md) for artifact paths and migration details.

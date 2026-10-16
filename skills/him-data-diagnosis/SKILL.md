@@ -11,9 +11,14 @@ Prefer `run_experiment_validation` for a complete Step 0 request. Use
 `inspect_experiment_directory`, `discover_roi_files`, `validate_experiment_structure`
 or `validate_ecsv_tables` for a targeted question or diagnostic. Start with compact
 output. Read additional evidence through `read_validation_details` using the saved
-run ID; do not repeat table analysis just to obtain details. The completed validator
-always creates a report, including for failures and incomplete validation.
-`generate_data_quality_report` retrieves that report's summary.
+run ID; do not repeat table analysis just to obtain details. The trace server saves
+structured evidence plus Markdown and HTML Data Quality Reports in the same
+`run_experiment_validation` or `validate_ecsv_tables` call, including PASS, FAIL,
+ERROR and INCOMPLETE outcomes. Use `human_report_path` or `html_report_path` from
+that result. Retrieve cached summaries with trace `get_validation_summary`.
+No report-server call is needed for Step 0, and formatting never approves Step 1.
+Use chromatin-report-mcp for richer dataset comparison and PDF reporting.
+Keep complete evidence and document contents outside model context by default.
 
 The first pipeline selects mask-based traces. Multiple matching masks are
 ambiguous: ask for the intended selection or policy instead of taking the first.

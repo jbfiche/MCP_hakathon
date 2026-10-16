@@ -26,7 +26,7 @@ from reference import fingerprint, make_fixtures, oracle
 
 STEP0 = frozenset({'inspect_experiment_directory', 'discover_roi_files',
                   'validate_experiment_structure', 'validate_ecsv_tables',
-                  'run_experiment_validation', 'generate_data_quality_report',
+                  'run_experiment_validation', 'get_validation_summary',
                   'read_validation_details'})
 PROMPTS = ('How many ROIs are in this experiment?',
            'Are all required ECSV files present?',
@@ -352,7 +352,7 @@ def report(output, records):
         c = r.get('calls', [{}])[0]
         payload = r.get('result', c.get('result', {}))
         lines.append(f'| {r["case"]} | {r.get("strategy", "direct subprocess")} | {payload.get("status")} | {r.get("seconds", c.get("seconds", 0)):.4f} | {c.get("mcp_result_bytes", "n/a")} | {sum(r["oracle_matches"].values())}/{len(r["oracle_matches"])} |')
-    lines += ['', 'A exposes six separate Step 0 tools. B exposes only run_experiment_validation.',
+    lines += ['', 'A exposes six separate Step 0 tools. B exposes only run_experiment_validation. Both automatically save Markdown/HTML reports.',
               'Provider raw usage, per-request model ID, latency, calls/arguments and result byte sizes are retained in records.json.',
               'Bytes are canonical serialized MCP result sizes (including structured/text duplication), not network frames or token estimates.',
               'Cost is unavailable: no pricing assumptions are applied. Free-text answers require independent human review; typed claim scores do not certify every narrative sentence.',

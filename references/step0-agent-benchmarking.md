@@ -5,7 +5,9 @@ for environment setup, live/offline commands, disclosure controls and measuremen
 The [implementation report](../STEP0_AGENT_BENCHMARK_REPORT.md) records the checks run.
 
 This is an optional evaluation client, not scientific processing or a new pipeline step.
-A exposes six separate Step 0 tools; B exposes only the aggregate validator. Each
+A exposes six separate Step 0 tools; B exposes only the aggregate validator.
+Both create Markdown/HTML reports automatically within the trace validation call.
+No report-server tool, connection or model round trip is required. Each
 live trial is a fresh SDK conversation with dynamic tool selection and no oracle
 answers. Tool allowlisting is enforced at discovery and dispatch; experiment roots
 and policy are immutable for a trial. Do not use the older fixed-route prompt

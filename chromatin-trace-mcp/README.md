@@ -329,3 +329,11 @@ Traceratops currently installs many command-line analyses. They are the scientif
 toolbox behind this MCP, but each command still needs a thin MCP adapter so that its
 arguments, outputs, file-writing behavior, and errors are explicit. The scientific
 implementation remains in traceratops; the adapter is only the protocol boundary.
+
+## Step 0 Data Quality Reports
+
+The trace server saves JSON evidence and Markdown/HTML Data Quality Reports in
+one validation call. Use its `human_report_path` or `html_report_path`, or retrieve
+those paths with trace `get_validation_summary`. No reporting server is required
+for Step 0. The report server retains the richer comparison/PDF tools. See the
+[Step 0 interface](../references/step0.md) for artifact paths and migration details.

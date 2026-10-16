@@ -17,9 +17,9 @@ An unset allowlist denies experiment reads. Root arguments do not expand it.
 | inspect_experiment_directory  | Sorted discovery, extension counts, empty directories, skipped links/access problems; no table reads | Counts and paged findings                            |
 | discover_roi_files            | Per-ROI file-role mappings, normalized ROI ID, missing/ambiguous candidates                          | Paged mappings and findings                          |
 | validate_experiment_structure | Required directories, expected ROI policy, file roles/naming                                         | PASS/FAIL/INCOMPLETE/ERROR, findings                 |
-| validate_ecsv_tables          | Parse selected ECSV, validate schemas/identifiers, BED reference and barcode coverage                | Compact summary and mandatory saved report           |
-| run_experiment_validation     | Preferred full Step 0 orchestration using the same functions                                         | Compact summary and mandatory saved report           |
-| generate_data_quality_report  | Return an existing generated report by `validation_run_id`                                           | Saved summary and artifact references, no reanalysis |
+| validate_ecsv_tables          | Parse selected ECSV, validate schemas/identifiers, BED reference and barcode coverage                | Compact summary, JSON evidence, Markdown/HTML reports           |
+| run_experiment_validation     | Preferred full Step 0 orchestration using the same functions                                         | Compact summary, JSON evidence, Markdown/HTML reports           |
+| get_validation_summary  | Retrieve an existing validation summary by `validation_run_id`                                           | Saved summary and artifact references, no reanalysis |
 | read_validation_details       | Page cached `findings`, `rois`, or `files` by run ID                                                 | Bounded evidence without table rereads               |
 
 Discovery supports `roi_identifier` and `discovery_mode` = filename (default),
@@ -107,7 +107,6 @@ working directory. Full validation always attempts to save a unique run folder:
 ```
 <output>/<run_id>/summary.json
 <output>/<run_id>/details.json
-<output>/<run_id>/report.md
 <output>/tool_metrics.jsonl
 ```
 
@@ -116,10 +115,37 @@ per-ROI coverage, uncompleted checks, warnings/errors and conclusion. Saved
 parsed-table evidence includes relative source paths, size, modification time and
 SHA-256. Input changes during parsing/hashing invalidate the result. Cached run
 IDs identify immutable snapshots, not a claim that current input files remain
-unchanged. Re-run validation after changing inputs/policy. `generate_data_quality_report`
-retrieves this deterministic report rather than asking a model to reconstruct it.
-The existing comparison-report server and schema remain unchanged; Step 0's
-report is a separate validation contract, not fabricated comparison data.
+unchanged. Re-run validation after changing inputs/policy. Trace
+`get_validation_summary(validation_run_id)` retrieves the saved summary and current
+artifact checksum without repeating scientific checks.
+
+Step 0 document formatting is modular inside **chromatin-trace-mcp**. A single
+`run_experiment_validation` (or `validate_ecsv_tables`) invocation saves:
+
+```text
+<output>/<run_id>/summary.json
+<output>/<run_id>/details.json
+<output>/<run_id>/report.md
+<output>/<run_id>/report.html
+```
+
+The compact response contains `human_report_path` and `html_report_path`; select
+which document to open without another tool invocation. `report_path` remains a
+legacy alias for JSON `summary_path`. `validation_sha256` still identifies the
+exact saved `details.json` bytes. `get_validation_summary` returns cached paths
+without table rereads. Both formats render the same saved observations and every
+finding, retaining PASS/FAIL/ERROR/INCOMPLETE and missing-barcode information.
+Formatting is pure presentation in `step0_reporting.py`, not scientific analysis.
+JSON is saved before rendering so a renderer/I/O error cannot erase the scientific
+snapshot. A failed artifact write is surfaced as an error, not a success claim.
+
+**Migration from the two-server version:** validation names/arguments and scientific
+fields are unchanged. Stop calling report-server `generate_data_quality_report`;
+that Step 0-only endpoint is removed. No shared-results configuration or second
+MCP process is required. `chromatin-report-mcp` retains its existing richer
+comparison Markdown/HTML/PDF tools unchanged. Restart/reconnect clients to refresh
+the tool catalog. Historical validation snapshots without generated documents are
+not silently reprocessed by the cached-summary getter.
 
 New-tool metrics contain invocation ID, tool name, duration, serialized parameter
 and response bytes, file/record/finding counts, execution success and validation
@@ -154,3 +180,16 @@ Expected-versus-observed comparisons appear only when an expected list is suppli
 Actual parsing/file problems and other incomplete checks remain visible. Repeated
 skipped-link findings are summarized as one note. Detailed JSON retains the full
 validation status and evidence for programmatic decisions.
+
+## Single-call reporting regression test
+
+From the trace package with its validated dependencies installed:
+
+```sh
+cd chromatin-trace-mcp
+PYTHONPATH=src:../chromatin-report-mcp/src uv run pytest ../tests/test_step0_workflow.py
+```
+
+This verifies one trace-server invocation (including real stdio), no repeated
+ECSV reads, Markdown/HTML findings, saved-result integrity and unchanged richer
+reporting tools. Existing per-package test commands still apply.

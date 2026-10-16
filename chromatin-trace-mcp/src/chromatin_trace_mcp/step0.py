@@ -1,6 +1,6 @@
 """Read-only experiment validation; no Traceratops scientific algorithms.
 
-Only discovery, schema/metadata checks, identifier counts, reporting and telemetry
+Only discovery, schema/metadata checks, identifier counts, evidence storage and telemetry
 live here. Experiment inputs are never written. See references/step0.md.
 """
 from __future__ import annotations
@@ -22,6 +22,8 @@ import yaml
 from astropy.table import Table
 from mcp.types import ToolAnnotations
 from pydantic import BaseModel, ConfigDict, Field, field_validator
+
+from .step0_reporting import render_reports
 
 ROOTS_ENV = "CHROMATIN_EXPERIMENT_ROOTS"
 OUTPUT_ENV = "CHROMATIN_STEP0_OUTPUT_DIR"
@@ -529,82 +531,24 @@ def page(items, offset, limit):
     return {"items": [bounded(v) for v in items[offset:offset + limit]], "total": len(items), "offset": offset, "next_offset": offset + limit if offset + limit < len(items) else None}
 
 
-def human_report(doc, summary):
-    """Describe observations plainly; compare expectations only when supplied."""
-    rules = doc.get("rules", {})
-    expected_rois = rules.get("expected_roi_ids")
-    expected_barcodes = doc.get("expected_barcodes")
-    missing_references = {"EXPECTED_ROIS_UNAVAILABLE", "EXPECTED_BARCODES_UNAVAILABLE"}
-    lines = ["# Experiment report", "", f"Experiment: {doc['experiment_root']}", "",
-             f"ROIs: {summary['roi_count']} found",
-             f"Localization table: {summary['localization_tables']} found",
-             f"Traces table: {summary['tracing_tables']} found",
-             f"Tables read successfully: {summary['tables_parsed']}", ""]
-    if expected_rois is None and expected_barcodes is None:
-        lines += ["No expected ROI or barcode lists were supplied. This report describes what was found.", ""]
-    else:
-        if expected_rois is not None:
-            lines += ["Expected ROIs: " + ", ".join(expected_rois)]
-        if expected_barcodes is not None:
-            lines += ["Expected barcodes: " + ", ".join(expected_barcodes)]
-        lines += [""]
-    for roi in doc["rois"]:
-        lines += [f"## ROI {Path(roi['directory']).name}", ""]
-        for role, title in (("localization", "Localization table"), ("tracing", "Traces table")):
-            lines += [f"{title}: {len(roi[role])} found"]
-            for table in (t for t in roi["tables"] if t["role"] == role):
-                if "record_count" in table:
-                    lines += [f"- Rows: {table['record_count']:,}"]
-                if "unique_trace_count" in table:
-                    lines += [f"- Traces: {table['unique_trace_count']:,}"]
-                if "unique_barcode_count" in table:
-                    lines += [f"- Barcodes: {table['unique_barcode_count']} found",
-                              "- Barcode IDs: " + ", ".join(table["observed_barcodes"])]
-                if table.get("missing_barcodes") is not None:
-                    lines += ["- Missing expected barcodes: " + (", ".join(table["missing_barcodes"]) or "none")]
-                if table.get("unexpected_barcodes"):
-                    lines += ["- Barcodes outside the expected list: " + ", ".join(table["unexpected_barcodes"])]
-            lines += [""]
-    bed = doc.get("bed", {})
-    if bed.get("file"):
-        lines += ["## BED file", "", f"File: {bed['file']}",
-                  "File found: " + ("yes" if bed.get("existence") == "PASS" else "no"),
-                  "Barcode mapping: " + {"PASS": "checked", "FAIL": "problems found", "INCOMPLETE": "not checked; mapping information needed"}.get(bed.get("mapping_status"), "not checked"), ""]
-    errors = [f for f in doc["findings"] if f["severity"] == "ERROR"]
-    notes = [f for f in doc["findings"] if f["severity"] in {"WARNING", "INCOMPLETE"} and f["code"] not in missing_references and f["code"] != "SYMLINK_SKIPPED"]
-    lines += ["## Problems", ""]
-    if not errors:
-        lines += ["No file or table errors found.", ""]
-    else:
-        for item in errors:
-            prefix = f"ROI {item['roi']}: " if item.get("roi") else ""
-            lines += ["- " + prefix + item["message"]]
-        lines += [""]
-    skipped = sum(f["code"] == "SYMLINK_SKIPPED" for f in doc["findings"])
-    if notes or skipped:
-        lines += ["## Notes", ""]
-        if skipped:
-            lines += [f"- {skipped} symbolic links skipped; their target files were not inspected."]
-        for item in notes:
-            prefix = f"ROI {item['roi']}: " if item.get("roi") else ""
-            lines += ["- " + prefix + item["message"]]
-        lines += [""]
-    return "\n".join(lines)
-
-
-def generate_data_quality_report(doc: dict) -> dict:
-    """Always called for a full validation, including ERROR/FAIL/INCOMPLETE."""
+def save_validation_result(doc: dict) -> dict:
+    """Persist scientific evidence and both report formats, including ERROR/FAIL/INCOMPLETE."""
     experiment = Path(doc["experiment_root"]).resolve() if doc.get("input_authorized") else None
     directory = output_root(experiment) / uuid4().hex
     directory.mkdir()
     run_id = directory.name
     summary = summarize(doc)
     summary.update(run_id=run_id, generated_at_utc=datetime.now(timezone.utc).isoformat(),
-                   report_path=str(directory / "summary.json"), details_path=str(directory / "details.json"), human_report_path=str(directory / "report.md"))
-    doc["summary"] = summary
-    (directory / "details.json").write_text(json.dumps(doc, indent=2, ensure_ascii=False, allow_nan=False), encoding="utf-8")
+                   report_path=str(directory / "summary.json"), summary_path=str(directory / "summary.json"), details_path=str(directory / "details.json"),
+                   human_report_path=str(directory / "report.md"), html_report_path=str(directory / "report.html"))
+    doc["summary"] = dict(summary)
+    evidence = json.dumps(doc, indent=2, ensure_ascii=False, allow_nan=False).encode("utf-8")
+    (directory / "details.json").write_bytes(evidence)
+    summary["validation_sha256"] = hashlib.sha256(evidence).hexdigest()
     (directory / "summary.json").write_text(json.dumps(summary, indent=2, allow_nan=False), encoding="utf-8")
-    (directory / "report.md").write_text(human_report(doc, summary), encoding="utf-8")
+    markdown, webpage = render_reports(doc, summary)
+    (directory / "report.md").write_text(markdown, encoding="utf-8")
+    (directory / "report.html").write_text(webpage, encoding="utf-8")
     return summary
 
 
@@ -613,12 +557,16 @@ def read_run(run_id: str) -> dict:
         raise ValueError("Invalid validation run identifier.")
     path = output_root() / run_id / "details.json"
     if path.is_symlink() or path.parent.is_symlink():
-        raise PermissionError("Symlink report references are not accepted.")
-    return json.loads(path.read_text(encoding="utf-8"))
+        raise PermissionError("Symlink validation references are not accepted.")
+    evidence = path.read_bytes()
+    doc = json.loads(evidence)
+    doc["summary"]["validation_sha256"] = hashlib.sha256(evidence).hexdigest()
+    return doc
 
 
 def compact(doc, *, offset=0, limit=20, detailed=False, report=False):
-    result = generate_data_quality_report(doc) if report else summarize(doc)
+    """report=True saves JSON evidence and modular Markdown/HTML documents in one call."""
+    result = save_validation_result(doc) if report else summarize(doc)
     result = dict(result)
     ordered = sorted(doc["findings"], key=lambda f: ({"ERROR": 0, "INCOMPLETE": 1, "WARNING": 2, "INFO": 3}[f["severity"]], f.get("roi", ""), f.get("path", ""), f["code"]))
     result["findings"] = page(ordered, offset, limit)
@@ -719,7 +667,7 @@ def register_step0_tools(mcp):
         max_findings: Annotated[int, Field(ge=1, le=100)] = 20,
         output_level: Literal["compact", "detailed"] = "compact",
     ) -> Step0Result:
-        """Parse selected ECSV tables, validate schema/ROI/BED/barcodes, always save a quality report. Raw inputs unchanged."""
+        """Parse selected ECSV tables, validate schema/ROI/BED/barcodes, save JSON evidence and Markdown/HTML reports in one call. Raw inputs unchanged."""
         return measured("validate_ecsv_tables", locals(), lambda: compact(evaluate(experiment_root, rules, phase="tables", discovery_mode=discovery_mode), limit=max_findings, detailed=output_level == "detailed", report=True))
 
     @mcp.tool(annotations=writer)
@@ -729,13 +677,13 @@ def register_step0_tools(mcp):
         max_findings: Annotated[int, Field(ge=1, le=100)] = 20,
         output_level: Literal["compact", "detailed"] = "compact",
     ) -> Step0Result:
-        """Preferred complete Step 0: discovery, structure/ECSV/reference checks and mandatory report; never run downstream analysis."""
+        """Preferred complete Step 0: discovery, structure/ECSV/reference checks and saved JSON/Markdown/HTML reports in one call; never run downstream analysis."""
         return measured("run_experiment_validation", locals(), lambda: compact(evaluate(experiment_root, rules, discovery_mode=discovery_mode), limit=max_findings, detailed=output_level == "detailed", report=True))
 
-    @mcp.tool(annotations=read_only, name="generate_data_quality_report")
-    async def report_existing_validation(validation_run_id: str) -> Step0Result:
-        """Return a saved Step 0 report summary by run ID; no repeated table analysis or model calculations."""
-        return measured("generate_data_quality_report", locals(), lambda: read_run(validation_run_id)["summary"])
+    @mcp.tool(annotations=read_only, name="get_validation_summary")
+    async def get_validation_summary(validation_run_id: str) -> Step0Result:
+        """Return a saved Step 0 validation summary by run ID; no repeated table analysis or model calculations."""
+        return measured("get_validation_summary", locals(), lambda: read_run(validation_run_id)["summary"])
 
     @mcp.tool(annotations=read_only)
     async def read_validation_details(
@@ -743,5 +691,5 @@ def register_step0_tools(mcp):
         offset: Annotated[int, Field(ge=0)] = 0,
         limit: Annotated[int, Field(ge=1, le=100)] = 20,
     ) -> Step0Result:
-        """Page cached findings/ROI evidence/file provenance from an existing report without loading experiment tables again."""
+        """Page cached findings/ROI evidence/file provenance from an existing validation snapshot without loading experiment tables again."""
         return measured("read_validation_details", locals(), lambda: page(read_run(validation_run_id)[section], offset, limit))

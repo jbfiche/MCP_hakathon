@@ -61,6 +61,9 @@ the scope of this assistant unless explicitly requested.
 
 - For experiment-wide Step 0 requests prefer `run_experiment_validation` and compact
   output. Use cached `read_validation_details` to inspect further evidence.
+  Trace saves JSON evidence and Markdown/HTML Step 0 reports in that same call.
+  Return artifact paths; retrieve cached summaries through `get_validation_summary`.
+  The report server is reserved for richer comparison/PDF reporting.
 - Step 0 uses configured mask-based traces; ambiguous masks require an explicit
   policy. Expected ROI/barcode sets must come from authoritative experiment metadata.
 - Step 0 is validation only. Do not invoke collection, Pearson, merge or analyzer

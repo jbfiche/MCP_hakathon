@@ -19,7 +19,7 @@ from uuid import uuid4
 from mcp import Client
 from chromatin_trace_mcp.server import mcp
 from chromatin_trace_mcp.step0 import (
-    StructureRules, evaluate, generate_data_quality_report, read_run,
+    StructureRules, evaluate, save_validation_result, read_run,
 )
 
 PROMPTS = [
@@ -30,7 +30,7 @@ PROMPTS = [
     ("quality_report", "Generate an experiment quality report.", ["status", "roi_count", "warning_count"]),
     ("readiness", "Is this experiment ready for downstream analysis?", ["status", "readiness"]),
 ]
-SEPARATE = ["inspect_experiment_directory", "discover_roi_files", "validate_experiment_structure", "validate_ecsv_tables", "generate_data_quality_report"]
+SEPARATE = ["inspect_experiment_directory", "discover_roi_files", "validate_experiment_structure", "validate_ecsv_tables", "get_validation_summary"]
 AGGREGATE = ["run_experiment_validation"]
 USAGE_FIELDS = ["input_tokens", "output_tokens", "total_tokens", "cached_tokens", "reasoning_tokens"]
 
@@ -200,7 +200,7 @@ async def benchmark(args):
                     try:
                         if strategy == "D":
                             doc = evaluate(args.root, rules)
-                            generate_data_quality_report(doc)
+                            save_validation_result(doc)
                             answer = facts(doc)
                             record["mode"] = "deterministic_no_llm"
                         elif args.agent:

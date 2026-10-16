@@ -526,11 +526,19 @@ was not applied. New tools do not implement Traceratops scientific algorithms.
 | inspect_experiment_directory | experiment_root, optional rules, max_findings, offset | Read-only file/ROI/extension counts and bounded findings; no table loads |
 | discover_roi_files | experiment_root, optional rules, roi_identifier, discovery_mode, max_findings, offset | Paged ROI trace/localization mappings; missing/ambiguous roles and method |
 | validate_experiment_structure | experiment_root, optional rules, max_findings, offset | Configured directory/file-role/ROI checks and four-state status |
-| validate_ecsv_tables | experiment_root, optional rules, discovery_mode, max_findings, output_level | ECSV/schema/identifier/BED/barcode checks; mandatory unique report artifacts |
+| validate_ecsv_tables | experiment_root, optional rules, discovery_mode, max_findings, output_level | ECSV/schema/identifier/BED/barcode checks; JSON evidence plus Markdown/HTML reports in one call |
 | run_experiment_validation | experiment_root, optional rules, discovery_mode, max_findings, output_level | Complete Step 0 orchestration and compact report summary; no Step 1 |
-| generate_data_quality_report | validation_run_id | Cached deterministic report summary and paths; no table reanalysis |
+| get_validation_summary | validation_run_id | Cached deterministic validation summary, checksum and JSON paths; no table reanalysis |
 | read_validation_details | validation_run_id, section, offset, limit | Paged saved findings, ROI evidence or file provenance |
 
 See [the complete Step 0 input/output and configuration reference](references/step0.md).
 Each new invocation also writes separate local timing/byte/count telemetry when its
 configured output location is writable. This is not model-token instrumentation.
+
+### Step 0 Data Quality Reports (chromatin-trace-mcp)
+
+`run_experiment_validation` and `validate_ecsv_tables` automatically write Markdown
+and HTML reports with the JSON evidence. Return `human_report_path` and
+`html_report_path`; no second MCP call or reporting process is required.
+`get_validation_summary(validation_run_id)` retrieves cached paths and results.
+The richer comparison/PDF report tools remain in chromatin-report-mcp.

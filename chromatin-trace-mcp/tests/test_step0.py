@@ -8,7 +8,7 @@ from mcp import Client
 
 from chromatin_trace_mcp.step0 import (
     OUTPUT_ENV, ROOTS_ENV, StructureRules, compact, evaluate,
-    generate_data_quality_report, read_run,
+    save_validation_result, read_run,
 )
 from chromatin_trace_mcp.server import mcp
 
@@ -66,10 +66,10 @@ def test_valid_single_roi_normalizes_padding_and_reports(experiment):
     assert table_at(doc)["record_count"] == 3
     assert table_at(doc)["unique_trace_count"] == 1
     assert table_at(doc)["missing_barcodes"] == []
-    summary = generate_data_quality_report(doc)
+    summary = save_validation_result(doc)
     assert summary["complete_file_rois"] == 1
     assert summary["ecsv_records_inspected"] == 6
-    assert all(Path(summary[k]).is_file() for k in ("report_path", "details_path", "human_report_path"))
+    assert all(Path(summary[k]).is_file() for k in ("report_path", "summary_path", "details_path"))
     assert read_run(summary["run_id"])["status"] == "PASS"
     assert {p: p.read_bytes() for p in original} == original
 
@@ -93,8 +93,10 @@ def test_missing_required_file_exact_roi_and_status(experiment, role):
     assert doc["status"] == "FAIL"
     match = [f for f in doc["findings"] if f["code"] == "MISSING_" + role.upper()]
     assert len(match) == 1 and match[0]["roi"] == "92"
-    summary = generate_data_quality_report(doc)
+    summary = save_validation_result(doc)
+    assert Path(summary["details_path"]).is_file()
     assert Path(summary["human_report_path"]).is_file()
+    assert Path(summary["html_report_path"]).is_file()
 
 
 def test_invalid_ecsv_is_error_and_has_report(experiment):
@@ -307,10 +309,10 @@ async def test_mcp_aggregate_and_cached_detail_without_reanalysis(experiment, mo
         if "result" in detail:
             detail = detail["result"]
         assert detail["items"][0]["roi"] == "92"
-        report = await client.call_tool("generate_data_quality_report", {"validation_run_id": run_id})
+        report = await client.call_tool("get_validation_summary", {"validation_run_id": run_id})
         assert not report.is_error
     metrics = [json.loads(line) for line in (Path(__import__('os').environ[OUTPUT_ENV]) / "tool_metrics.jsonl").read_text().splitlines()]
-    assert [m["tool_name"] for m in metrics] == ["run_experiment_validation", "read_validation_details", "generate_data_quality_report"]
+    assert [m["tool_name"] for m in metrics] == ["run_experiment_validation", "read_validation_details", "get_validation_summary"]
     assert all(m["output_bytes"] > 0 and m["model_usage"] == "unavailable_at_mcp_server" for m in metrics)
 
 
@@ -319,7 +321,7 @@ def test_output_cannot_modify_experiment_tree(experiment, monkeypatch):
     doc = evaluate(str(experiment), policy())
     monkeypatch.setenv(OUTPUT_ENV, str(experiment / "results"))
     with pytest.raises(PermissionError):
-        generate_data_quality_report(doc)
+        save_validation_result(doc)
     assert not (experiment / "results").exists()
 
 
@@ -348,8 +350,10 @@ async def test_telemetry_cannot_write_into_experiment(experiment, monkeypatch):
 def test_denied_root_still_saves_error_report(experiment):
     doc = evaluate("/")
     assert doc["status"] == "ERROR"
-    summary = generate_data_quality_report(doc)
+    summary = save_validation_result(doc)
+    assert Path(summary["details_path"]).is_file()
     assert Path(summary["human_report_path"]).is_file()
+    assert Path(summary["html_report_path"]).is_file()
 
 
 def test_partial_check_does_not_claim_full_readiness(experiment):

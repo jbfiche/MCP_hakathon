@@ -177,6 +177,8 @@ def test_no_oracle_in_system_prompt():
     assert '2 ROIs' not in INSTRUCTION
 
 
+
+
 class ScriptedModel(Model):
     """Explicit protocol double. Its tool route is NOT autonomous evidence."""
     def __init__(self, root, tool):
@@ -221,5 +223,29 @@ def test_real_sdk_runner_with_stdio(tmp_path, strategy):
                 assert len(server.calls) == 1
                 assert server.calls[0]['tool'] == tool
                 assert server.calls[0]['result']['roi_count'] == 2
+    set_tracing_disabled(True)
+    asyncio.run(run())
+
+
+@pytest.mark.parametrize('strategy', ['A', 'B'])
+def test_sdk_report_uses_one_call(tmp_path, strategy):
+    """A scripted protocol double verifies one tool call, not autonomous accuracy."""
+    path = os.getenv('STEP0_AGENT_TEST_CONFIG')
+    if not path:
+        pytest.skip('Set STEP0_AGENT_TEST_CONFIG for real SDK/stdio integration')
+    c = make_fixtures(tmp_path/'fixtures')[0]
+    cfg = json.loads(Path(path).read_text())
+    async def run():
+        tool = 'validate_ecsv_tables' if strategy == 'A' else 'run_experiment_validation'
+        async with ScopedServer(cfg, c, tmp_path/'trial', strategy) as trace:
+            model = ScriptedModel(c['root'], tool)
+            result = await Runner.run(Agent(name='single-server report test', instructions=INSTRUCTION,
+                                           model=model, mcp_servers=[trace], output_type=Answer),
+                                      'Generate a Data Quality Report.', max_turns=3)
+            assert len(trace.calls) == 1
+            payload = trace.calls[0]['result']
+            assert Path(payload['human_report_path']).is_file()
+            assert Path(payload['html_report_path']).is_file()
+            assert len(model.inputs) == 2
     set_tracing_disabled(True)
     asyncio.run(run())

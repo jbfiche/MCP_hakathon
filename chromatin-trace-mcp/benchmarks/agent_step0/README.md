@@ -129,3 +129,11 @@ Official background: [OpenAI Agents SDK](https://developers.openai.com/api/docs/
 This harness was checked against installed SDK source; dependencies are frozen for
 the benchmark environment. No Traceratops scientific functions are changed, and
 Step 1 remains outside this milestone.
+
+## Single-call Data Quality Reports
+
+Both full trace validation tools save Markdown and HTML alongside JSON evidence.
+The benchmark agent uses returned paths; it needs no report-server connection.
+`get_validation_summary` retrieves cached paths without revalidating. A exposes
+six separate trace tools; B exposes only the aggregate. Existing report-server
+comparison/PDF tools are outside this Step 0 benchmark.
