@@ -530,16 +530,65 @@ def page(items, offset, limit):
 
 
 def human_report(doc, summary):
-    lines = ["# Experiment Data Quality Report", "", f"Status: **{summary['status']}**", "", f"Experiment: {doc['experiment_root']}", f"Discovered ROIs: {summary['roi_count']}", f"ROIs with complete required file associations: {summary['complete_file_rois']}", f"Parsed tables: {summary['tables_parsed']}", f"Errors: {summary['error_count']}; warnings: {summary['warning_count']}; incomplete checks: {summary['incomplete_count']}", "", "Expected barcodes: " + str(doc.get('expected_barcodes')), "BED association: " + str(doc.get('bed')), "", "## Per-ROI coverage", ""]
+    """Describe observations plainly; compare expectations only when supplied."""
+    rules = doc.get("rules", {})
+    expected_rois = rules.get("expected_roi_ids")
+    expected_barcodes = doc.get("expected_barcodes")
+    missing_references = {"EXPECTED_ROIS_UNAVAILABLE", "EXPECTED_BARCODES_UNAVAILABLE"}
+    lines = ["# Experiment report", "", f"Experiment: {doc['experiment_root']}", "",
+             f"ROIs: {summary['roi_count']} found",
+             f"Localization table: {summary['localization_tables']} found",
+             f"Traces table: {summary['tracing_tables']} found",
+             f"Tables read successfully: {summary['tables_parsed']}", ""]
+    if expected_rois is None and expected_barcodes is None:
+        lines += ["No expected ROI or barcode lists were supplied. This report describes what was found.", ""]
+    else:
+        if expected_rois is not None:
+            lines += ["Expected ROIs: " + ", ".join(expected_rois)]
+        if expected_barcodes is not None:
+            lines += ["Expected barcodes: " + ", ".join(expected_barcodes)]
+        lines += [""]
     for roi in doc["rois"]:
-        lines.append(f"### ROI {roi['roi']} ({roi['directory']})")
-        lines.append(f"Tracing candidates: {len(roi['tracing'])}; localization candidates: {len(roi['localization'])}")
-        for t in roi["tables"]:
-            lines.append(f"- {t['role']}: {t['path']}; records={t.get('record_count', 'unavailable')}; observed barcodes={t.get('observed_barcodes')}; missing={t.get('missing_barcodes')}; unexpected={t.get('unexpected_barcodes')}; traces={t.get('unique_trace_count', 'not applicable')}")
-        lines.append("")
-    lines += ["## Findings", ""]
-    lines += [f"- {f['severity']} [{f['code']}] ROI {f.get('roi', '—')}: {f['message']} ({f.get('path', '')})" for f in doc["findings"]]
-    lines += ["", "## Conclusion", "", summary["conclusion"], "Warnings do not change PASS to FAIL unless the configured policy explicitly requires that. PASS is not a biological-equivalence finding or permission to merge.", ""]
+        lines += [f"## ROI {Path(roi['directory']).name}", ""]
+        for role, title in (("localization", "Localization table"), ("tracing", "Traces table")):
+            lines += [f"{title}: {len(roi[role])} found"]
+            for table in (t for t in roi["tables"] if t["role"] == role):
+                if "record_count" in table:
+                    lines += [f"- Rows: {table['record_count']:,}"]
+                if "unique_trace_count" in table:
+                    lines += [f"- Traces: {table['unique_trace_count']:,}"]
+                if "unique_barcode_count" in table:
+                    lines += [f"- Barcodes: {table['unique_barcode_count']} found",
+                              "- Barcode IDs: " + ", ".join(table["observed_barcodes"])]
+                if table.get("missing_barcodes") is not None:
+                    lines += ["- Missing expected barcodes: " + (", ".join(table["missing_barcodes"]) or "none")]
+                if table.get("unexpected_barcodes"):
+                    lines += ["- Barcodes outside the expected list: " + ", ".join(table["unexpected_barcodes"])]
+            lines += [""]
+    bed = doc.get("bed", {})
+    if bed.get("file"):
+        lines += ["## BED file", "", f"File: {bed['file']}",
+                  "File found: " + ("yes" if bed.get("existence") == "PASS" else "no"),
+                  "Barcode mapping: " + {"PASS": "checked", "FAIL": "problems found", "INCOMPLETE": "not checked; mapping information needed"}.get(bed.get("mapping_status"), "not checked"), ""]
+    errors = [f for f in doc["findings"] if f["severity"] == "ERROR"]
+    notes = [f for f in doc["findings"] if f["severity"] in {"WARNING", "INCOMPLETE"} and f["code"] not in missing_references and f["code"] != "SYMLINK_SKIPPED"]
+    lines += ["## Problems", ""]
+    if not errors:
+        lines += ["No file or table errors found.", ""]
+    else:
+        for item in errors:
+            prefix = f"ROI {item['roi']}: " if item.get("roi") else ""
+            lines += ["- " + prefix + item["message"]]
+        lines += [""]
+    skipped = sum(f["code"] == "SYMLINK_SKIPPED" for f in doc["findings"])
+    if notes or skipped:
+        lines += ["## Notes", ""]
+        if skipped:
+            lines += [f"- {skipped} symbolic links skipped; their target files were not inspected."]
+        for item in notes:
+            prefix = f"ROI {item['roi']}: " if item.get("roi") else ""
+            lines += ["- " + prefix + item["message"]]
+        lines += [""]
     return "\n".join(lines)
 
 

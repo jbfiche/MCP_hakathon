@@ -53,3 +53,10 @@ Read [Step 0 rules and statuses](../../references/step0.md) for setup/schema det
 ambiguities, [benchmarking](../../references/step0-benchmarking.md) for usage
 instrumentation, and [backend output audit](../../references/traceratops-output-audit.md)
 before planning later scientific wrappers.
+
+For requested autonomous Step 0 evaluations, use the isolated Agents SDK harness
+described in [agent benchmarking](../../references/step0-agent-benchmarking.md).
+Keep live provider trials, scripted SDK doubles and deterministic MCP controls
+separate. Start with blinded synthetic fixtures; real data requires explicit
+inclusion after reviewing provider disclosure. Missing API credentials mean the
+live benchmark is NOT RUN, not passed. Do not start Step 1 during this benchmark.

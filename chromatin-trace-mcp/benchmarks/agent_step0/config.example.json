@@ -1,0 +1,9 @@
+{
+  "server_command": "/ABSOLUTE/PATH/TO/VALIDATED/SERVER/.venv/bin/python",
+  "server_args": ["-m", "chromatin_trace_mcp.server"],
+  "server_cwd": "/ABSOLUTE/PATH/TO/WRITABLE/WORKING/DIRECTORY",
+  "server_env": {
+    "PYTHONPATH": "/ABSOLUTE/PATH/TO/REPO/chromatin-trace-mcp/src:/ABSOLUTE/PATH/TO/VALIDATED/TRACERATOPS/SOURCE"
+  },
+  "real_experiment": "/ABSOLUTE/PATH/TO/REFERENCE/EXPERIMENT"
+}

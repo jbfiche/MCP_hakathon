@@ -12,15 +12,15 @@ server administrator's `CHROMATIN_EXPERIMENT_ROOTS` allowlist (OS path separator
 An unset allowlist denies experiment reads. Root arguments do not expand it.
 `rules` is an optional `StructureRules` object. Defaults select mask-based traces.
 
-| Tool | Purpose | Main output |
-|---|---|---|
-| inspect_experiment_directory | Sorted discovery, extension counts, empty directories, skipped links/access problems; no table reads | Counts and paged findings |
-| discover_roi_files | Per-ROI file-role mappings, normalized ROI ID, missing/ambiguous candidates | Paged mappings and findings |
-| validate_experiment_structure | Required directories, expected ROI policy, file roles/naming | PASS/FAIL/INCOMPLETE/ERROR, findings |
-| validate_ecsv_tables | Parse selected ECSV, validate schemas/identifiers, BED reference and barcode coverage | Compact summary and mandatory saved report |
-| run_experiment_validation | Preferred full Step 0 orchestration using the same functions | Compact summary and mandatory saved report |
-| generate_data_quality_report | Return an existing generated report by `validation_run_id` | Saved summary and artifact references, no reanalysis |
-| read_validation_details | Page cached `findings`, `rois`, or `files` by run ID | Bounded evidence without table rereads |
+| Tool                          | Purpose                                                                                              | Main output                                          |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| inspect_experiment_directory  | Sorted discovery, extension counts, empty directories, skipped links/access problems; no table reads | Counts and paged findings                            |
+| discover_roi_files            | Per-ROI file-role mappings, normalized ROI ID, missing/ambiguous candidates                          | Paged mappings and findings                          |
+| validate_experiment_structure | Required directories, expected ROI policy, file roles/naming                                         | PASS/FAIL/INCOMPLETE/ERROR, findings                 |
+| validate_ecsv_tables          | Parse selected ECSV, validate schemas/identifiers, BED reference and barcode coverage                | Compact summary and mandatory saved report           |
+| run_experiment_validation     | Preferred full Step 0 orchestration using the same functions                                         | Compact summary and mandatory saved report           |
+| generate_data_quality_report  | Return an existing generated report by `validation_run_id`                                           | Saved summary and artifact references, no reanalysis |
+| read_validation_details       | Page cached `findings`, `rois`, or `files` by run ID                                                 | Bounded evidence without table rereads               |
 
 Discovery supports `roi_identifier` and `discovery_mode` = filename (default),
 metadata, or automatic. Automatic falls back to observed column signatures only
@@ -111,7 +111,7 @@ working directory. Full validation always attempts to save a unique run folder:
 <output>/tool_metrics.jsonl
 ```
 
-Reports include PASS, FAIL, ERROR and INCOMPLETE outcomes, policy/source, counts,
+Machine-readable reports include PASS, FAIL, ERROR and INCOMPLETE outcomes, policy/source, counts,
 per-ROI coverage, uncompleted checks, warnings/errors and conclusion. Saved
 parsed-table evidence includes relative source paths, size, modification time and
 SHA-256. Input changes during parsing/hashing invalidate the result. Cached run
@@ -146,3 +146,11 @@ is not protected with descriptor-relative OS traversal. Output disk failures can
 prevent report persistence; that execution error must be surfaced. New telemetry
 covers new Step 0 tools, not retrofitted legacy tools. No benchmark can validate
 free-form biological interpretations solely from this structural oracle.
+
+The human-readable report uses plain observations, such as “Localization table: 1
+found” and “Traces table: 1 found.” Without expected ROI/barcode lists it reports
+what was found, without leading with INCOMPLETE or displaying null expectations.
+Expected-versus-observed comparisons appear only when an expected list is supplied.
+Actual parsing/file problems and other incomplete checks remain visible. Repeated
+skipped-link findings are summarized as one note. Detailed JSON retains the full
+validation status and evidence for programmatic decisions.
