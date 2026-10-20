@@ -66,6 +66,12 @@ the scope of this assistant unless explicitly requested.
   The report server is reserved for richer comparison/PDF reporting.
 - Step 0 uses configured mask-based traces; ambiguous masks require an explicit
   policy. Expected ROI/barcode sets must come from authoritative experiment metadata.
+- Explicitly requested Step 1a.1 uses `collect_files`, backed by native Traceratops.
+  Configure `CHROMATIN_COLLECTION_OUTPUT_DIR` outside inputs; retain manifest/ROI
+  provenance and stop after collection. No automatic Pearson/merge processing.
+- Requested Step 1a.2 uses `trace_pearsons` on validated collection run IDs and
+  manifest hashes. Preserve native numeric results/figures, return the QC report
+  and stop for user review. No acceptance thresholds, approval automation or merging.
 - Step 0 is validation only. Do not invoke collection, Pearson, merge or analyzer
   processing automatically. Scientific processing must delegate to Traceratops.
 - Keep provider-reported client token usage separate from server-side bytes, timing

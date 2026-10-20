@@ -1877,6 +1877,14 @@ from .step0 import register_step0_tools
 
 register_step0_tools(mcp)
 
+from .collection import register_collection_tool
+
+register_collection_tool(mcp)
+
+from .pearsons import register_pearson_tool
+
+register_pearson_tool(mcp)
+
 
 def main() -> None:
     """Start the MCP server over standard input/output."""

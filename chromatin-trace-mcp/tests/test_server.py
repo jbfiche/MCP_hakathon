@@ -38,7 +38,7 @@ async def client():
 
 
 @pytest.mark.anyio
-async def test_lists_one_resource_and_nineteen_tools(client: Client) -> None:
+async def test_lists_one_resource_and_twenty_one_tools(client: Client) -> None:
     resources = (await client.list_resources()).resources
     tools = (await client.list_tools()).tools
 
@@ -64,6 +64,8 @@ async def test_lists_one_resource_and_nineteen_tools(client: Client) -> None:
         "run_experiment_validation",
         "get_validation_summary",
         "read_validation_details",
+        "collect_files",
+        "trace_pearsons",
     ]
     assert all(tool.output_schema is not None for tool in tools)
 

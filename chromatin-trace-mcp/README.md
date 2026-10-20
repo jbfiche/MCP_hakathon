@@ -337,3 +337,22 @@ one validation call. Use its `human_report_path` or `html_report_path`, or retri
 those paths with trace `get_validation_summary`. No reporting server is required
 for Step 0. The report server retains the richer comparison/PDF tools. See the
 [Step 0 interface](../references/step0.md) for artifact paths and migration details.
+
+## Step 1a.1: explicit file collection
+
+The `collect_files` tool wraps native Traceratops collection. It preserves original
+ECSV files, verifies copied bytes/tables, records source ROI provenance and returns
+a bounded preview plus a full manifest. It never runs from Step 0 automatically.
+See [collection setup and semantics](../references/collect-files.md) and stop after
+collection review. Pearson QC is a separately requested operation; merging remains
+a later development/approval step.
+
+
+## Step 1a.2: explicit Pearson QC
+
+`trace_pearsons` consumes validated collection run IDs and manifest checksums and
+calls native Traceratops. It preserves original figures/NPY data and returns a
+compact numerical preview with full-results and human QC report paths. No
+scientific threshold or merge decision is applied. See
+[Pearson QC setup, limitations and benchmark](../references/trace-pearsons.md).
+Autonomous agent validation and actual provider token usage remain pending.

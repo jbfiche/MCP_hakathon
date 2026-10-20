@@ -542,3 +542,28 @@ and HTML reports with the JSON evidence. Return `human_report_path` and
 `html_report_path`; no second MCP call or reporting process is required.
 `get_validation_summary(validation_run_id)` retrieves cached paths and results.
 The richer comparison/PDF report tools remain in chromatin-report-mcp.
+
+### collect_files — Step 1a.1, chromatin-trace-mcp
+
+Input: `experiment_root`, `example_file`, optional `variable_part`, `table_kind`
+(`tracing` default or `localization`), and `rename` (false default). Uses native
+Traceratops collection, copying one selected ECSV per ROI into a fresh isolated
+output run. Exact filenames automatically receive the source ROI directory suffix.
+Variable matching preserves native fixed-length semantics. Force-skipping is not
+exposed. Returns status, counts, compact file preview, timings, structured-response
+bytes, and the full JSON manifest path/hash. No Pearson, merge or analyzer runs.
+See [collection reference](references/collect-files.md).
+
+
+### trace_pearsons — Step 1a.2, chromatin-trace-mcp
+
+Input: `collections` (1–8 validated tracing collection references, each with
+`collection_run_id` and `manifest_sha256`), optional `output_format` (`png`, `svg`,
+`pdf`). Requires at least two datasets. Uses native Traceratops median-distance
+and Pearson calculations, preserves the native figure and NPY matrix, and saves
+full numerical results/provenance plus a human QC report. Returns compact indexed
+ROI mapping, correlation previews, undefined counts, warnings, artifact paths,
+timing and structured-response bytes. `COMPUTED` does not mean scientific PASS;
+no thresholds, approval state, merging or downstream analysis are introduced.
+See [Pearson reference](references/trace-pearsons.md). There are now 21 trace tools
+and two richer report tools; no existing client/tool names were changed.
