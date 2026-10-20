@@ -356,3 +356,15 @@ compact numerical preview with full-results and human QC report paths. No
 scientific threshold or merge decision is applied. See
 [Pearson QC setup, limitations and benchmark](../references/trace-pearsons.md).
 Autonomous agent validation and actual provider token usage remain pending.
+
+
+## Step 1a.3: human scientific approval
+
+`review_pearson_approval` checks the exact saved Pearson evidence and returns
+AWAITING_APPROVAL, APPROVED or REJECTED. With `request_decision=true`, a trusted
+human-facing MCP form client presents the QC report, numerical comparisons and
+explicit dataset selection. Decisions are not model arguments. Changed evidence
+invalidates the effective grant. Clients without form support cannot issue new
+approval. No merging is implemented. See [approval workflow and trust boundary](../references/scientific-approval.md).
+The existing Pearson compact response and full numerical artifacts are unchanged;
+selected-number retrieval from a saved Pearson run remains a future enhancement.

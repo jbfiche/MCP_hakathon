@@ -71,7 +71,11 @@ the scope of this assistant unless explicitly requested.
   provenance and stop after collection. No automatic Pearson/merge processing.
 - Requested Step 1a.2 uses `trace_pearsons` on validated collection run IDs and
   manifest hashes. Preserve native numeric results/figures, return the QC report
-  and stop for user review. No acceptance thresholds, approval automation or merging.
+  and stop for user review. No scientific acceptance thresholds or merging.
+- Step 1a.3 uses `review_pearson_approval` for status and trusted host form review.
+  Only the human form response may approve/reject and select datasets. Ordinary
+  model arguments cannot grant approval. Changed evidence requires fresh review;
+  Step 1b merging remains unimplemented. See `references/scientific-approval.md`.
 - Step 0 is validation only. Do not invoke collection, Pearson, merge or analyzer
   processing automatically. Scientific processing must delegate to Traceratops.
 - Keep provider-reported client token usage separate from server-side bytes, timing

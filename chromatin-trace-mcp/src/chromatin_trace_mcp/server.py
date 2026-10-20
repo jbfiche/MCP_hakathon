@@ -1885,6 +1885,10 @@ from .pearsons import register_pearson_tool
 
 register_pearson_tool(mcp)
 
+from .approval import register_approval_tool
+
+register_approval_tool(mcp)
+
 
 def main() -> None:
     """Start the MCP server over standard input/output."""

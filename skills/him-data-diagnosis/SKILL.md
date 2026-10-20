@@ -1,6 +1,6 @@
 ---
 name: him-data-diagnosis
-description: Validate pyHiM experiment directories, trace/localization ECSV schemas and barcode coverage, explain deterministic Step 0 quality reports, and explicitly collect ROI ECSV files or perform native Pearson QC with Traceratops.
+description: Validate pyHiM experiment directories, trace/localization ECSV schemas and barcode coverage, explain deterministic Step 0 quality reports, and explicitly collect ROI ECSV files or perform native Pearson QC with Traceratops and request human scientific review.
 metadata:
   short-description: pyHiM experiment validation and quality reports
 ---
@@ -45,8 +45,8 @@ Step 0 does not run Step 1. Scientific wrappers must delegate to verified
 Traceratops APIs. After Pearson QC, require explicit human approval tied to
 the input files, report and
 parameters before merging; favorable correlation is not approval. Changed inputs
-or parameters invalidate that future approval. No approval state machine is
-implemented in this milestone.
+or parameters invalidate approval. Use the Step 1a.3 human gate below; merging
+is not implemented.
 
 Actual model tokens must come from client/provider usage, separately from tool
 bytes/timing or optional token estimates. Do not claim live agent benchmarks or
@@ -91,3 +91,22 @@ and the native figure's color range. Stop for user review. This substep does not
 implement scientific approval automation, merging or downstream analyzers.
 Actual autonomous-agent validation and provider token measurements remain pending
 until a provider-backed test has run; deterministic/stdio tests do not establish them.
+
+
+## Step 1a.3 human scientific review
+
+Use `review_pearson_approval` with the exact Pearson run ID and results checksum.
+Default calls check status; `request_decision=true` asks the trusted host's human
+form UI to present the existing report, numerical comparisons and dataset choices.
+The human alone supplies APPROVE/REJECT and selected indices through that UI.
+Never simulate a host response, call decision helpers directly, or substitute
+approval of implementation/tests for permission to merge particular datasets.
+Hosts without form support cannot issue a new decision. Report AWAITING_APPROVAL,
+APPROVED or REJECTED and the exact selection, without sending complete matrices.
+Every check revalidates bound evidence; never treat a saved state JSON as an
+unchecked authorization. Read [scientific approval](../../references/scientific-approval.md)
+for host requirements, trust boundary, stale decisions and future merge integration.
+Stop after review; no merging or downstream processing is implemented here.
+There is no selected-numerical-retrieval MCP tool for saved Pearson results yet;
+that remains a documented enhancement. Do not add retrieval calls or rerun QC just
+to retrieve its saved numbers.

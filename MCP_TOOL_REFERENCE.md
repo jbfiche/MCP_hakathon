@@ -567,3 +567,15 @@ timing and structured-response bytes. `COMPUTED` does not mean scientific PASS;
 no thresholds, approval state, merging or downstream analysis are introduced.
 See [Pearson reference](references/trace-pearsons.md). There are now 21 trace tools
 and two richer report tools; no existing client/tool names were changed.
+
+
+### review_pearson_approval — Step 1a.3, chromatin-trace-mcp
+
+Input: `pearson_run_id`, exact `results_sha256`, optional `request_decision` (false).
+Checks current evidence and returns approval status, explicitly selected indices,
+evidence fingerprint and report/state paths. `request_decision=true` displays a
+human review form through a trusted capable host; the model cannot pass a decision
+or selection. The form presents saved QC/numerical evidence without recalculating
+science. Changed inputs, report, artifacts or parameters invalidate the grant.
+No merge operation, standalone decision tool or numerical-retrieval tool is added.
+There are now 22 trace tools. See [scientific approval](references/scientific-approval.md).
