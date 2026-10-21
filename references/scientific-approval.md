@@ -1,7 +1,8 @@
 # Step 1a.3 — human scientific approval gate
 
-This milestone adds one trace-server tool, `review_pearson_approval`, and a private
-persistent decision record. It does not merge anything. Existing `trace_pearsons`
+The approval milestone added `review_pearson_approval` and a private decision
+record. The review tool itself never merges anything. Step 1b.1 now separately
+implements [approved trace merging](trace-merge.md). Existing `trace_pearsons`
 responses, saved numerical artifacts, figures and QC reports are unchanged.
 
 ## User workflow and host requirement
@@ -11,8 +12,8 @@ responses, saved numerical artifacts, figures and QC reports are unchanged.
 2. Call `review_pearson_approval` with the Pearson run ID and exact `results_sha256`.
    The default `request_decision=false` checks status without asking for a decision.
 3. For a requested human decision, set `request_decision=true`. A **trusted MCP host
-   with form elicitation support** displays the existing full QC report, saved
-   pairwise numerical comparisons, dataset indices/ROIs/files/collection IDs,
+   with form elicitation support** displays counts and a bounded saved-comparison preview, all warnings,
+   dataset indices/ROIs/files/collection IDs, the full QC report path,
    figure path and evidence fingerprint. It must forward the actual user's form
    response; never connect this callback to an LLM or an auto-accept handler.
 4. The human chooses APPROVE or REJECT. Approval requires explicit comma-separated
@@ -92,17 +93,20 @@ The implementation uses the existing POSIX/Linux runtime and validated MCP SDK 2
 `require_scientific_approval(...)` is an internal fail-closed check for future
 workflow integration. It requires current approval, the exact selected indices
 and matching saved Pearson parameters. It is not an MCP tool and cannot create a
-decision. Future merge implementations must call this check, bind any additional
-merge-specific parameters, and close input-change races during their own execution.
-No merge implementation or enforcement claim for unrelated legacy tools is made
-in this milestone.
+decision. Step 1b.1 `trace_merge` calls this check and rechecks evidence under the decision
+lock before publication. It has a fixed native merge policy, with no configurable
+scientific parameters. Future tunable policies must bind additional parameters.
+No enforcement claim for unrelated legacy tools is made.
 
 ## Scientific caveats and retrieval audit
 
 The existing QC report already states that native Pearson keeps the last row for
 repeated trace/barcode groups without allele separation, and reports the number of
 affected groups. Trace_ID identifies a nucleus, not necessarily one chromosome.
-Those warnings are displayed in the human review form unchanged. Native plots have
+Those warnings are displayed in the human review form unchanged. The form includes
+at most ten comparison previews; the researcher is instructed to open the complete
+saved QC report and figure before deciding. Neither the full report text nor a full
+matrix is embedded in the form. See [reporting layout](pearson-reporting.md). Native plots have
 a fixed 0–1 range; negative coefficients remain in numerical data. No scientific
 acceptance threshold is invented, and a high correlation does not approve merging.
 
@@ -118,3 +122,9 @@ full matrices into the model by default.
 Provider-backed agent selection, actual token usage and a live human-facing host
 trial remain pending. Protocol fixture responses and response bytes are not real
 human consent, autonomous validation or measured model tokens.
+
+
+Step 1b.2 now reuses this gate for the approved **tracing source ROI selection**.
+Localization bytes absent from Pearson evidence are checked and recorded separately
+for each merge execution; they are not represented as human-reviewed bytes. See
+[localization authorization and source association](localization-merge.md).

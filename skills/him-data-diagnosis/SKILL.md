@@ -46,7 +46,7 @@ Traceratops APIs. After Pearson QC, require explicit human approval tied to
 the input files, report and
 parameters before merging; favorable correlation is not approval. Changed inputs
 or parameters invalidate approval. Use the Step 1a.3 human gate below; merging
-is not implemented.
+is available only through the explicitly requested Step 1b gates below.
 
 Actual model tokens must come from client/provider usage, separately from tool
 bytes/timing or optional token estimates. Do not claim live agent benchmarks or
@@ -97,7 +97,8 @@ until a provider-backed test has run; deterministic/stdio tests do not establish
 
 Use `review_pearson_approval` with the exact Pearson run ID and results checksum.
 Default calls check status; `request_decision=true` asks the trusted host's human
-form UI to present the existing report, numerical comparisons and dataset choices.
+form UI to present warnings, bounded comparison previews, all dataset choices
+and complete artifact references. Direct the human to review the full report/figure.
 The human alone supplies APPROVE/REJECT and selected indices through that UI.
 Never simulate a host response, call decision helpers directly, or substitute
 approval of implementation/tests for permission to merge particular datasets.
@@ -106,7 +107,57 @@ APPROVED or REJECTED and the exact selection, without sending complete matrices.
 Every check revalidates bound evidence; never treat a saved state JSON as an
 unchecked authorization. Read [scientific approval](../../references/scientific-approval.md)
 for host requirements, trust boundary, stale decisions and future merge integration.
-Stop after review; no merging or downstream processing is implemented here.
+Stop after review unless tracing merge is separately requested. Localization
+merging is a separately requested Step 1b.2 operation; downstream analyzers remain unimplemented.
 There is no selected-numerical-retrieval MCP tool for saved Pearson results yet;
 that remains a documented enhancement. Do not add retrieval calls or rerun QC just
 to retrieve its saved numbers.
+
+
+## Pearson reporting boundaries
+
+Keep ordinary Pearson QC and human approval in the trace server. Use compact
+summary fields and artifact paths; do not read full matrices or reports into model
+context by default. The form's ten-pair preview is incomplete for larger runs;
+the human should open the full report and figure before deciding. It is not a
+ranking or acceptance test. No second report-server call is needed just because
+there are more ROIs. For multi-analysis/experiment composition or rich HTML/PDF
+outputs, read [reporting criteria](../../references/pearson-reporting.md) before
+planning a separately authorized report-server workflow. Do not duplicate the pure
+formatter or add cross-server calls for routine QC.
+
+
+## Step 1b.1 tracing merge
+
+When explicitly requested, use `trace_merge` with the saved Pearson run ID,
+results checksum and exact sorted human-approved dataset indices. Do not infer
+indices from ROI numbers or change the selection. AWAITING_APPROVAL/REJECTED or
+changed evidence requires human review; never create approval yourself or bypass
+`require_scientific_approval`. Read [trace merging](../../references/trace-merge.md)
+for native metadata defaults, ROI renumbering, provenance and configured stores.
+Return compact counts, warnings and ECSV/provenance references. Leave complete
+tables outside model context. Stop after merging traces; do not invoke localization
+merge or analyzers automatically. Step 1b.2 is a separate explicit operation below.
+
+
+## Step 1b.2 localization merge
+
+When explicitly requested, call `localization_merge` with the exact human-approved
+Pearson ID/checksum/selection plus validated localization collection references.
+Read [localization merging](../../references/localization-merge.md): associations
+use original experiment/source ROI provenance, not collected filenames or renamed
+output ROI numbers. Approval covers tracing ROI selection; localization checksums
+bind execution, not a claim that their bytes were Pearson-reviewed. Missing,
+ambiguous or changed evidence fails closed. Colliding source ROI IDs cannot be
+aligned by the current native localization merger and are rejected. Return compact
+counts/warnings/artifact references and stop; no analyzers or filtering.
+
+## Planned trace_stats reporting
+
+Read [trace_stats audit and roadmap](../../references/trace-stats-integration.md)
+when planning descriptive per-ROI Step 0 statistics or a merged pre-filtering Step
+1c baseline. Both workflows remain unimplemented. Reuse the existing wrapper and
+its native numbers; it produces no figure or numerical artifact. Counts describe
+observations, not acceptance criteria; global Trace_ID can undercount ROI/trace
+pairs. Keep simple summaries in trace and reserve the report server for requested
+complex multi-analysis composition. Do not start those workflows during Step 1b.2.

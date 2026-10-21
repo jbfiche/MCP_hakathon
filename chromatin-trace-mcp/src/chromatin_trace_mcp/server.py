@@ -1889,6 +1889,14 @@ from .approval import register_approval_tool
 
 register_approval_tool(mcp)
 
+from .merge import register_merge_tool
+
+register_merge_tool(mcp)
+
+from .localization_merge import register_localization_merge_tool
+
+register_localization_merge_tool(mcp)
+
 
 def main() -> None:
     """Start the MCP server over standard input/output."""

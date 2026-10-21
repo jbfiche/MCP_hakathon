@@ -368,3 +368,35 @@ invalidates the effective grant. Clients without form support cannot issue new
 approval. No merging is implemented. See [approval workflow and trust boundary](../references/scientific-approval.md).
 The existing Pearson compact response and full numerical artifacts are unchanged;
 selected-number retrieval from a saved Pearson run remains a future enhancement.
+
+
+Routine Pearson QC uses the trace server's modular formatter: compact tool
+responses, a bounded human review preview, and complete saved numerical/figure
+artifacts and report tables. No extra server call is required for larger ROI sets.
+See [reporting layout and future report-server criteria](../references/pearson-reporting.md).
+Current 32-dataset processing limits and approval rules remain unchanged.
+
+
+## Step 1b.1: approved trace merging
+
+`trace_merge` delegates to native Traceratops using only the exact human-approved
+Pearson dataset selection. It protects inputs, rechecks approval before publication,
+and returns compact counts plus native ECSV/provenance paths. Full row, ROI mapping
+and metadata evidence stays on disk. Native metadata conflicts fail closed.
+No localization merge or analyzer is called. See [trace merge](../references/trace-merge.md).
+
+
+## Step 1b.2 — approved localization merging
+
+`localization_merge` reuses the human-approved tracing ROI selection and validated
+localization collections. It verifies original experiment/source ROI associations,
+executes native Traceratops on hash-checked snapshots, and returns compact counts
+and ECSV/provenance references. Configure `CHROMATIN_LOCALIZATION_MERGE_OUTPUT_DIR`
+outside source/evidence stores. Colliding ROI numbers across experiments are
+rejected because native localization merging does not renumber them. See
+[localization merge](../references/localization-merge.md) for authorization scope,
+inputs, integrity guarantees and limits. No downstream analysis runs automatically.
+
+The existing trace_stats wrapper and its future per-ROI/merged reporting integration
+are documented in [the audit and roadmap](../references/trace-stats-integration.md).
+Those statistics reporting workflows are planned, not implemented.

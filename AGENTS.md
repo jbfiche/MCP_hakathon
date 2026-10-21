@@ -72,10 +72,26 @@ the scope of this assistant unless explicitly requested.
 - Requested Step 1a.2 uses `trace_pearsons` on validated collection run IDs and
   manifest hashes. Preserve native numeric results/figures, return the QC report
   and stop for user review. No scientific acceptance thresholds or merging.
+- Routine Pearson reporting stays in trace: compact agent response, bounded human
+  preview, complete local artifacts. Formatting is pure/modular; use the report
+  server later for multi-analysis/experiment composition or rich exports, not ROI
+  count alone. See `references/pearson-reporting.md`; no extra call is needed now.
 - Step 1a.3 uses `review_pearson_approval` for status and trusted host form review.
   Only the human form response may approve/reject and select datasets. Ordinary
   model arguments cannot grant approval. Changed evidence requires fresh review;
-  Step 1b merging remains unimplemented. See `references/scientific-approval.md`.
+  See `references/scientific-approval.md`.
+- Step 1b.1 `trace_merge` requires the exact existing human-approved selection
+  and delegates to native Traceratops on verified snapshots. Recheck approval before
+  publication, preserve row/ROI/metadata provenance, and stop. See `references/trace-merge.md`.
+- Step 1b.2 `localization_merge` maps validated localization collections to the exact
+  approved tracing selection using original experiment/source ROI provenance. Check
+  localization hashes before execution and publication; reject ambiguous mappings
+  and colliding source ROI IDs. Human approval covers ROI selection, not localization
+  bytes absent from Pearson review. See `references/localization-merge.md`.
+- Future per-ROI Step 0 and merged pre-filtering Step 1c statistics reuse existing
+  `trace_stats`; these reporting workflows are not implemented. Read
+  `references/trace-stats-integration.md` before planning them. No analyzers or filtering
+  are added by localization merging.
 - Step 0 is validation only. Do not invoke collection, Pearson, merge or analyzer
   processing automatically. Scientific processing must delegate to Traceratops.
 - Keep provider-reported client token usage separate from server-side bytes, timing

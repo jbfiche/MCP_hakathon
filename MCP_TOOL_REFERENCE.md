@@ -14,7 +14,7 @@ All analysis executes in the MCP process on its configured host, using that host
 
 | Server | Tools | Main role |
 |---|---:|---|
-| chromatin-trace-mcp | 19 | Dataset management, four native analysis wrappers, custom QC |
+| chromatin-trace-mcp | 24 | Dataset management, Step 0 validation, native scientific wrappers and approval |
 | chromatin-report-mcp | 2 | Format comparison results as Markdown, HTML or PDF |
 
 ## Tool details
@@ -579,3 +579,39 @@ or selection. The form presents saved QC/numerical evidence without recalculatin
 science. Changed inputs, report, artifacts or parameters invalidate the grant.
 No merge operation, standalone decision tool or numerical-retrieval tool is added.
 There are now 22 trace tools. See [scientific approval](references/scientific-approval.md).
+
+
+### trace_merge — Step 1b.1, chromatin-trace-mcp
+
+Input: `pearson_run_id`, `results_sha256`, `selected_dataset_indices` (exact sorted
+human-approved selection, at least two). Native Traceratops merging on immutable,
+checksum-verified snapshots; approval/evidence rechecked before publication.
+Output: compact merged ECSV/provenance paths and checksum, source/row/barcode/
+trace/ROI counts, warnings, timing and response bytes. Full approval snapshot,
+metadata and row-to-source/ROI mapping remain in the provenance artifact. No
+localization merge, filters or analyzers. See [trace merge](references/trace-merge.md).
+The trace server now has 23 tools; existing tool names are unchanged.
+
+
+### localization_merge — Step 1b.2, chromatin-trace-mcp
+
+Input: saved `pearson_run_id`, exact `results_sha256`, exact sorted human-approved
+`selected_dataset_indices` (at least two), and `localization_collections` containing
+validated collection run IDs and manifest SHA-256 values. Matches original experiment
+and source ROI provenance, not renamed output IDs. Uses native localization merging
+only for that selection, revalidating approval and localization evidence before
+publication. Output: compact MERGED/ERROR, ECSV/provenance paths and hashes,
+source-file/row/barcode/ROI/Buid counts, bounded warnings, duration and response bytes.
+Full values and metadata remain local. No filtering/analyzers. See
+[localization merge](references/localization-merge.md). Current trace tool count: 24;
+report server unchanged. Existing tool names are preserved.
+
+### trace_stats — existing wrapper, future reporting use
+
+Input: `dataset_name` (default `current`), resolving an existing registered trace
+table. Calls native `compute_trace_statistics`, returning source/version, three
+unique counts (ROI, global Trace_ID, barcode) and captured native text. Supports
+compatible individual-ROI and merged tables; produces no figures or saved artifacts.
+These counts do not establish scientific acceptance. Planned Step 0 and Step 1c
+reporting integrations are not implemented; see
+[trace_stats audit and roadmap](references/trace-stats-integration.md).

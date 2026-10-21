@@ -22,6 +22,7 @@ from traceratops import trace_pearsons as native
 
 from .collection import OUTPUT_ENV as COLLECTION_ENV, digest, MAX_FILE_BYTES, MAX_TOTAL_BYTES
 from .step0 import TRACE_COLUMNS, identifier
+from .pearson_reporting import format_pearson_report, COMPARISON_PREVIEW_LIMIT, WARNING_PREVIEW_LIMIT
 
 OUTPUT_ENV = 'CHROMATIN_PEARSON_OUTPUT_DIR'
 MAX_FILES = 32
@@ -210,14 +211,7 @@ def execute_pearsons(collections, output_format='png'):
                         'parameters':{'output_format':output_format,'correlation_threshold':None},
                         'artifacts':{'figure':figure.name,'native_matrix':npy.name},'next_action':'STOP_FOR_USER_REVIEW'}
                 path=results/'results.json';path.write_text(json.dumps(detail,indent=2,allow_nan=False),encoding='utf-8')
-                lines=['# Pearson QC report','','Review required; no scientific acceptance threshold or merge decision was applied.','',
-                       'Native calculation: median barcode-pair distances per dataset, followed by pairwise Pearson correlation over shared non-NaN pairs.','',
-                       '| Index | Dataset | ROI | Rows | Distance pairs |','|---|---|---|---:|---:|']
-                lines += [f"| {d['index']} | {d['label']} | {d['roi']} | {d['rows']} | {d['distance_pair_count']} |" for d in datasets]
-                lines += ['','| First | Second | Pearson r | Shared non-NaN pairs |','|---:|---:|---:|---:|']
-                lines += [f"| {c['first']} | {c['second']} | {c['pearson_r'] if c['pearson_r'] is not None else 'undefined'} | {c['shared_non_nan_pairs']} |" for c in comparisons]
-                lines += ['','## Notes','']+['- '+n for n in notes]+['',f'Figure: {figure.name}',f'Native matrix: {npy.name}','Full numerical results and exact manifest references: results.json','','STOP: review these outputs. No approval state, merging or downstream analyzer was executed.']
-                (results/'pearson_qc.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
+                (results/'pearson_qc.md').write_text(format_pearson_report(detail),encoding='utf-8')
                 (results/'native.log').write_text(console.getvalue(),encoding='utf-8')
                 final=output/run_id
                 if final.exists(): raise FileExistsError('Pearson run directory already exists')
@@ -225,7 +219,8 @@ def execute_pearsons(collections, output_format='png'):
         return PearsonResult(status='COMPUTED',run_id=run_id,dataset_count=len(files),
                              datasets=[{k:d[k] for k in ('index','roi','collection_run_id')} for d in datasets],
                              comparison_count=len(comparisons),undefined_comparisons=undefined,
-                             comparisons=comparisons[:10],comparisons_truncated=len(comparisons)>10,warnings=notes[:4],warning_count=len(notes),warnings_truncated=len(notes)>4,
+                             comparisons=comparisons[:COMPARISON_PREVIEW_LIMIT],comparisons_truncated=len(comparisons)>COMPARISON_PREVIEW_LIMIT,
+                             warnings=notes[:WARNING_PREVIEW_LIMIT],warning_count=len(notes),warnings_truncated=len(notes)>WARNING_PREVIEW_LIMIT,
                              results_path=str(final/'results.json'),results_sha256=digest(final/'results.json'),report_path=str(final/'pearson_qc.md'),
                              matrix_path=str(final/npy.name),figure_path=str(final/figure.name),execution_seconds=time.perf_counter()-start)
     except Exception as exc:

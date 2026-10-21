@@ -136,7 +136,7 @@ async def test_agent_cannot_submit_decision_and_host_without_ui_fails_closed(qc)
             assert result.is_error
         result=await client.call_tool('review_pearson_approval',{**args(qc),'pearson_run_id':'0'*32})
         assert result.structured_content['status']=='AWAITING_APPROVAL' and result.structured_content['error']
-        assert 'trace_merge' not in tools and 'localization_merge' not in tools
+        assert 'trace_merge' in tools and 'localization_merge' in tools
         # Existing numerical retrieval is Step 0-only, not saved Pearson-run retrieval.
         assert 'read_validation_details' in tools
         assert not any('pearson' in name and name.startswith(('get_','read_')) for name in tools)

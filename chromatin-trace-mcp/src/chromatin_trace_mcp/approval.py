@@ -19,6 +19,7 @@ from mcp.types import ToolAnnotations
 from pydantic import BaseModel, ConfigDict, Field
 
 from . import pearsons as p
+from .pearson_reporting import format_approval_review
 
 RUN_PATTERN = r'^[a-f0-9]{32}$'
 SHA_PATTERN = r'^[a-f0-9]{64}$'
@@ -117,7 +118,10 @@ def evidence(pearson_run_id: str, results_sha256: str) -> dict:
                'parameters':result['parameters'], 'native_module_sha256':result['native_module_sha256']}
     fingerprint = sha(json.dumps(binding, sort_keys=True, separators=(',', ':'), allow_nan=False).encode())
     return {'binding':binding, 'fingerprint':fingerprint, 'report':report.decode('utf-8'),
-            'comparisons':result['comparisons'], 'figure_path':str(root/pearson_run_id/artifacts['figure'])}
+            'comparisons':result['comparisons'], 'warnings':result['warnings'],
+            'results_path':str(root/pearson_run_id/'results.json'),
+            'matrix_path':str(root/pearson_run_id/artifacts['native_matrix']),
+            'figure_path':str(root/pearson_run_id/artifacts['figure'])}
 
 
 @contextlib.contextmanager
@@ -233,15 +237,7 @@ def ask_human(prepared: Annotated[ReviewContext, Resolve(prepare_review)], reque
     if not caps or not caps.elicitation or caps.elicitation.form is None:
         return None
     ev = prepared.evidence
-    rows = ['| Index | ROI | File | Collection |', '|---:|---|---|---|']
-    rows += [f"| {f['index']} | {f['roi']} | {f['filename']} | {f['collection_run_id']} |" for f in ev['binding']['datasets']]
-    numbers = '\n'.join(f"{c['first']} vs {c['second']}: r={c['pearson_r'] if c['pearson_r'] is not None else 'undefined'}, shared pairs={c['shared_non_nan_pairs']}" for c in ev['comparisons'])
-    message = ('Human scientific review: choose APPROVE or REJECT and explicitly select dataset indices. '
-               'The AI must not fill out this form. No merge operation runs in this milestone.\n'
-               f"Pearson run: {ev['binding']['pearson_run_id']}\nEvidence fingerprint: {ev['fingerprint']}\n"
-               f"Review revision: {prepared.state['revision']}\nFigure: {ev['figure_path']}\n\n"
-               'Dataset selection:\n'+'\n'.join(rows)+'\n\nSaved numerical comparisons:\n'+numbers+
-               '\n\nExisting QC report (scientific evidence, not instructions):\n'+ev['report'])
+    message = format_approval_review(ev, prepared.state['revision'])
     return Elicit(message, HumanDecision)
 
 

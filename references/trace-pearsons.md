@@ -74,7 +74,8 @@ Each successful output directory contains:
 - `trace_correlation_matrix.npy`: unchanged native numerical matrix.
 - `results.json`: full correlation matrix, median-distance maps, dataset/ROI mapping,
   exact collection references, warnings, native version/hash and parameters.
-- `pearson_qc.md`: concise human review report with every comparison and warning.
+- `pearson_qc.md`: counts, dataset mapping, warnings and a short preview, followed
+  by the complete pairwise table for larger runs. Every comparison is retained.
 - `native.log`: native stdout/stderr; scientific warnings also appear in the report.
 
 The MCP response includes compact index/ROI/collection-ID mapping for all datasets,
@@ -107,3 +108,8 @@ tokens and monetary cost remain pending/null. Bytes are not estimated tokens.
 
 Stop after the QC report for user review. Merging, approval automation and downstream
 analyzers are outside this substep and must not be inferred from a favorable r.
+
+
+Reporting stays in the trace server for routine Pearson QC. The local formatter
+is pure and modular; human forms use bounded pair previews and artifact references.
+See [reporting boundaries and future report-server criteria](pearson-reporting.md).

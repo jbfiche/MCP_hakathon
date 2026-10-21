@@ -9,7 +9,9 @@
         "CHROMATIN_TRACE_OUTPUT_DIR": "/absolute/path/to/mcp_outputs",
         "CHROMATIN_EXPERIMENT_ROOTS": "/absolute/path/to/authorized/experiments",
         "CHROMATIN_COLLECTION_OUTPUT_DIR": "/absolute/path/to/collection_outputs",
-        "CHROMATIN_PEARSON_OUTPUT_DIR": "/absolute/path/to/pearson_outputs"
+        "CHROMATIN_PEARSON_OUTPUT_DIR": "/absolute/path/to/pearson_outputs",
+        "CHROMATIN_MERGE_OUTPUT_DIR": "/absolute/path/to/trace_merge_outputs",
+        "CHROMATIN_LOCALIZATION_MERGE_OUTPUT_DIR": "/absolute/path/to/localization_merge_outputs"
       }
     }
   }

@@ -79,3 +79,12 @@ parameters; merge selected trace/localization tables using native merge tools;
 analyze them through trace_analyzer and the existing localization_analyzer wrapper.
 Persisted approval states and numerical-output extensions belong to a later milestone.
 No experimental Step 1 processing was executed in this implementation.
+
+
+## Subsequent milestone status
+
+The earlier audit above is historical smoke evidence. Native collection, Pearson
+QC, human approval, trace_merge and localization_merge wrappers are now implemented
+with dedicated tests and provenance. See [localization merging](localization-merge.md)
+and [the current trace_stats audit/roadmap](trace-stats-integration.md).
+Analyzer and new statistics-reporting workflows remain future milestones.
