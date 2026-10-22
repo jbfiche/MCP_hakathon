@@ -70,7 +70,7 @@ async def test_single_call_reports_preserve_all_findings(experiment, monkeypatch
         result = await client.call_tool('run_experiment_validation', {'experiment_root': str(root), 'rules': policy})
         payload = result.structured_content
         assert payload['status'] == status
-        assert len(reads) == (1 if case == 'missing_file' else 2)
+        assert len(reads) == (2 if case == 'missing_file' else 2 if case == 'invalid_ecsv' else 3)
         snapshot = Path(payload['details_path']).read_bytes()
         assert hashlib.sha256(snapshot).hexdigest() == payload['validation_sha256']
         document = json.loads(snapshot)
@@ -85,7 +85,7 @@ async def test_single_call_reports_preserve_all_findings(experiment, monkeypatch
         cached = await client.call_tool('get_validation_summary', {'validation_run_id': payload['run_id']})
         assert cached.structured_content['human_report_path'] == payload['human_report_path']
         assert Path(payload['details_path']).read_bytes() == snapshot
-        assert len(reads) == (1 if case == 'missing_file' else 2)
+        assert len(reads) == (2 if case == 'missing_file' else 2 if case == 'invalid_ecsv' else 3)
     assert inputs == {p: p.read_bytes() for p in inputs}
     assert not output.exists()  # No reporting server/configuration was needed.
 

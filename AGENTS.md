@@ -88,12 +88,27 @@ the scope of this assistant unless explicitly requested.
   localization hashes before execution and publication; reject ambiguous mappings
   and colliding source ROI IDs. Human approval covers ROI selection, not localization
   bytes absent from Pearson review. See `references/localization-merge.md`.
-- Future per-ROI Step 0 and merged pre-filtering Step 1c statistics reuse existing
-  `trace_stats`; these reporting workflows are not implemented. Read
-  `references/trace-stats-integration.md` before planning them. No analyzers or filtering
-  are added by localization merging.
-- Step 0 is validation only. Do not invoke collection, Pearson, merge or analyzer
-  processing automatically. Scientific processing must delegate to Traceratops.
+- Step 0 includes descriptive native trace_stats for each selected valid ROI tracing
+  table, within the existing validation/report call. Never run it on localizations.
+  Read statistics availability separately from validation status; counts are not
+  acceptance criteria. See `references/trace-stats-integration.md`.
+- Step 1c `merged_trace_stats` is the checked, explicitly requested unfiltered
+  merged-trace baseline. Require merge ID and ECSV/provenance checksums, use current
+  scientific approval and preserve source contributions. Distinguish global IDs,
+  ROI/Trace_ID pairs and original Step 0 counts. See
+  `references/merged-trace-statistics.md`. Stop before analyzers/reporting/filtering.
+- Requested trace_analyzer uses an exact Step 1c baseline ID/checksum and native
+  process_traces. Reject global Trace_ID collisions across ROIs and ambiguous genomic
+  metadata; never relabel/filter data or infer calibration from merge defaults.
+  Preserve native figures and numerical values locally. See references/trace-analyzer.md.
+  Stop before localization analysis, comprehensive reporting and filtering.
+- Do not invoke collection, Pearson, merge or analyzers automatically from Step 0.
+  Scientific calculations must delegate to Traceratops.
+- Future comprehensive QC comes after merged-trace statistics AND both native
+  analyzers on their merged unfiltered inputs, and before any filtering. Trace
+  executes science; report composes checksum-identified evidence, warnings and
+  figure references. These later integrations require separate approval and are
+  not implemented by the Step 0 statistics enhancement.
 - Keep provider-reported client token usage separate from server-side bytes, timing
   and estimates. Scripted transport controls are not live agent benchmarks.
 - Later merging requires explicit human approval tied to the relevant QC report,

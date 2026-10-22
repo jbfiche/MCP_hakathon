@@ -3,8 +3,12 @@
 
 ## Incremental development roadmap
 
-Step 1b.2 localization merging is implemented and awaiting owner review. See
-[its validation report](STEP1B2_LOCALIZATION_MERGE_REPORT.md). Future per-ROI Step 0
-trace_stats reporting and the merged Step 1c pre-filtering baseline are documented
-in [the statistics audit and roadmap](references/trace-stats-integration.md); neither
-workflow is implemented. Later stages require separate approval.
+Step 0 per-ROI statistics, both merges and Step 1c merged statistics are owner-approved.
+Native trace_analyzer integration is implemented for review; see
+[the analyzer reference](references/trace-analyzer.md) and
+[validation report](TRACE_ANALYZER_REPORT.md). Actual inputs must satisfy grouping,
+unit and genomic metadata requirements. Next, after separate approval, verify the
+existing localization_analyzer wrapper on merged unfiltered localizations. Only
+after both analyzer stages are valid will chromatin-report-mcp compose the
+comprehensive pre-filtering report. Filtering follows as a separate decision.
+No localization-analysis integration, comprehensive report or filter is added here.

@@ -88,3 +88,10 @@ QC, human approval, trace_merge and localization_merge wrappers are now implemen
 with dedicated tests and provenance. See [localization merging](localization-merge.md)
 and [the current trace_stats audit/roadmap](trace-stats-integration.md).
 Analyzer and new statistics-reporting workflows remain future milestones.
+
+
+Trace_analyzer is now integrated through the native entry point with transparent
+numerical capture, explicit grouping/genomic/unit checks and baseline-linked
+provenance. See [current trace analyzer reference](trace-analyzer.md). The earlier
+smoke audit is historical, not proof that a particular experiment satisfies the
+new input requirements. Localization workflow integration remains separately approved.

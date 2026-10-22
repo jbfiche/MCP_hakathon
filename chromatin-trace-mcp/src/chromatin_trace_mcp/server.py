@@ -22,7 +22,7 @@ from traceratops.core.chromatin_trace_table import read_table_from_ecsv
 from traceratops.core.localization_table import LocalizationTable
 from traceratops.localization_analyzer import run as localization_analyzer_run
 from traceratops.trace_filter import runtime as filter_runtime
-from traceratops.trace_stats import compute_trace_statistics
+from .trace_statistics import compute_statistics
 from traceratops.trace_to_matrix import runtime as matrix_runtime
 
 TRACE_PATH_ENV = "CHROMATIN_TRACE_ECSV"
@@ -775,18 +775,6 @@ async def inspect_current_trace() -> TraceSummary:
     )
 
 
-def _count_from_traceratops_report(report: str, label: str) -> int:
-    """Extract one integer from traceratops' trace_stats terminal report."""
-    match = re.search(rf"Number of {re.escape(label)}:\s*(\d+)", report)
-    if match is None:
-        raise ToolError(
-            "traceratops completed but its trace_stats report had an unexpected "
-            f"format: could not find the number of {label}. The installed "
-            "traceratops version may be incompatible with this MCP adapter."
-        )
-    return int(match.group(1))
-
-
 @mcp.tool(
     name="trace_stats",
     title="Compute chromatin trace statistics",
@@ -804,32 +792,7 @@ async def trace_stats(
 ) -> TraceStatsResult:
     """Call traceratops trace_stats and translate its report into MCP data."""
     path = _dataset_trace_path(dataset_name)
-    captured_output = io.StringIO()
-    try:
-        # traceratops 1.0.1 reports statistics with print(). Capturing stdout is
-        # essential because stdout carries the MCP protocol on a stdio server.
-        with redirect_stdout(captured_output):
-            compute_trace_statistics(path)
-    except SystemExit as exc:
-        raise ToolError(
-            f"traceratops trace_stats stopped before completing (exit code {exc.code})."
-        ) from exc
-    except Exception as exc:
-        raise ToolError(f"traceratops trace_stats failed: {exc}") from exc
-
-    report = captured_output.getvalue().strip()
-    return TraceStatsResult(
-        source_file=str(path.resolve()),
-        traceratops_version=version("traceratops"),
-        unique_roi_count=_count_from_traceratops_report(report, "unique ROIs"),
-        unique_trace_count=_count_from_traceratops_report(
-            report, "unique chromatin traces"
-        ),
-        unique_barcode_count=_count_from_traceratops_report(
-            report, "unique barcodes"
-        ),
-        traceratops_report=report,
-    )
+    return TraceStatsResult(**compute_statistics(path))
 
 
 def _validate_label(label: str | None, argument_name: str) -> None:
@@ -1896,6 +1859,14 @@ register_merge_tool(mcp)
 from .localization_merge import register_localization_merge_tool
 
 register_localization_merge_tool(mcp)
+
+from .merged_statistics import register_merged_statistics_tool
+
+register_merged_statistics_tool(mcp)
+
+from .tracing_analysis import register_trace_analyzer_tool
+
+register_trace_analyzer_tool(mcp)
 
 
 def main() -> None:

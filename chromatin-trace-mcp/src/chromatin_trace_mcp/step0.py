@@ -1,7 +1,7 @@
-"""Read-only experiment validation; no Traceratops scientific algorithms.
+"""Read-only experiment validation with native descriptive trace statistics.
 
 Only discovery, schema/metadata checks, identifier counts, evidence storage and telemetry
-live here. Experiment inputs are never written. See references/step0.md.
+live here; statistics delegate to Traceratops. Experiment inputs are never written. See references/step0.md.
 """
 from __future__ import annotations
 
@@ -24,6 +24,7 @@ from mcp.types import ToolAnnotations
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from .step0_reporting import render_reports
+from .step0_statistics import attach_statistics
 
 ROOTS_ENV = "CHROMATIN_EXPERIMENT_ROOTS"
 OUTPUT_ENV = "CHROMATIN_STEP0_OUTPUT_DIR"
@@ -479,6 +480,7 @@ def evaluate(experiment_root: str, rules: StructureRules | None = None, *, phase
             validate_structure(root, policy, doc)
         if phase in {"tables", "full"}:
             validate_tables(root, policy, doc)
+            attach_statistics(root, policy, doc, checked_path)
     except Exception as exc:
         finding(doc, "ERROR", "VALIDATION_EXECUTION_ERROR", f"{type(exc).__name__}: {str(exc)[:300]}", execution_error=True)
     doc["status"] = status(doc["findings"])
@@ -489,7 +491,14 @@ def summarize(doc: dict) -> dict:
     fs = doc["findings"]
     rois = doc["rois"]
     tables = [t for r in rois for t in r["tables"]]
+    stats = [r['trace_stats'] for r in rois if 'trace_stats' in r]
+    computed = sum(s['status']=='COMPUTED' for s in stats)
+    stats_status = 'NOT_RUN' if not stats else 'COMPLETE' if computed == len(rois) else 'INCOMPLETE'
     return {
+        "trace_stats_status": stats_status,
+        "trace_stats_computed": computed,
+        "trace_stats_not_run": sum(s['status']=='NOT_RUN' for s in stats),
+        "trace_stats_errors": sum(s['status']=='ERROR' for s in stats),
         "status": doc["status"], "phase": doc["phase"],
         "full_validation_performed": doc["phase"] in {"tables", "full"}, "roi_count": len(rois),
         "roi_count_basis": "discovered_folders",

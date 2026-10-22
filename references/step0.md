@@ -193,3 +193,14 @@ PYTHONPATH=src:../chromatin-report-mcp/src uv run pytest ../tests/test_step0_wor
 This verifies one trace-server invocation (including real stdio), no repeated
 ECSV reads, Markdown/HTML findings, saved-result integrity and unchanged richer
 reporting tools. Existing per-package test commands still apply.
+
+
+## Native per-ROI descriptive statistics
+
+The existing full/table validation calls now execute native trace_stats for eligible
+individual ROI tracing ECSV files, never localization files. Existing validation
+findings/status and one-call Markdown/HTML reports are preserved. Compact output
+adds trace_stats_status and computed/not-run/error counts; complete per-ROI results,
+source hashes, native version/text/warnings are in details.json. Descriptive counts
+do not define acceptance thresholds. Missing/ambiguous/invalid/over-limit tables
+have explicit unavailable records. Read [statistics provenance and roadmap](trace-stats-integration.md).

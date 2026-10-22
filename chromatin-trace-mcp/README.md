@@ -399,4 +399,34 @@ inputs, integrity guarantees and limits. No downstream analysis runs automatical
 
 The existing trace_stats wrapper and its future per-ROI/merged reporting integration
 are documented in [the audit and roadmap](../references/trace-stats-integration.md).
-Those statistics reporting workflows are planned, not implemented.
+The per-ROI Step 0 enhancement is implemented; later merged-statistics, analyzer and
+comprehensive-report integrations remain separately approved future work.
+
+
+Step 0 validation now includes native trace_stats on each eligible individual ROI
+tracing table within the same MCP call. Existing file/schema/barcode/BED checks
+remain, and local reports show native counts or unavailable reasons. Compact
+responses add statistics coverage only; full per-ROI evidence stays on disk. No
+localization-statistics run, analyzer, comprehensive report or filtering is triggered.
+
+
+## Step 1c — merged, unfiltered statistics
+
+Use `merged_trace_stats(trace_merge_run_id, merged_sha256, provenance_sha256)`
+for a reproducible native pre-filtering baseline bound to exact approved Step 1b.1
+evidence. Configure CHROMATIN_MERGED_STATS_OUTPUT_DIR outside inputs/evidence stores.
+One MCP call saves complete local evidence and returns compact, distinctly labeled
+global Trace_ID and ROI/Trace_ID counts. trace_merge now also returns its provenance
+SHA-256. Existing trace_stats/Step 0 behavior remains compatible. See
+[merged statistics](../references/merged-trace-statistics.md). No later stage runs.
+
+
+## Native trace_analyzer on a verified baseline
+
+`trace_analyzer(baseline_run_id, baseline_sha256, output_format="png",
+neighbor_distance_range="1", random_seed=0)` runs native analysis on the exact
+merged unfiltered trace. It rejects cross-ROI global Trace_ID collisions, unknown
+source units and ambiguous genomic mappings. Full native numerical/figure artifacts
+stay local. Configure CHROMATIN_TRACE_ANALYZER_OUTPUT_DIR outside source/evidence
+stores. See [the analyzer reference](../references/trace-analyzer.md). There is no
+automatic localization analysis, comprehensive report or filtering.

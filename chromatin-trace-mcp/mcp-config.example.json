@@ -11,7 +11,9 @@
         "CHROMATIN_COLLECTION_OUTPUT_DIR": "/absolute/path/to/collection_outputs",
         "CHROMATIN_PEARSON_OUTPUT_DIR": "/absolute/path/to/pearson_outputs",
         "CHROMATIN_MERGE_OUTPUT_DIR": "/absolute/path/to/trace_merge_outputs",
-        "CHROMATIN_LOCALIZATION_MERGE_OUTPUT_DIR": "/absolute/path/to/localization_merge_outputs"
+        "CHROMATIN_LOCALIZATION_MERGE_OUTPUT_DIR": "/absolute/path/to/localization_merge_outputs",
+        "CHROMATIN_MERGED_STATS_OUTPUT_DIR": "/absolute/path/to/merged_trace_statistics_outputs",
+        "CHROMATIN_TRACE_ANALYZER_OUTPUT_DIR": "/absolute/path/to/trace_analyzer_outputs"
       }
     }
   }

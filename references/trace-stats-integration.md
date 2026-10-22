@@ -1,88 +1,112 @@
-# Existing trace_stats and future integration roadmap
+# Native trace_stats integration and pre-filtering QC roadmap
 
-Source audit: current `chromatin_trace_mcp.server.trace_stats` and locked
-Traceratops 1.0.1 `traceratops.trace_stats.compute_trace_statistics` at commit
-`261a48fe92498abcb154891fe6e5a5ca8219b610`. This milestone changes no statistics
-code and implements neither of the reporting workflows below.
+Audited native Traceratops 1.0.1 at locked commit
+`261a48fe92498abcb154891fe6e5a5ca8219b610`. Scientific algorithms are unchanged.
 
-## Actual current interface
+## Existing native operation and public tool
 
-`trace_stats(dataset_name="current")` resolves the trace file through the existing
-MCP dataset catalog. `current` uses `CHROMATIN_TRACE_ECSV`; named entries use the
-registered trace path. It does not accept an arbitrary path, collection manifest,
-ROI selection or merge run ID. Reusing a collected or merged table therefore
-requires an existing authorized dataset registration/configuration; do not add
-another wrapper or bypass registration validation.
+`trace_stats(dataset_name="current")` resolves a registered tracing ECSV. `current`
+uses CHROMATIN_TRACE_ECSV; named datasets use the existing catalog. Inputs are trace
+tables, never localization tables. Individual-ROI and merged trace tables are
+supported when valid and nonempty. The public tool arguments and result fields
+remain unchanged; registration does not itself establish checksum-bound provenance.
 
-The native function loads the entire trace table using `ChromatinTraceTable.load`
-and calculates exactly:
+The shared `trace_statistics.compute_statistics` adapter calls native
+`compute_trace_statistics`, captures stdout for stdio safety, and parses exactly
+three native integers: unique `ROI #`, global unique `Trace_ID`, unique `Barcode #`.
+It returns source path, Traceratops version, those three counts and native terminal
+text. Native loading/error behavior is preserved; no statistics formula is copied
+into MCP. Native stdout labels are an interface dependency.
 
-- `len(set(table['ROI #']))` — unique observed ROI values.
-- `len(set(table['Trace_ID']))` — globally unique observed trace IDs.
-- `len(set(table['Barcode #']))` — unique observed barcode IDs.
+The native operation creates no figures, saved numerical artifacts, distributions,
+filtering statistics or thresholds. Statistics stored in Step 0 evidence below are
+MCP persistence of native results, not additional native outputs.
 
-It prints these integers and the source path. The MCP captures stdout (required
-for stdio safety), parses the three labeled integers, and returns `source_file`,
-`traceratops_version`, `unique_roi_count`, `unique_trace_count`,
-`unique_barcode_count`, and the complete short `traceratops_report` text.
+## Implemented Step 0 per-ROI enhancement
 
-**Output artifacts:** none. There are no generated figures, distributions,
-per-barcode counts, numerical matrices, JSON files, or saved report from this native
-function or wrapper. The numbers and captured text are the available results.
-The wrapper reads locally on the configured MCP host and performs no provider call.
-Existing trace_stats does not measure its own latency, response bytes or model tokens.
+`run_experiment_validation` and `validate_ecsv_tables` now compute native statistics
+inside their existing single call, after existing file/schema/identifier/BED checks.
+Each unambiguously selected, valid, within-limit ROI tracing table receives one
+native run. There are no per-ROI agent calls, automatic catalog registrations or
+localization-statistics runs. Inspection and structure-only tools do not run stats.
 
-## Applicability and limitations
+For each discovered ROI, saved `details.json` includes `roi.trace_stats`:
+COMPUTED, NOT_RUN or ERROR; original ROI directory/normalized identifier and trace
+path; original ECSV SHA-256; and, when computed, native counts, text, version,
+native module SHA-256, warnings and stderr. Missing/ambiguous/invalid/over-limit
+trace tables have explicit NOT_RUN reasons. Native exceptions or changed source
+hashes produce ERROR statistics; unrelated ROI checks continue.
 
-Both a single-ROI trace ECSV and a merged trace ECSV are accepted if registered
-and compatible with the native trace loader. There is no special merged-table
-branch. Empty or unreadable tables fail, and missing required native columns can
-fail; errors become MCP ToolError. Parsing depends on the native printed labels.
-No independent per-ROI breakdown or cached-statistics lookup is available.
+Native execution reads a private read-only snapshot whose hash matches the
+already-validated source ECSV. The source is checked again after statistics.
+Displayed native paths are mapped from the temporary snapshot to that exact original
+source. Complete tables and snapshots are not persisted in reports or sent to the
+model. Source inputs are never written.
 
-Global unique Trace_ID is not the number of `(ROI, Trace_ID)` pairs when IDs repeat
-between ROIs; the existing trace_merge provenance already records both counts.
-Trace_ID identifies a segmented nucleus, not necessarily a chromosome or allele.
-Observed barcode count is not expected barcode completeness, coverage, genome
-assembly validation or biological success. No acceptance threshold is defined by
-these statistics. Native loading/metadata behavior remains authoritative; no
-scientific algorithm change or extra statistics calculation is proposed here.
+Existing validation status/findings remain intact. New compact fields separately
+report `trace_stats_status` (COMPLETE/INCOMPLETE/NOT_RUN), computed/not-run/error
+counts. A validation PASS does not hide missing statistics or imply scientific
+acceptance. Markdown and HTML include each ROI's native results or unavailable
+reason. Cached retrieval/formatting does not rerun statistics. Full native records
+remain in checksum-identified details evidence; default compact responses do not
+include all ROI records or terminal text. Existing dataset-size limits apply.
 
-## Planned Step 0 integration — not implemented
+The native path-based function rereads each eligible tracing snapshot. This is
+additional local I/O, not an additional model/tool round trip. Existing schema and
+barcode checks remain necessary and are not replaced by native descriptive counts.
+Global Trace_ID counts may differ from distinct ROI/Trace_ID pairs. Trace_ID is a
+segmented nucleus, not necessarily a chromosome or allele. Observed barcode count
+does not establish expected barcode completeness or biological success.
 
-After existing directory/schema/barcode/BED validation identifies individual ROI
-trace tables, reuse the existing native trace_stats operation for available
-per-table descriptive counts. Preserve exact input hashes and distinguish failed
-or unavailable statistics from validation status. Complement existing validation;
-never turn a descriptive count into PASS/FAIL or infer expected barcodes from it.
-Determine the minimum dataset-registration and persistence changes in a separately
-approved milestone. One ROI call per file through an agent is not a required
-architecture: prefer server-side orchestration and cached compact results to avoid
-context/call growth. Keep the existing one-call Step 0 workflow intact until then.
+## Remaining milestones — separately approved, not implemented
 
-## Planned Step 1c pre-filtering baseline — not implemented
+The final comprehensive experiment report must be produced **after both analyzers
+and before filtering**. Its scope is broader than the initial Step 0 report.
 
-After approved trace and localization merging, use the existing trace_stats wrapper
-on the registered merged trace table. Reuse its returned numbers and already-saved
-merge/validation/Pearson evidence, retaining input hashes, native version and exact
-parameters. Record global-ID counting limitations alongside existing ROI/trace
-counts. Preserve the baseline before any later filtering.
+1. Step 1c merged-trace statistics is implemented for owner review through
+   merged_trace_stats. It reuses the existing native adapter without catalog
+   registration or another agent call, verifies exact merge/approval evidence and
+   saves a reproducible unfiltered baseline. See [merged statistics](merged-trace-statistics.md).
+   No analyzer or comprehensive report runs automatically.
+2. Native trace_analyzer integration is implemented for owner review. It uses a
+   checksum-bound Step 1c baseline and exact unfiltered merge, rejects global ID
+   collisions and invalid genomic/physical metadata, and preserves native numerical
+   values/figures. See [trace analyzer](trace-analyzer.md). Actual experiment analysis
+   still requires valid input metadata; synthetic equivalence is not a substitute.
+3. Reuse and verify the existing localization_analyzer wrapper on the corresponding
+   merged, unfiltered localization table. The plotting schema includes Barcode #,
+   zcentroid, snr, skew, object_class and roundness. Legacy schemas may skip plotting;
+   an absent figure must be reported, not represented as successful QC. Neither
+   native analyzer requires prior filtering. Approval required for this integration.
+4. Only after both analyzer stages, use chromatin-report-mcp to compose the
+   comprehensive human-readable pre-filtering QC report from validated saved
+   artifacts. Include Step 0 validation/per-ROI stats; Pearson results and human
+   approval; tracing/localization merges and source ROI mappings; merged trace_stats;
+   both analyzers' available statistics, warnings, failures and saved figure
+   references. Missing evidence remains explicit; do not label a partial report
+   complete. This report implementation requires separate approval.
+5. Filtering is a later scientific decision/stage, never an automatic consequence
+   of descriptive statistics, correlation, completed analyzers or report generation.
 
-Include available analyzer numerical outputs and existing figures by reference
-when those separately approved tools exist. trace_stats itself supplies no figures;
-do not fabricate artifacts or recalculate measurements merely to format a report.
-Simple statistics and compact summaries remain in chromatin-trace-mcp. Consider
-chromatin-report-mcp for a separately requested multi-analysis report combining
-validation, Pearson, both merges and analyzer outputs, or rich comparison/export
-needs. It should format saved evidence, not rerun scientific calculations. No new
-cross-server calls or duplicate formatting are introduced in Step 1b.2.
+Scientific execution, provenance, validation and approval stay in the trace server.
+The report server must only format verified evidence, never recalculate scientific
+measurements or change source data. Plan read-only authorized artifact access using
+a small QC manifest/run reference and SHA-256 values rather than passing full JSON,
+matrices, ECSV tables or images through the model. Existing comparison report tools
+are not yet a general workflow-composition interface; this milestone adds no report
+server tool, shared-store integration, or comprehensive formatter. Simple Step 0
+and Pearson reports remain in trace without extra cross-server calls.
 
-## Development status
+## Evidence required for the future comprehensive report
 
-- Step 1b.1 trace_merge: implemented with existing human approval enforcement.
-- Step 1b.2 localization_merge: implemented; owner review pending.
-- Step 0 trace_stats reporting extension: planned, not implemented.
-- Step 1c pre-filtering baseline and analyzers: planned, not implemented.
-- Filtering and downstream workflows: outside this milestone.
-- Autonomous-agent trials and provider-reported token measurements: pending until
-  genuinely executed; deterministic/stdio tests and response bytes do not replace them.
+Link original Step 0 table hashes to collection source hashes; bind both merge runs,
+ECSV/provenance hashes and original experiment/ROI mappings to the same Pearson ID,
+results hash, approval revision and exact selection. Retain native versions,
+parameters, analyzer input/output hashes, execution outcomes, warnings and figure
+references. A registered path alone is not that evidence. Trace approval covers the
+tracing ROI selection; localization bytes absent from Pearson review remain
+separately hash-verified execution evidence, not retroactively human-reviewed data.
+
+Provider-backed autonomous validation and actual token/cost measurements remain
+pending unless genuinely run. Deterministic/native/stdio results and response bytes
+are not actual provider tokens.

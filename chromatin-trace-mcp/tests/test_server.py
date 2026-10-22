@@ -69,6 +69,8 @@ async def test_lists_one_resource_and_twenty_three_tools(client: Client) -> None
         "review_pearson_approval",
         "trace_merge",
         "localization_merge",
+        "merged_trace_stats",
+        "trace_analyzer",
     ]
     assert all(tool.output_schema is not None for tool in tools)
 

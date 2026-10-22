@@ -152,12 +152,51 @@ ambiguous or changed evidence fails closed. Colliding source ROI IDs cannot be
 aligned by the current native localization merger and are rejected. Return compact
 counts/warnings/artifact references and stop; no analyzers or filtering.
 
-## Planned trace_stats reporting
+## Native statistics and future comprehensive report
 
-Read [trace_stats audit and roadmap](../../references/trace-stats-integration.md)
-when planning descriptive per-ROI Step 0 statistics or a merged pre-filtering Step
-1c baseline. Both workflows remain unimplemented. Reuse the existing wrapper and
-its native numbers; it produces no figure or numerical artifact. Counts describe
-observations, not acceptance criteria; global Trace_ID can undercount ROI/trace
-pairs. Keep simple summaries in trace and reserve the report server for requested
-complex multi-analysis composition. Do not start those workflows during Step 1b.2.
+Step 0 automatically includes existing native trace_stats counts for each selected,
+valid ROI tracing table in its single validation/report call. Never run trace_stats
+on localizations or register each ROI just for this workflow. Default responses show
+coverage counts; full per-ROI results and native text remain in saved details.
+COMPUTED/NOT_RUN/ERROR statistics availability is separate from validation PASS,
+FAIL, ERROR and INCOMPLETE. Show missing statistics explicitly. Global Trace_ID
+counts are descriptive and can differ from ROI/trace pairs or allele counts.
+
+Read [the statistics audit and roadmap](../../references/trace-stats-integration.md)
+before separately approved later work. The comprehensive report must follow merged
+unfiltered trace_stats AND trace_analyzer/localization_analyzer on their respective
+merged unfiltered inputs, and precede filtering. It must combine Step 0/per-ROI
+statistics, Pearson and approval, both merges/provenance, merged statistics, and both
+analyzers' available numbers, warnings and saved figures. Trace executes science;
+report formats validated artifact references without recalculation. These later
+integrations remain unimplemented. Keep simple Step 0/Pearson reports in trace.
+
+
+## Explicit Step 1c merged statistics
+
+When requested, use `merged_trace_stats` with the Step 1b.1 run ID, merged ECSV
+checksum and provenance checksum. trace_merge now supplies the latter additively.
+Read [merged baseline rules](../../references/merged-trace-statistics.md) for stores,
+fail-closed evidence checks and limits. Use this checked one-call workflow for the
+pre-filtering baseline; do not substitute an unchecked registered path or another
+per-ROI loop. It calls the same native adapter as trace_stats. No new human decision
+is generated. Keep global unique Trace_ID, output ROI/Trace_ID combinations and
+original Step 0 per-ROI counts distinct. Return compact counts/warnings and saved
+evidence references. ERROR is not a successful baseline. Stop for owner review;
+no analyzers, comprehensive report, cross-server calls or filtering are authorized
+by this milestone.
+
+
+## Explicit trace_analyzer milestone
+
+Use `trace_analyzer` with the verified Step 1c baseline run ID and evidence SHA-256.
+Read [trace analyzer requirements](../../references/trace-analyzer.md) first: native
+grouping uses global Trace_ID, so cross-ROI collisions fail rather than combine
+observations. Original source units must explicitly be microns. Missing/placeholder
+or ambiguous genomic coordinates cannot be repaired implicitly. Keep repeated
+barcodes unchanged and report native allele/pairing limitations. Native figures,
+full numerical plot/return values and provenance remain local; return compact
+references and summary. ANALYZED is not scientific acceptance. ERROR or no eligible
+neighbor pairs must not be described as successful measurement. Do not expose
+legacy plotXYZ calibration, create new approval, run localization_analyzer, compose
+a comprehensive report or filter as part of this milestone.

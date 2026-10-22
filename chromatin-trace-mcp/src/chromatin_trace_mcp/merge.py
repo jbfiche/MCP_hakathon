@@ -35,6 +35,7 @@ class MergeResult(BaseModel):
     merged_path: str | None = None
     provenance_path: str | None = None
     merged_sha256: str | None = None
+    provenance_sha256: str | None = None
     source_file_count: int = 0
     row_count: int = 0
     barcode_count: int = 0
@@ -215,6 +216,7 @@ def execute_merge(pearson_run_id, results_sha256, selected_dataset_indices):
                     results.rename(final)
         return MergeResult(status='MERGED',run_id=run_id,merged_path=str(final/'merged_traces.ecsv'),
                            provenance_path=str(final/'provenance.json'), merged_sha256=detail['merged_sha256'],
+                           provenance_sha256=digest(final/'provenance.json'),
                            source_file_count=len(selected), row_count=detail['row_count'], barcode_count=detail['barcode_count'],
                            trace_count=detail['trace_count'],roi_trace_count=detail['roi_trace_count'],roi_count=detail['roi_count'],
                            warnings=notes[:4],warning_count=len(notes),warnings_truncated=len(notes)>4,

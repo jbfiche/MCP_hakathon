@@ -13,6 +13,9 @@ def human_report(doc, summary):
              f"Localization table: {summary['localization_tables']} found",
              f"Traces table: {summary['tracing_tables']} found",
              f"Tables read successfully: {summary['tables_parsed']}", ""]
+    if "trace_stats_status" in summary:
+        lines += [f"Native tracing statistics: {summary['trace_stats_status']} ({summary['trace_stats_computed']} ROI tables computed)",
+                  "Statistics availability is separate from validation status.", ""]
     if expected_rois is None and expected_barcodes is None:
         lines += ["No expected ROI or barcode lists were supplied. This report describes what was found.", ""]
     else:
@@ -38,6 +41,19 @@ def human_report(doc, summary):
                 if table.get("unexpected_barcodes"):
                     lines += ["- Barcodes outside the expected list: " + ", ".join(table["unexpected_barcodes"])]
             lines += [""]
+        stats = roi.get('trace_stats')
+        if stats is not None:
+            lines += ['### Native trace_stats — original ROI tracing table', '']
+            if stats['status'] == 'COMPUTED':
+                lines += [f"- Source: {stats['source_relative']}",
+                          f"- Unique ROIs: {stats['unique_roi_count']}",
+                          f"- Unique Trace_ID values: {stats['unique_trace_count']:,}",
+                          f"- Unique barcodes: {stats['unique_barcode_count']}",
+                          f"- Traceratops version: {stats['traceratops_version']}"]
+            else:
+                lines += [f"- Statistics: {stats['status']} — {stats['reason']}"]
+            lines += ['- Native warning: '+w for w in stats.get('warnings', [])]
+            lines += ['Descriptive counts only; not scientific acceptance criteria or allele counts.', '']
     bed = doc.get("bed", {})
     if bed.get("file"):
         lines += ["## BED file", "", f"File: {bed['file']}",

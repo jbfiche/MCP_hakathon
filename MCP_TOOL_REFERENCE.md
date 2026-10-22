@@ -14,7 +14,7 @@ All analysis executes in the MCP process on its configured host, using that host
 
 | Server | Tools | Main role |
 |---|---:|---|
-| chromatin-trace-mcp | 24 | Dataset management, Step 0 validation, native scientific wrappers and approval |
+| chromatin-trace-mcp | 26 | Dataset management, Step 0 validation, native scientific wrappers and approval |
 | chromatin-report-mcp | 2 | Format comparison results as Markdown, HTML or PDF |
 
 ## Tool details
@@ -612,6 +612,32 @@ Input: `dataset_name` (default `current`), resolving an existing registered trac
 table. Calls native `compute_trace_statistics`, returning source/version, three
 unique counts (ROI, global Trace_ID, barcode) and captured native text. Supports
 compatible individual-ROI and merged tables; produces no figures or saved artifacts.
-These counts do not establish scientific acceptance. Planned Step 0 and Step 1c
-reporting integrations are not implemented; see
+These counts do not establish scientific acceptance. Step 0 now includes these native counts per eligible ROI inside its validation call.
+Merged-statistics, analyzer and comprehensive-report integrations remain future work; see
 [trace_stats audit and roadmap](references/trace-stats-integration.md).
+
+
+### merged_trace_stats — Step 1c, chromatin-trace-mcp
+
+Input: trace_merge_run_id, merged_sha256, provenance_sha256. Verifies native Step
+1b.1 provenance, current exact approval, source contributions and checksums; runs
+the existing native trace_stats adapter on an immutable merged snapshot. Saves
+complete statistics/status/native log locally. Returns compact COMPUTED/ERROR,
+evidence path/SHA, reproducible baseline fingerprint, row/ROI/global Trace_ID/
+ROI-Trace_ID pair/barcode counts, warnings, timing and response bytes. Original
+per-ROI Step 0 results remain separate. No analyzers, report tools or filters are
+invoked. See [merged statistics](references/merged-trace-statistics.md). There are
+25 trace tools; trace_merge gains only the additive provenance_sha256 response field.
+
+
+### trace_analyzer — merged, unfiltered tracing analysis
+
+Input: baseline_run_id, baseline_sha256; optional native png/svg/pdf format, plotting
+neighbor_distance_range (1 default or auto/positive microns), and NumPy random_seed
+(0 default). Reuses native process_traces and existing evidence validators; no
+scientific algorithms are duplicated. Verifies current merge/approval/baseline
+evidence and rejects cross-ROI Trace_ID collisions or invalid genomic/unit metadata.
+Output: compact ANALYZED/ERROR, evidence/hash, manifest/output directory, five-figure
+count, native neighbor summary with availability, warnings, latency/response bytes.
+Full numerical arrays, plots and logs stay local. No localization/report/filter call.
+See [trace analyzer](references/trace-analyzer.md). Trace tool count: 26.

@@ -133,3 +133,9 @@ Step 1b.2 operation is documented in [localization merging](localization-merge.m
 It matches original experiment/source ROI provenance and rejects source ROI
 collisions that native localization merging cannot align with tracing renumbering.
 Owner review is required before later milestones; no analyzers run here.
+
+
+Step 1c adds an optional provenance_sha256 field to the trace_merge result (no
+calculation change). Together with run_id and merged_sha256 it supplies the exact
+one-call [merged statistics](merged-trace-statistics.md) reference. Older saved
+merge artifacts remain usable with their trusted provenance checksum.
