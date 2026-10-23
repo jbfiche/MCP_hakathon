@@ -1,25 +1,32 @@
-# Copy these two sections into ~/.codex/config.toml for Codex desktop.
-# They start local Python MCP servers through uv; do not launch the Inspector.
+# Codex CLI local stdio configuration.
+# Replace placeholders with absolute paths on your computer.
+# Keep output directories separate from source experiment files.
 
 [mcp_servers.chromatin_trace]
-command = "uv"
-args = ["run", "mcp", "run", "src/chromatin_trace_mcp/server.py:mcp"]
-cwd = "/home/jb/Repositories/MCP_hakathon_jb/chromatin-trace-mcp"
+command = "/path/to/MCP_hakathon/chromatin-trace-mcp/.venv/bin/chromatin-trace-mcp"
+cwd = "/path/to/MCP_hakathon/chromatin-trace-mcp"
 startup_timeout_sec = 30
 tool_timeout_sec = 600
 default_tools_approval_mode = "writes"
 
 [mcp_servers.chromatin_trace.env]
-CHROMATIN_DATASETS_JSON = "/home/jb/Repositories/MCP_hakathon_jb/chromatin-trace-mcp/datasets.local.json"
-CHROMATIN_TRACE_OUTPUT_DIR = "/home/jb/Desktop/Hackaton/data/mcp_outputs"
+CHROMATIN_EXPERIMENT_ROOTS = "/path/to/experiment"
+CHROMATIN_TRACE_ECSV = "/path/to/experiment/ROI/tracing/data/trace.ecsv"
+CHROMATIN_TRACE_OUTPUT_DIR = "/path/to/results/chromatin-trace"
+CHROMATIN_STEP0_OUTPUT_DIR = "/path/to/results/chromatin-trace/step0"
+# Optional:
+# CHROMATIN_DATASETS_JSON = "/path/to/config/datasets.local.json"
+# CHROMATIN_GENOME_REFERENCE = "/path/to/config/genome_reference.json"
 
 [mcp_servers.chromatin_report]
-command = "uv"
-args = ["run", "mcp", "run", "src/chromatin_report_mcp/server.py:mcp"]
-cwd = "/home/jb/Repositories/MCP_hakathon_jb/chromatin-report-mcp"
+command = "/path/to/MCP_hakathon/chromatin-report-mcp/.venv/bin/chromatin-report-mcp"
+cwd = "/path/to/MCP_hakathon/chromatin-report-mcp"
 startup_timeout_sec = 30
 tool_timeout_sec = 120
 default_tools_approval_mode = "writes"
 
 [mcp_servers.chromatin_report.env]
-CHROMATIN_REPORT_OUTPUT_DIR = "/home/jb/Desktop/Hackaton/data/reports"
+CHROMATIN_REPORT_OUTPUT_DIR = "/path/to/results/chromatin-reports"
+# Include all authorized source and trace artifact roots; ":" separates Linux/macOS paths.
+CHROMATIN_REPORT_ARTIFACT_ROOTS = "/path/to/experiment:/path/to/results/chromatin-trace"
+CHROMATIN_QC_MANIFEST_DIR = "/path/to/results/chromatin-qc-manifests"
