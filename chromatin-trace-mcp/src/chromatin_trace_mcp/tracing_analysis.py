@@ -167,13 +167,15 @@ def run_worker(folder,output_format,distance_range,seed):
     if process.returncode:raise RuntimeError(f'Native trace analyzer failed (exit code {process.returncode}); inspect saved logs and partial artifacts')
 
 
-def execute_analysis(baseline_run_id,baseline_sha256,output_format='png',neighbor_distance_range='1',random_seed=0):
+def execute_analysis(baseline_run_id,baseline_sha256,output_format='png',neighbor_distance_range='1',random_seed=0,annotation_run_id=None,annotation_sha256=None):
     start=time.perf_counter();run_id=uuid4().hex;detail=None;final=None
     try:
         if output_format not in {'png','svg','pdf'}:raise ValueError('Unsupported native figure format')
         if neighbor_distance_range!='auto' and (not math.isfinite(float(neighbor_distance_range)) or float(neighbor_distance_range)<=0):
             raise ValueError('Neighbor plotting range must be auto or finite positive microns')
         if type(random_seed) is not int or not 0<=random_seed<2**32:raise ValueError('Invalid NumPy random seed')
+        if (annotation_run_id is None)!=(annotation_sha256 is None):raise ValueError('Annotation ID and checksum must be supplied together')
+        annotation=None; annotation_data=None
         baseline,value,data,grant,roots,sources,baseline_log_sha=load_context(baseline_run_id,baseline_sha256)
         output=output_root(roots)
         with tempfile.TemporaryDirectory(prefix='trace-analyzer-validation-') as temp:
@@ -182,14 +184,23 @@ def execute_analysis(baseline_run_id,baseline_sha256,output_format='png',neighbo
             contributions=ms.verify_contributions(value,table,snapshots,grant,sources)
             if contributions!=baseline['approved_source_contributions']:raise ValueError('Baseline source contributions differ from verified merge')
             source_notes=verify_source_units(value)
+            if annotation_run_id is not None:
+                from . import genomic_annotation as ga
+                annotation_data,annotation=ga.verify_saved(annotation_run_id,annotation_sha256,baseline_run_id,baseline_sha256,table,baseline,grant,roots)
+                if output==ga.store().resolve() or output.is_relative_to(ga.store().resolve()):raise PermissionError('Analyzer output must be outside annotation store')
+                path.write_bytes(annotation_data);table=Table.read(path,format='ascii.ecsv')
             checks,notes=validate_analysis_input(table)
             notes+=source_notes
+            if annotation is not None:notes+=annotation['warnings']
+            input_data=annotation_data if annotation_data is not None else data
+            input_sha256=a.sha(input_data)
         output.mkdir(parents=True,exist_ok=True)
         with tempfile.TemporaryDirectory(prefix='.pending-trace-analysis-',dir=output) as temp:
             folder=Path(temp)/'results';folder.mkdir(mode=0o700)
-            trace=folder/'trace.ecsv';trace.write_bytes(data);trace.chmod(0o400)
+            trace=folder/'trace.ecsv';trace.write_bytes(input_data);trace.chmod(0o400)
             detail={'schema_version':1,'run_id':run_id,'status':'RUNNING','scope':'merged_unfiltered_tracing',
                 'generated_at_utc':datetime.now(timezone.utc).isoformat(),'baseline_run_id':baseline_run_id,'baseline_sha256':baseline_sha256,
+                'annotation_run_id':annotation_run_id,'annotation_sha256':annotation_sha256,'analysis_input_sha256':input_sha256,
                 'baseline_fingerprint':baseline['baseline_fingerprint'],'baseline_native_log_sha256':baseline_log_sha,
                 'trace_merge_run_id':baseline['trace_merge_run_id'],'merged_sha256':baseline['merged_sha256'],
                 'merge_provenance_sha256':baseline['provenance_sha256'],'approval_revision':grant['revision'],
@@ -204,7 +215,7 @@ def execute_analysis(baseline_run_id,baseline_sha256,output_format='png',neighbo
                 'numerical_capture':'Unmodified native return values and inputs/results supplied to native plotting calls; no scientific recalculation.'}
             try:
                 run_worker(folder,output_format,neighbor_distance_range,random_seed)
-                if digest(trace)!=baseline['merged_sha256']:raise ValueError('Native analyzer modified its input snapshot')
+                if digest(trace)!=input_sha256:raise ValueError('Native analyzer modified its input snapshot')
                 for stem in FIGURES:
                     figure=folder/f'{stem}.{output_format}'
                     if not figure.is_file() or not figure.stat().st_size:raise ValueError(f'Native figure missing: {figure.name}')
@@ -228,6 +239,11 @@ def execute_analysis(baseline_run_id,baseline_sha256,output_format='png',neighbo
                     if last!=baseline or log_sha!=baseline_log_sha:raise ValueError('Baseline evidence changed during analysis')
                     _,_,log_sha=ms.read_merge(baseline['trace_merge_run_id'],baseline['merged_sha256'],baseline['provenance_sha256'])
                     if log_sha!=baseline['merge_native_log_sha256']:raise ValueError('Merge log changed during analysis')
+                    if annotation is not None:
+                        with tempfile.TemporaryDirectory(prefix='recheck-annotation-') as temporary:
+                            original=Path(temporary)/'original.ecsv';original.write_bytes(data)
+                            last_data,last_annotation=ga.verify_saved(annotation_run_id,annotation_sha256,baseline_run_id,baseline_sha256,Table.read(original,format='ascii.ecsv'),baseline,grant,roots)
+                        if last_data!=annotation_data or last_annotation!=annotation:raise ValueError('Annotation changed during analysis')
                     final=publish(folder,output,run_id,detail,start)
             except Exception as exc:
                 detail.update(status='ERROR',error_type=type(exc).__name__,error=str(exc)[:500]);detail.pop('neighbor_statistics',None)
@@ -271,13 +287,15 @@ def register_trace_analyzer_tool(mcp):
                        baseline_sha256: Annotated[str,Field(pattern=a.SHA_PATTERN)],
                        output_format: Literal['png','svg','pdf']='png',
                        neighbor_distance_range: str='1',
-                       random_seed: Annotated[StrictInt,Field(ge=0,lt=2**32)]=0) -> AnalysisResult:
+                       random_seed: Annotated[StrictInt,Field(ge=0,lt=2**32)]=0,
+                       annotation_run_id: Annotated[str,Field(pattern=a.RUN_PATTERN)] | None=None,
+                       annotation_sha256: Annotated[str,Field(pattern=a.SHA_PATTERN)] | None=None) -> AnalysisResult:
         """Run native trace_analyzer on a verified merged, unfiltered Step 1c baseline.
 
         Reject cross-ROI Trace_ID collisions and ambiguous genomic metadata.
         Save native figures/numerical outputs locally; no filtering or other analyzer.
         """
-        result=execute_analysis(baseline_run_id,baseline_sha256,output_format,neighbor_distance_range,random_seed)
+        result=execute_analysis(baseline_run_id,baseline_sha256,output_format,neighbor_distance_range,random_seed,annotation_run_id,annotation_sha256)
         for _ in range(4):
             size=len(result.model_dump_json().encode())
             if size==result.structured_response_bytes:break

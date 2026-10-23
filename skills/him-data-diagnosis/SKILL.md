@@ -200,3 +200,15 @@ references and summary. ANALYZED is not scientific acceptance. ERROR or no eligi
 neighbor pairs must not be described as successful measurement. Do not expose
 legacy plotXYZ calibration, create new approval, run localization_analyzer, compose
 a comprehensive report or filter as part of this milestone.
+
+
+## Explicit genomic annotation derivative
+
+When genomic annotation is requested, read [annotation rules](../../references/genomic-annotation.md).
+Require researcher-confirmed assembly evidence in the host configuration, the exact
+Step 1c baseline and BED checksum. Use native five-column barcode replacement; do
+not remove column five, disable replacement, infer assembly or edit old artifacts.
+Return the mapping and new annotated artifact references. Supply annotation run ID
+and checksum with the original baseline to trace_analyzer. Keep localization barcode
+IDs unchanged and describe their original namespace explicitly. Changed evidence
+requires validation, and new Pearson evidence requires genuine human approval.

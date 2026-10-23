@@ -11,14 +11,16 @@ introduced by this change.
 |---|---|---|
 | Agent tool response | Existing dataset index/ROI/collection mapping, counts, at most ten pair previews, four warning previews, truncation flags, artifact paths/hash | Same schema; no full matrix, distance maps, image or report text |
 | Human approval form | All dataset choices and warnings, run/fingerprint/revision, ten saved pair previews, complete report/results/matrix/figure paths | Dataset/warning content grows linearly; pair preview is bounded and explicitly incomplete |
-| Saved artifacts | Complete JSON results/median-distance maps, native NPY matrix and original figure, full Markdown QC report and native log | Complete evidence stays local; no default transfer through the agent |
+| Saved artifacts | Complete JSON results/median-distance maps, native NPY matrix and original figure, minimal Markdown QC report and native log | Complete evidence stays local; no default transfer through the agent |
 
-The local Markdown report starts with counts, an explicit index-to-ROI mapping,
-scientific warnings and a short comparison preview. For more than ten pairs,
-a complete comparison table follows the artifact references. Small runs show the
-complete table once. There is no scientific ranking, acceptance threshold or
-inference of biological equivalence. Undefined coefficients remain undefined/null.
-The first ten comparisons are in the existing saved order, not selected extremes.
+The local Markdown report focuses on correlation values. Two datasets show an
+ROI-versus-ROI title, Pearson r rounded to four decimal places, shared non-NaN
+barcode-pair count, the existing figure link, and dataset index-to-ROI mapping.
+Multiple datasets show one complete, compact pairwise table with ROI names and
+saved indices; no repeated preview or lengthy explanation. Undefined values stay
+undefined. Rounding affects presentation only, not complete numerical evidence.
+Scientific warnings and provenance remain in the linked results.json and unchanged
+human review form. The figure is referenced, never embedded, copied or regenerated.
 
 The approval form tells the researcher to open the complete saved report and figure,
 including pairs omitted from the preview, before deciding. Figure and report paths
@@ -78,7 +80,7 @@ imports, dependencies or calls today.
 
 Response byte counts are not model tokens. Existing compact response previews and
 schemas are unchanged. Formatting tests cover a 32-dataset/496-pair case and verify
-complete artifact tables, a bounded human preview, preserved warnings/references,
+complete pairwise tables, a bounded human preview, warnings retained in evidence/form,
 and no mutation of source evidence. Native equivalence and approval regression
 tests remain authoritative. Live model token consumption and human UI behavior are
 not established by those deterministic tests.

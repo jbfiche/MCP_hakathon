@@ -430,3 +430,5 @@ source units and ambiguous genomic mappings. Full native numerical/figure artifa
 stay local. Configure CHROMATIN_TRACE_ANALYZER_OUTPUT_DIR outside source/evidence
 stores. See [the analyzer reference](../references/trace-analyzer.md). There is no
 automatic localization analysis, comprehensive report or filtering.
+
+Genomic annotation is available through `trace_genomic_coordinates` before the analyzer, using native five-column BED barcode replacement and host-confirmed assembly evidence. See [genomic annotation](../references/genomic-annotation.md). Original merges, baselines and localization identifiers remain unchanged.

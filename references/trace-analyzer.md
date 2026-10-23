@@ -140,3 +140,13 @@ localization_analyzer wrapper on merged unfiltered localizations. Only after bot
 analyzers are valid may chromatin-report-mcp compose the comprehensive pre-filtering
 report from Step 0/Pearson/approval/merges/baseline and both analyzer artifacts.
 Filtering comes afterward. None of those later stages is implemented here.
+
+
+## Verified genomic derivative
+
+Optional `annotation_run_id` / `annotation_sha256` select a checked native annotation
+derivative while retaining the original Step 1c baseline. Both references are required
+together. See [annotation evidence and barcode namespaces](genomic-annotation.md).
+Original merge/source validators still check the original table; separate exact
+derivation checks permit only native genomic/barcode assignments and documented
+assembly metadata correction. Both evidence chains are rechecked before publication.

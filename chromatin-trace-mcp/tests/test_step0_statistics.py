@@ -116,7 +116,7 @@ async def test_real_stdio_one_validation_call_and_cached_retrieval(experiment):
     write_roi(experiment);before={p:p.read_bytes() for p in experiment.rglob('*.ecsv')}
     params=StdioServerParameters(command=sys.executable,args=['-m','chromatin_trace_mcp.server'],env=dict(os.environ))
     async with Client(params,read_timeout_seconds=60) as client:
-        tools={t.name:t for t in (await client.list_tools()).tools};assert len(tools)==26
+        tools={t.name:t for t in (await client.list_tools()).tools};assert len(tools)==27
         result=await client.call_tool('run_experiment_validation',{'experiment_root':str(experiment),'rules':policy().model_dump()})
         value=result.structured_content;assert value['status']=='PASS' and value['trace_stats_computed']==1
         Draft202012Validator(tools['run_experiment_validation'].output_schema).validate(value)

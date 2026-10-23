@@ -1867,6 +1867,8 @@ register_merged_statistics_tool(mcp)
 from .tracing_analysis import register_trace_analyzer_tool
 
 register_trace_analyzer_tool(mcp)
+from .genomic_annotation import register_genomic_annotation_tool
+register_genomic_annotation_tool(mcp)
 
 
 def main() -> None:

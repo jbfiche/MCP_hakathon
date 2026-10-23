@@ -75,7 +75,7 @@ def test_native_equivalence_figures_integrity_and_reproducibility(experiment,tmp
     assert before=={path:c.digest(path) for path in before}
     assert result.review_required and saved['parameters']['correlation_threshold'] is None
     assert any('0–1' in note for note in saved['warnings'])
-    assert 'No approval state' in Path(result.report_path).read_text()
+    assert '**Pearson r = -1.0000**' in Path(result.report_path).read_text()
     again=p.execute_pearsons(refs,fmt)
     np.testing.assert_array_equal(np.load(again.matrix_path),expected)
     assert again.run_id!=result.run_id
@@ -100,7 +100,11 @@ def test_native_edge_cases_preserve_undefined_and_duplicate_behavior(experiment,
     if case!='duplicate':
         assert result.comparisons[0]['pearson_r'] is None and result.undefined_comparisons==1
         assert 'undefined' in Path(result.report_path).read_text()
-    else: assert 'last row' in Path(result.report_path).read_text()
+    else:
+        evidence=json.loads(Path(result.results_path).read_text())
+        assert any('last row' in warning for warning in evidence['warnings'])
+        assert 'last row' not in Path(result.report_path).read_text()
+        assert '[results.json](results.json)' in Path(result.report_path).read_text()
 
 
 @pytest.mark.parametrize('fault',['manifest_hash','file_hash','missing','symlink','localization','single','duplicate_ref','output_in_input','output_in_collection'])

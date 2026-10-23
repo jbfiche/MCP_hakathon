@@ -193,7 +193,7 @@ async def test_real_stdio_schema_options_and_compact_references(ready):
     baseline=ready[3]
     params=StdioServerParameters(command=sys.executable,args=['-m','chromatin_trace_mcp.server'],env=dict(os.environ))
     async with Client(params,raise_exceptions=False,read_timeout_seconds=120) as client:
-        tools={t.name:t for t in (await client.list_tools()).tools};assert len(tools)==26
+        tools={t.name:t for t in (await client.list_tools()).tools};assert len(tools)==27
         tool=tools['trace_analyzer'];Draft202012Validator.check_schema(tool.input_schema);Draft202012Validator.check_schema(tool.output_schema)
         args={'baseline_run_id':baseline.run_id,'baseline_sha256':baseline.evidence_sha256,'neighbor_distance_range':'auto','output_format':'svg'}
         assert (await client.call_tool('trace_analyzer',{**args,'random_seed':True})).is_error

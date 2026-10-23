@@ -12,3 +12,5 @@ existing localization_analyzer wrapper on merged unfiltered localizations. Only
 after both analyzer stages are valid will chromatin-report-mcp compose the
 comprehensive pre-filtering report. Filtering follows as a separate decision.
 No localization-analysis integration, comprehensive report or filter is added here.
+
+Genomic annotation is available through `trace_genomic_coordinates` before the analyzer, using native five-column BED barcode replacement and host-confirmed assembly evidence. See [genomic annotation](references/genomic-annotation.md). Original merges, baselines and localization identifiers remain unchanged.

@@ -159,3 +159,5 @@ uv run python scripts/check_server.py <tool>
 ```
 
 For PDF reports, render the generated PDF and inspect the pages before delivery.
+
+- Genomic annotation uses native five-column BED replacement in a new derivative; require explicit host-configured assembly authority. Keep baseline and localization IDs unchanged; analyzer validates both evidence chains. See `references/genomic-annotation.md`.

@@ -135,7 +135,7 @@ async def test_real_stdio_single_call_schema_and_compact_response(merged):
     result=merged[3]
     parameters=StdioServerParameters(command=sys.executable,args=['-m','chromatin_trace_mcp.server'],env=dict(os.environ))
     async with Client(parameters,raise_exceptions=False,read_timeout_seconds=60) as client:
-        tools={t.name:t for t in (await client.list_tools()).tools};assert len(tools)==26
+        tools={t.name:t for t in (await client.list_tools()).tools};assert len(tools)==27
         tool=tools['merged_trace_stats'];Draft202012Validator.check_schema(tool.input_schema);Draft202012Validator.check_schema(tool.output_schema)
         args={'trace_merge_run_id':result.run_id,'merged_sha256':result.merged_sha256,'provenance_sha256':result.provenance_sha256}
         assert (await client.call_tool('merged_trace_stats',{**args,'trace_merge_run_id':'../escape'})).is_error

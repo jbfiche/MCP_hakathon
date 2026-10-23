@@ -110,3 +110,10 @@ separately hash-verified execution evidence, not retroactively human-reviewed da
 Provider-backed autonomous validation and actual token/cost measurements remain
 pending unless genuinely run. Deterministic/native/stdio results and response bytes
 are not actual provider tokens.
+
+
+Native genomic annotation is now available as an explicit derivative stage between
+merged trace statistics and trace_analyzer. Use native replacement barcodes and
+researcher-confirmed assembly evidence; original baseline artifacts remain unchanged.
+See [annotation evidence](genomic-annotation.md). Do not silently compare annotated
+trace barcode IDs with original localization or earlier QC barcode IDs.

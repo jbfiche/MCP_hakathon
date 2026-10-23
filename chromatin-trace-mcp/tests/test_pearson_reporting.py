@@ -14,25 +14,47 @@ def evidence(count):
     return {'datasets':datasets,'comparisons':pairs,'warnings':warnings,'artifacts':{'figure':'matrix.png','native_matrix':'matrix.npy'}}
 
 
-def test_small_report_keeps_all_results_and_warnings_without_mutation():
-    detail=evidence(2);before=copy.deepcopy(detail)
-    rendered=format_pearson_report(detail)
-    assert '| 0 | 1 | -0.5 | 3 |' in rendered
-    assert 'Datasets: 2. Pairwise comparisons: 1. Undefined: 0.' in rendered
-    assert all(w in rendered for w in detail['warnings'])
-    assert 'results.json' in rendered and 'matrix.npy' in rendered and 'matrix.png' in rendered
+def test_two_roi_report_focuses_on_rounded_correlation_without_mutating_evidence():
+    detail=evidence(2)
+    detail['datasets'][0]['roi']='92';detail['datasets'][1]['roi']='93'
+    detail['comparisons'][0].update(pearson_r=0.8691053986549377,shared_non_nan_pairs=406)
+    before=copy.deepcopy(detail);rendered=format_pearson_report(detail)
+    assert '# Pearson QC — ROI 092 vs ROI 093' in rendered
+    assert '**Pearson r = 0.8691**' in rendered
+    assert 'Shared barcode pairs: 406' in rendered
+    assert '0 = ROI 092; 1 = ROI 093' in rendered
+    assert '[matrix.png](matrix.png)' in rendered and '![' not in rendered
+    assert '[results.json](results.json)' in rendered
+    assert not any(w in rendered for w in detail['warnings'])
+    assert 'Notes' not in rendered and 'preview' not in rendered
+    assert len(rendered.splitlines())<=14 and detail==before
+
+
+def test_large_report_shows_each_pair_once_with_saved_dataset_indices():
+    detail=evidence(32);before=copy.deepcopy(detail);rendered=format_pearson_report(detail)
+    assert len(detail['comparisons'])==496
+    assert 'Showing 10' not in rendered and 'preview' not in rendered
+    assert '| ROI 030 (index 30) | ROI 031 (index 31) | -0.5000 | 3 |' in rendered
+    assert '| ROI 001 (index 1) | ROI 002 (index 2) | undefined | 3 |' in rendered
+    assert sum(line.startswith('| ROI ') for line in rendered.splitlines())==496
+    assert '| 31 | ROI 031 |' in rendered
+    assert all(w not in rendered for w in detail['warnings'])
     assert detail==before
 
 
-def test_large_saved_report_preserves_complete_pairwise_evidence():
-    detail=evidence(32);rendered=format_pearson_report(detail)
-    assert len(detail['comparisons'])==496
-    assert 'Showing 10 of 496' in rendered
-    assert '## Complete pairwise comparisons' in rendered
-    assert '| 30 | 31 | -0.5 | 3 |' in rendered
-    assert '| 1 | 2 | undefined | 3 |' in rendered
-    appendix=rendered.split('## Complete pairwise comparisons')[1]
-    assert sum(line.startswith('| ') for line in appendix.splitlines())==497  # header + all pairs
+def test_undefined_coefficient_stays_undefined_and_zero_stays_zero():
+    detail=evidence(2);detail['comparisons'][0]['pearson_r']=None
+    assert '**Pearson r = undefined**' in format_pearson_report(detail)
+    detail['comparisons'][0]['pearson_r']=0.0
+    assert '**Pearson r = 0.0000**' in format_pearson_report(detail)
+
+
+def test_duplicate_roi_labels_remain_distinguishable_by_dataset_indices():
+    detail=evidence(3)
+    for d in detail['datasets']:d['roi']='92'
+    rendered=format_pearson_report(detail)
+    assert '| ROI 092 (index 0) | ROI 092 (index 2) | -0.5000 | 3 |' in rendered
+    assert '| 0 | ROI 092 |' in rendered and '| 2 | ROI 092 |' in rendered
 
 
 def test_human_form_has_all_choices_bounded_preview_and_exact_artifact_references():
@@ -53,6 +75,6 @@ def test_human_form_has_all_choices_bounded_preview_and_exact_artifact_reference
     assert len(message.encode())<16000
 
 
-def test_file_labels_cannot_break_report_table_rows():
-    detail=evidence(2);detail['datasets'][0]['label']='name|with\nnewline'
-    assert r'name\|with newline' in format_pearson_report(detail)
+def test_roi_labels_cannot_break_report_table_rows():
+    detail=evidence(3);detail['datasets'][0]['roi']='name|with\nnewline'
+    assert r'ROI name\|with newline' in format_pearson_report(detail)

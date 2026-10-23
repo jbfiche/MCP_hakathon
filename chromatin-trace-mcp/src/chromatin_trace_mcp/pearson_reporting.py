@@ -15,34 +15,39 @@ def coefficient(value):
     return 'undefined' if value is None else str(value)
 
 
-def comparison_table(comparisons):
-    lines = ['| First | Second | Pearson r | Shared non-NaN pairs |', '|---:|---:|---:|---:|']
-    return lines + [f"| {c['first']} | {c['second']} | {coefficient(c['pearson_r'])} | {c['shared_non_nan_pairs']} |" for c in comparisons]
+def report_coefficient(value):
+    """Round presentation only; complete native precision stays in results.json."""
+    return 'undefined' if value is None else f'{value:.4f}'
+
+
+def roi_name(value):
+    label = str(value)
+    return 'ROI ' + cell(label.zfill(3) if label.isdecimal() else label)
 
 
 def format_pearson_report(detail):
-    """Full local Markdown artifact, with a short overview before complete evidence."""
-    datasets, comparisons, notes = detail['datasets'], detail['comparisons'], detail['warnings']
-    undefined = sum(c['pearson_r'] is None for c in comparisons)
-    lines = ['# Pearson QC report', '',
-             'Review required; no scientific acceptance threshold or merge decision was applied.', '',
-             f'Datasets: {len(datasets)}. Pairwise comparisons: {len(comparisons)}. Undefined: {undefined}.',
-             'Dataset indices are positions in this saved run, not ROI or barcode numbers.', '',
-             'Native calculation: median barcode-pair distances per dataset, followed by pairwise Pearson correlation over shared non-NaN pairs.', '',
-             '| Index | Dataset | ROI | Rows | Distance pairs |', '|---|---|---|---:|---:|']
-    lines += [f"| {d['index']} | {cell(d['label'])} | {cell(d['roi'])} | {d['rows']} | {d['distance_pair_count']} |" for d in datasets]
-    lines += ['', '## Notes', ''] + ['- '+n for n in notes]
-    lines += ['', '## Correlation preview', ''] + comparison_table(comparisons[:COMPARISON_PREVIEW_LIMIT])
-    if len(comparisons) > COMPARISON_PREVIEW_LIMIT:
-        lines += ['', f'Showing {COMPARISON_PREVIEW_LIMIT} of {len(comparisons)} comparisons in saved index order. This preview does not select best/worst pairs or imply acceptance.',
-                  'The complete comparison table is below; full numerical matrices and distance maps remain in results.json and the native NPY artifact.']
-    lines += ['', '## Referenced artifacts', '', f"Figure: {detail['artifacts']['figure']}",
-              f"Native matrix: {detail['artifacts']['native_matrix']}",
-              'Full numerical results, warnings and exact manifest references: results.json']
-    if len(comparisons) > COMPARISON_PREVIEW_LIMIT:
-        lines += ['', '## Complete pairwise comparisons', ''] + comparison_table(comparisons)
-    lines += ['', 'STOP: review these outputs. No approval state, merging or downstream analyzer was executed.']
-    return '\n'.join(lines)+'\n'
+    """Minimal local correlation report; evidence and approval formatting unchanged."""
+    datasets, comparisons = detail['datasets'], detail['comparisons']
+    by_index = {d['index']: roi_name(d['roi']) for d in datasets}
+    if len(datasets) == 2 and len(comparisons) == 1:
+        pair = comparisons[0]
+        lines = [f"# Pearson QC — {by_index[pair['first']]} vs {by_index[pair['second']]}", '',
+                 f"**Pearson r = {report_coefficient(pair['pearson_r'])}**", '',
+                 f"Shared barcode pairs: {pair['shared_non_nan_pairs']}"]
+    else:
+        lines = ['# Pearson QC', '',
+                 '| First ROI | Second ROI | Pearson r | Shared barcode pairs |',
+                 '|---|---|---:|---:|']
+        lines += [f"| {by_index[c['first']]} (index {c['first']}) | {by_index[c['second']]} (index {c['second']}) | {report_coefficient(c['pearson_r'])} | {c['shared_non_nan_pairs']} |"
+                  for c in comparisons]
+    lines += ['', f"Figure: [{detail['artifacts']['figure']}]({detail['artifacts']['figure']})", '']
+    if len(datasets) == 2:
+        lines += ['Dataset indices: ' + '; '.join(f"{d['index']} = {by_index[d['index']]}" for d in datasets) + '.']
+    else:
+        lines += ['| Dataset index | ROI |', '|---:|---|']
+        lines += [f"| {d['index']} | {by_index[d['index']]} |" for d in datasets]
+    lines += ['', 'Complete numerical results, scientific warnings and provenance: [results.json](results.json).']
+    return '\n'.join(lines) + '\n'
 
 
 def format_approval_review(ev, revision):

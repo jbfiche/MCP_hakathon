@@ -38,7 +38,7 @@ async def client():
 
 
 @pytest.mark.anyio
-async def test_lists_one_resource_and_twenty_three_tools(client: Client) -> None:
+async def test_lists_one_resource_and_twenty_seven_tools(client: Client) -> None:
     resources = (await client.list_resources()).resources
     tools = (await client.list_tools()).tools
 
@@ -71,6 +71,7 @@ async def test_lists_one_resource_and_twenty_three_tools(client: Client) -> None
         "localization_merge",
         "merged_trace_stats",
         "trace_analyzer",
+        "trace_genomic_coordinates",
     ]
     assert all(tool.output_schema is not None for tool in tools)
 
