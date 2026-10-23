@@ -58,7 +58,7 @@ Global Trace_ID counts may differ from distinct ROI/Trace_ID pairs. Trace_ID is 
 segmented nucleus, not necessarily a chromosome or allele. Observed barcode count
 does not establish expected barcode completeness or biological success.
 
-## Remaining milestones — separately approved, not implemented
+## Implemented scientific stages and comprehensive reporting
 
 The final comprehensive experiment report must be produced **after both analyzers
 and before filtering**. Its scope is broader than the initial Step 0 report.
@@ -73,18 +73,18 @@ and before filtering**. Its scope is broader than the initial Step 0 report.
    collisions and invalid genomic/physical metadata, and preserves native numerical
    values/figures. See [trace analyzer](trace-analyzer.md). Actual experiment analysis
    still requires valid input metadata; synthetic equivalence is not a substitute.
-3. Reuse and verify the existing localization_analyzer wrapper on the corresponding
-   merged, unfiltered localization table. The plotting schema includes Barcode #,
-   zcentroid, snr, skew, object_class and roundness. Legacy schemas may skip plotting;
-   an absent figure must be reported, not represented as successful QC. Neither
-   native analyzer requires prior filtering. Approval required for this integration.
+3. The existing localization_analyzer now has a verified merged-input mode, with
+   native figure and plot-data preservation, current approval/source checks and an
+   optional verified tracing-barcode mapping reference. See
+   [localization analyzer](localization-analyzer.md). It applies no extra filtering.
+
 4. Only after both analyzer stages, use chromatin-report-mcp to compose the
    comprehensive human-readable pre-filtering QC report from validated saved
    artifacts. Include Step 0 validation/per-ROI stats; Pearson results and human
    approval; tracing/localization merges and source ROI mappings; merged trace_stats;
    both analyzers' available statistics, warnings, failures and saved figure
    references. Missing evidence remains explicit; do not label a partial report
-   complete. This report implementation requires separate approval.
+   complete. The approved report composition is implemented; see [report workflow](comprehensive-qc-report.md).
 5. Filtering is a later scientific decision/stage, never an automatic consequence
    of descriptive statistics, correlation, completed analyzers or report generation.
 
@@ -92,12 +92,11 @@ Scientific execution, provenance, validation and approval stay in the trace serv
 The report server must only format verified evidence, never recalculate scientific
 measurements or change source data. Plan read-only authorized artifact access using
 a small QC manifest/run reference and SHA-256 values rather than passing full JSON,
-matrices, ECSV tables or images through the model. Existing comparison report tools
-are not yet a general workflow-composition interface; this milestone adds no report
-server tool, shared-store integration, or comprehensive formatter. Simple Step 0
-and Pearson reports remain in trace without extra cross-server calls.
+matrices, ECSV tables or images through the model. The dedicated `generate_experiment_qc_report` tool now composes a host-provisioned
+manifest in one report call. Existing comparison tools retain their schemas. Simple
+Step 0 and Pearson reports remain in trace without extra cross-server calls.
 
-## Evidence required for the future comprehensive report
+## Evidence required for the comprehensive report
 
 Link original Step 0 table hashes to collection source hashes; bind both merge runs,
 ECSV/provenance hashes and original experiment/ROI mappings to the same Pearson ID,

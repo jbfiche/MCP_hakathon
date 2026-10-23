@@ -161,3 +161,12 @@ uv run python scripts/check_server.py <tool>
 For PDF reports, render the generated PDF and inspect the pages before delivery.
 
 - Genomic annotation uses native five-column BED replacement in a new derivative; require explicit host-configured assembly authority. Keep baseline and localization IDs unchanged; analyzer validates both evidence chains. See `references/genomic-annotation.md`.
+
+- For merged localization QC, use the verified mode of the existing localization_analyzer tool with merge/provenance hashes and current human approval. Preserve original barcode IDs and unknown units; reference tracing annotation mapping without applying it. See `references/localization-analyzer.md`.
+
+## Comprehensive pre-filtering report
+
+After both analyzers, use report `generate_experiment_qc_report` with the host-provisioned
+manifest ID and checksum. Read `references/comprehensive-qc-report.md`. Do not relay
+full tables, matrices, numerical arrays or figures through the model, rerun science
+for formatting, change approval, or start filtering. Return the compact report path.

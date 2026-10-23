@@ -432,3 +432,5 @@ stores. See [the analyzer reference](../references/trace-analyzer.md). There is 
 automatic localization analysis, comprehensive report or filtering.
 
 Genomic annotation is available through `trace_genomic_coordinates` before the analyzer, using native five-column BED barcode replacement and host-confirmed assembly evidence. See [genomic annotation](../references/genomic-annotation.md). Original merges, baselines and localization identifiers remain unchanged.
+
+The existing `localization_analyzer` supports approved, checksum-verified localization merges while retaining its registered-dataset interface. It preserves native figures, numerical plot evidence, original barcode IDs and source integrity. See [localization analyzer](../references/localization-analyzer.md). Comprehensive reporting and filtering remain separately approved future work.

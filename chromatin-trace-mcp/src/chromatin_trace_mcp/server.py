@@ -10,7 +10,7 @@ from collections import Counter
 from contextlib import redirect_stdout
 from importlib.metadata import version
 from pathlib import Path
-from typing import Annotated, Literal
+from typing import Annotated, Literal, Any
 from uuid import uuid4
 
 import numpy as np
@@ -22,6 +22,7 @@ from traceratops.core.chromatin_trace_table import read_table_from_ecsv
 from traceratops.core.localization_table import LocalizationTable
 from traceratops.localization_analyzer import run as localization_analyzer_run
 from traceratops.trace_filter import runtime as filter_runtime
+from .localization_analysis import VerifiedLocalizationAnalysisResult, execute_analysis as execute_verified_localization_analysis
 from .trace_statistics import compute_statistics
 from traceratops.trace_to_matrix import runtime as matrix_runtime
 
@@ -1023,8 +1024,9 @@ async def trace_to_matrix(
     description=(
         "Run traceratops' native localization_analyzer on the separately configured "
         "localization ECSV table. Generates a quality-control figure showing SNR by "
-        "barcode, SNR versus z, detection counts, and roundness versus skew. This "
-        "tool requires CHROMATIN_LOCALIZATION_ECSV, not the chromatin trace table."
+        "barcode, SNR versus z, detection counts, and roundness versus skew. "
+        "Use localization_merge_run_id with merged_sha256 and provenance_sha256 for "
+        "verified approved merged data; otherwise use the configured registered localization table."
     ),
     annotations=ToolAnnotations(
         read_only_hint=False,
@@ -1044,8 +1046,23 @@ async def localization_analyzer(
             description="Plot format: png, svg, or pdf.",
         ),
     ] = "png",
-) -> LocalizationAnalysisResult:
-    """Call traceratops localization_analyzer and return its QC plot artifact."""
+    localization_merge_run_id: Annotated[str, Field(pattern=r"^[a-f0-9]{32}$")] | None = None,
+    merged_sha256: Annotated[str, Field(pattern=r"^[a-f0-9]{64}$")] | None = None,
+    provenance_sha256: Annotated[str, Field(pattern=r"^[a-f0-9]{64}$")] | None = None,
+    annotation_run_id: Annotated[str, Field(pattern=r"^[a-f0-9]{32}$")] | None = None,
+    annotation_sha256: Annotated[str, Field(pattern=r"^[a-f0-9]{64}$")] | None = None,
+) -> dict[str, Any]:
+    """Run native localization QC; verified merges require current scientific approval."""
+    merge_reference = [localization_merge_run_id, merged_sha256, provenance_sha256]
+    if any(v is not None for v in merge_reference):
+        if not all(v is not None for v in merge_reference):
+            raise ToolError("Verified localization analysis requires merge ID and both checksums together")
+        if dataset_name != "current":
+            raise ToolError("A verified merge reference cannot be combined with a registered dataset override")
+        return execute_verified_localization_analysis(localization_merge_run_id, merged_sha256,
+            provenance_sha256, output_format, annotation_run_id, annotation_sha256).model_dump(mode="json")
+    if annotation_run_id is not None or annotation_sha256 is not None:
+        raise ToolError("Tracing annotation references require a verified localization merge")
     source = _dataset_localization_path(dataset_name)
     run_directory = _new_run_directory(source, "localization-analysis")
     output_file = run_directory / f"{source.stem}_localization_qc.{output_format}"
@@ -1080,7 +1097,7 @@ async def localization_analyzer(
         output_file=str(output_file.resolve()),
         artifacts=_artifacts_in(run_directory),
         traceratops_report=captured_output.getvalue().strip(),
-    )
+    ).model_dump(mode="json")
 
 
 def _coordinate_unit(table) -> str | None:

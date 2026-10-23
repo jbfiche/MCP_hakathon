@@ -24,7 +24,8 @@ mcp = MCPServer(
         "Writes reproducible Markdown or HTML reports from structured results "
         "returned by a chromatin-analysis MCP server and can draft the same "
         "comparison as a PDF. It does not recalculate or "
-        "reinterpret scientific measurements."
+        "reinterpret scientific measurements. For comprehensive pre-filtering QC, "
+        "use generate_experiment_qc_report with a host-provisioned manifest reference."
     ),
 )
 
@@ -753,10 +754,41 @@ async def write_comparison_report(
     )
 
 
+class WorkflowReportArtifact(BaseModel):
+    run_id: str
+    status: Literal["COMPLETE_WITH_LIMITATIONS"]
+    path: str
+    report_sha256: str
+    evidence_path: str
+    verified_artifacts: int
+    size_bytes: int
+    execution_seconds: float
+
+
+@mcp.tool(
+    name="generate_experiment_qc_report",
+    description="Compose a pre-filtering experiment HTML report from a host-provisioned, checksum-bound workflow manifest. Verify scientific evidence and current human approval; never run calculations. Returns compact report references only.",
+    annotations=ToolAnnotations(read_only_hint=False, destructive_hint=False,
+                                idempotent_hint=False, open_world_hint=False),
+)
+async def generate_experiment_qc_report(
+    manifest_id: Annotated[str, Field(min_length=1, max_length=80)],
+    manifest_sha256: Annotated[str, Field(pattern="^[a-f0-9]{64}$")],
+) -> WorkflowReportArtifact:
+    global _latest_report
+    from .workflow_report import generate
+    try:
+        artifact = WorkflowReportArtifact(**generate(manifest_id, manifest_sha256))
+    except (OSError, ValueError, KeyError, TypeError, StopIteration) as exc:
+        raise ToolError(f"QC report evidence verification failed: {exc}") from exc
+    _latest_report = Path(artifact.path)
+    return artifact
+
+
 @mcp.resource(
     LATEST_REPORT_URI,
     name="latest_chromatin_report",
-    title="Latest chromatin comparison report",
+    title="Latest chromatin report",
     description="Most recent report written during this MCP server session.",
     mime_type="text/plain",
 )

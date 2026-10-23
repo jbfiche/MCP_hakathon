@@ -1,0 +1,3144 @@
+{
+  "description": "Reviewed saved ROI092/093 result schemas and numeric summaries; opaque scientific data/figures replaced with deterministic placeholders. Not a biological fixture.",
+  "manifest": {
+    "schema_version": 1,
+    "title": "ROI 092 / 093 \u00b7 dm6 \u00b7 pre-filtering QC",
+    "roles": {
+      "step0": "@FIXTURE@/stores/step0/e3a31507eda2497d9c0cc94283c34dd5/details.json",
+      "pearson": "@FIXTURE@/stores/pearson/43f648fb02464564b6f57efd609ba69a/results.json",
+      "approval": "@FIXTURE@/stores/pearson/.scientific-approvals/43f648fb02464564b6f57efd609ba69a.json",
+      "trace_merge": "@FIXTURE@/stores/traces/a2a15cdd6264450aa5f37133bc0269db/provenance.json",
+      "localization_merge": "@FIXTURE@/stores/localizations/b91328790abe4a17a4a400ddd069e97f/provenance.json",
+      "baseline": "@FIXTURE@/stores/baseline/f2d2ad71fc9846d08c066de3c5a664fb/statistics.json",
+      "annotation": "@FIXTURE@/stores/annotations/2e4f2da254b64a9fb5589cec640797d1/annotation.json",
+      "trace_analysis": "@FIXTURE@/stores/analysis/a399f1dbf1d547878825b563bdb3a815/analysis.json",
+      "localization_analysis": "@FIXTURE@/stores/localization-analysis/c1649f4ba0ff4d049b2210db39e85016/analysis.json",
+      "mapping": "@FIXTURE@/stores/annotations/2e4f2da254b64a9fb5589cec640797d1/barcode_mapping.json",
+      "reference": "@FIXTURE@/genome_reference.json",
+      "trace_numerical": "@FIXTURE@/stores/analysis/a399f1dbf1d547878825b563bdb3a815/numerical_outputs.json",
+      "localization_numerical": "@FIXTURE@/stores/localization-analysis/c1649f4ba0ff4d049b2210db39e85016/numerical_outputs.json"
+    },
+    "files": [
+      {
+        "path": "@FIXTURE@/genome_reference.json",
+        "sha256": "a321d6f1b804bb58244afcacf31854c07bde7c0159aaa9eba0024b95b94caba6"
+      },
+      {
+        "path": "@FIXTURE@/stores/analysis/a399f1dbf1d547878825b563bdb3a815/analysis.json",
+        "sha256": "ebeff6170faea1eb923bd070abea6911194855af65e200fda813f390011a6e17"
+      },
+      {
+        "path": "@FIXTURE@/stores/analysis/a399f1dbf1d547878825b563bdb3a815/artifacts.json",
+        "sha256": "e31696bb7f2cb64a0b2fa79f8a7a3aaefadafa999e212c102c2740170cef6dbc"
+      },
+      {
+        "path": "@FIXTURE@/stores/analysis/a399f1dbf1d547878825b563bdb3a815/numerical_outputs.json",
+        "sha256": "8e5ec3dd8cfa4672e1859aa93621e3ea9d430a304ea511eee1706aacba880c8d"
+      },
+      {
+        "path": "@FIXTURE@/stores/analysis/a399f1dbf1d547878825b563bdb3a815/numerical_outputs.npz",
+        "sha256": "3e3b28798a0b319c46fef6c46764337906bd108d09e82686796595aadcb11c62"
+      },
+      {
+        "path": "@FIXTURE@/stores/analysis/a399f1dbf1d547878825b563bdb3a815/stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "@FIXTURE@/stores/analysis/a399f1dbf1d547878825b563bdb3a815/stdout.log",
+        "sha256": "d5b316b498651b254a871d45eb181ea826dec4c51703d361253ed13932c45a6b"
+      },
+      {
+        "path": "@FIXTURE@/stores/analysis/a399f1dbf1d547878825b563bdb3a815/trace_barcode_detection.png",
+        "sha256": "52ebbfba326474ecde122dd894e8ab3d31915f0ff8dd63439349f4f0ab72969a"
+      },
+      {
+        "path": "@FIXTURE@/stores/analysis/a399f1dbf1d547878825b563bdb3a815/trace_first_neighbor_distances.png",
+        "sha256": "585e2f0feb7969ca3f3f899f80ef241721a25acbc2500187b7d00af5362ed9e1"
+      },
+      {
+        "path": "@FIXTURE@/stores/analysis/a399f1dbf1d547878825b563bdb3a815/trace_kde_projections.png",
+        "sha256": "ecdbef691f6871ebbe42019f85ede8c8e532ea10b709a401273ec303662798b2"
+      },
+      {
+        "path": "@FIXTURE@/stores/analysis/a399f1dbf1d547878825b563bdb3a815/trace_relative_barcode_frequencies.png",
+        "sha256": "dda0b184b8a385b3d2ff065bf881505a9318bb9c2b41616511ef2538e87a144b"
+      },
+      {
+        "path": "@FIXTURE@/stores/analysis/a399f1dbf1d547878825b563bdb3a815/trace_trace_statistics.png",
+        "sha256": "5993fbfbeea053a50d8a65acbf61cdb83a4accd9fce966703ab4e281b8298287"
+      },
+      {
+        "path": "@FIXTURE@/stores/annotations/2e4f2da254b64a9fb5589cec640797d1/annotated_traces.ecsv",
+        "sha256": "843fb0f17a6a87984bcce6a654f4dddfecba6c96c9d4fb943f36d940e7a9e9f9"
+      },
+      {
+        "path": "@FIXTURE@/stores/annotations/2e4f2da254b64a9fb5589cec640797d1/annotation.json",
+        "sha256": "39d299a59acbe4f73c2c43081650bacc17824f1ccd90607d88466829af04bfee"
+      },
+      {
+        "path": "@FIXTURE@/stores/annotations/2e4f2da254b64a9fb5589cec640797d1/barcode_mapping.json",
+        "sha256": "ae859992ca2a6c54d1a80ff621045acf068fb6018158de703bcf0467d27bb41c"
+      },
+      {
+        "path": "@FIXTURE@/stores/annotations/2e4f2da254b64a9fb5589cec640797d1/native.log",
+        "sha256": "62207c47ef744f6183eab129b9d4f20f458c6f19d48967f0a474697c6e454007"
+      },
+      {
+        "path": "@FIXTURE@/stores/annotations/2e4f2da254b64a9fb5589cec640797d1/native_annotated.ecsv",
+        "sha256": "21fe61d74f6b2e38c00fcd3f2f97042d39aa70e44bc3d7931abef68b920dbdff"
+      },
+      {
+        "path": "@FIXTURE@/stores/baseline/f2d2ad71fc9846d08c066de3c5a664fb/native.log",
+        "sha256": "021701c2919395eb3546024932637b1ea0e339a8ebd4e9eea2a7731f4aeb7e39"
+      },
+      {
+        "path": "@FIXTURE@/stores/baseline/f2d2ad71fc9846d08c066de3c5a664fb/statistics.json",
+        "sha256": "41391e26a6a5ae4f59c94c383a672f376bee966754f4b04934d2f0aceada856a"
+      },
+      {
+        "path": "@FIXTURE@/stores/collections/3139d2b036f14060a44bb76ea858b5c9/Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+        "sha256": "23c432213a0f07c753549d3be0a0aecd6599388f982336aa36f5292270ae6b3a"
+      },
+      {
+        "path": "@FIXTURE@/stores/collections/3139d2b036f14060a44bb76ea858b5c9/Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+        "sha256": "0d99ba52cfc454bff611e434a160f6b00580ac09b7d304a819de3be0bcaae3ce"
+      },
+      {
+        "path": "@FIXTURE@/stores/collections/3139d2b036f14060a44bb76ea858b5c9/manifest.json",
+        "sha256": "1322de6a7bf63c64c7fddc21f251a6829fa0496c526c6002432dc70dc6c22839"
+      },
+      {
+        "path": "@FIXTURE@/stores/collections/3139d2b036f14060a44bb76ea858b5c9/native.log",
+        "sha256": "ceac380a7e2940f92a7435cd0a1a877cf60dbd294c4600fff401c75c9f3db61a"
+      },
+      {
+        "path": "@FIXTURE@/stores/collections/b44bbac19977491484e0400f905bc9b6/localizations_3D_barcode_092.ecsv",
+        "sha256": "1f45d67451af4c3899c51d5b3a1e31e3ec74141e9b075d23fc0cd66220905489"
+      },
+      {
+        "path": "@FIXTURE@/stores/collections/b44bbac19977491484e0400f905bc9b6/localizations_3D_barcode_093.ecsv",
+        "sha256": "2a46071db8059c76fc22fd70a5bbec21e64b7ad1a72708c2af12a1d243f80a19"
+      },
+      {
+        "path": "@FIXTURE@/stores/collections/b44bbac19977491484e0400f905bc9b6/manifest.json",
+        "sha256": "a824ec351e92435e97aaa0a30a7ebd3e46bb3091b84fda888022757e252be4a6"
+      },
+      {
+        "path": "@FIXTURE@/stores/collections/b44bbac19977491484e0400f905bc9b6/native.log",
+        "sha256": "5ed7e60c353c6e5a781df37df9843ac018fbb74992ad669d5122b9f68f848fc7"
+      },
+      {
+        "path": "@FIXTURE@/stores/localization-analysis/c1649f4ba0ff4d049b2210db39e85016/analysis.json",
+        "sha256": "7fe7b9a1438c0c3e88b1eb7ff6129df690c7a34ab58d4e0afca2bc07e9846dbb"
+      },
+      {
+        "path": "@FIXTURE@/stores/localization-analysis/c1649f4ba0ff4d049b2210db39e85016/artifacts.json",
+        "sha256": "11079186c776752923df40c7a48869dc3e68275f8a4448905051b33976349d9e"
+      },
+      {
+        "path": "@FIXTURE@/stores/localization-analysis/c1649f4ba0ff4d049b2210db39e85016/localization_distribution_fluxes.png",
+        "sha256": "97fd838a10408597195d91c8bed8ac88ba9b60e98028af0bfd2ec70af39b95f9"
+      },
+      {
+        "path": "@FIXTURE@/stores/localization-analysis/c1649f4ba0ff4d049b2210db39e85016/numerical_outputs.json",
+        "sha256": "9a7e3495e8ba8828c3546c725677b5abbc6d55ba733b13f70c4a62b949c822bb"
+      },
+      {
+        "path": "@FIXTURE@/stores/localization-analysis/c1649f4ba0ff4d049b2210db39e85016/numerical_outputs.npz",
+        "sha256": "d7bf452da9cfece7ff088da8a772327edca35b74ef47dbc4208d0e04d614aab2"
+      },
+      {
+        "path": "@FIXTURE@/stores/localization-analysis/c1649f4ba0ff4d049b2210db39e85016/stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "@FIXTURE@/stores/localization-analysis/c1649f4ba0ff4d049b2210db39e85016/stdout.log",
+        "sha256": "989dd574fb11d06fc74fff85f6982514f379eb8d679dd0bb2ea9ad2df6270f45"
+      },
+      {
+        "path": "@FIXTURE@/stores/localizations/b91328790abe4a17a4a400ddd069e97f/merged_localizations.ecsv",
+        "sha256": "cd89b37b7cb357f37947903221a37f7ef498ca546b1af9fc031dac0376a824d6"
+      },
+      {
+        "path": "@FIXTURE@/stores/localizations/b91328790abe4a17a4a400ddd069e97f/native.log",
+        "sha256": "43fbe8724376f5695b07f9db7eff7836766eb5da89a92b3781cab4ff529dadd5"
+      },
+      {
+        "path": "@FIXTURE@/stores/localizations/b91328790abe4a17a4a400ddd069e97f/provenance.json",
+        "sha256": "ea353902cb3a731a74f256748c510cdb37a614b0616809284576d250f3243423"
+      },
+      {
+        "path": "@FIXTURE@/stores/pearson/.scientific-approvals/43f648fb02464564b6f57efd609ba69a.json",
+        "sha256": "a2bfc3d236a80aaf8a1b88b525426dcc45cc7d020846c7a59b0c19b47fca4f39"
+      },
+      {
+        "path": "@FIXTURE@/stores/pearson/43f648fb02464564b6f57efd609ba69a/native.log",
+        "sha256": "2fef1c256db76b36d6856c0d0685b046b85806a563c23c64de66a40092208c5e"
+      },
+      {
+        "path": "@FIXTURE@/stores/pearson/43f648fb02464564b6f57efd609ba69a/pearson_qc.md",
+        "sha256": "82d1d54d341b82b98dd895c06e65198a127e5ac61d7058bf6ed25579acbc995b"
+      },
+      {
+        "path": "@FIXTURE@/stores/pearson/43f648fb02464564b6f57efd609ba69a/results.json",
+        "sha256": "faf70a50073f49a8909ab0897db6054daf10be2b044d2bf1e0b940808939e77d"
+      },
+      {
+        "path": "@FIXTURE@/stores/pearson/43f648fb02464564b6f57efd609ba69a/trace_correlation_matrix.npy",
+        "sha256": "482ad62601cc7a72a1245e019e596268aced3d2dc685cd4e5a83e6058f37ae54"
+      },
+      {
+        "path": "@FIXTURE@/stores/pearson/43f648fb02464564b6f57efd609ba69a/trace_correlation_matrix.png",
+        "sha256": "6124187f3d7e993ee236f97f64aff2172109d3c5f3de179c051e79446e3c079f"
+      },
+      {
+        "path": "@FIXTURE@/stores/step0/e3a31507eda2497d9c0cc94283c34dd5/details.json",
+        "sha256": "e5c1628fb7e61981fc115c607ee044a2fdc032658d59ea2485124d8604cfe19e"
+      },
+      {
+        "path": "@FIXTURE@/stores/step0/e3a31507eda2497d9c0cc94283c34dd5/report.html",
+        "sha256": "0ac988848910baf2d8f7bb7178ba7b42b15b4e87934502d98e0cfbcf5c97db62"
+      },
+      {
+        "path": "@FIXTURE@/stores/step0/e3a31507eda2497d9c0cc94283c34dd5/report.md",
+        "sha256": "04f0ac597ce87b1963ce7f813b9a99afbb0101c63f1b8e354669787163f97ca7"
+      },
+      {
+        "path": "@FIXTURE@/stores/step0/e3a31507eda2497d9c0cc94283c34dd5/summary.json",
+        "sha256": "0d30b162942f9343420ed0677c6efb37880750ffdecab63bfaeabe1edf171b34"
+      },
+      {
+        "path": "@FIXTURE@/stores/traces/a2a15cdd6264450aa5f37133bc0269db/merged_traces.ecsv",
+        "sha256": "fe57ee6f85b022bae9ec8357753ae06854e038359a7305537d7d0f2fe4e2162a"
+      },
+      {
+        "path": "@FIXTURE@/stores/traces/a2a15cdd6264450aa5f37133bc0269db/native.log",
+        "sha256": "0298a3d3ad7dfdf65f3a04bd27f25f5e235d93fcef2653342e94f3c0902b594a"
+      },
+      {
+        "path": "@FIXTURE@/stores/traces/a2a15cdd6264450aa5f37133bc0269db/provenance.json",
+        "sha256": "15cb69540f987628f7a3ea4466f8f9fb32f6c5e33c118819636359e17dff8cd3"
+      },
+      {
+        "path": "@FIXTURE@/experiment/092/localize_3d/data/localizations_3D_barcode.ecsv",
+        "sha256": "1f45d67451af4c3899c51d5b3a1e31e3ec74141e9b075d23fc0cd66220905489"
+      },
+      {
+        "path": "@FIXTURE@/experiment/092/tracing/data/Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+        "sha256": "23c432213a0f07c753549d3be0a0aecd6599388f982336aa36f5292270ae6b3a"
+      },
+      {
+        "path": "@FIXTURE@/experiment/093/localize_3d/data/localizations_3D_barcode.ecsv",
+        "sha256": "2a46071db8059c76fc22fd70a5bbec21e64b7ad1a72708c2af12a1d243f80a19"
+      },
+      {
+        "path": "@FIXTURE@/experiment/093/tracing/data/Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+        "sha256": "0d99ba52cfc454bff611e434a160f6b00580ac09b7d304a819de3be0bcaae3ce"
+      },
+      {
+        "path": "@FIXTURE@/experiment/HR38_3kb_Exp276.bed",
+        "sha256": "efd788299802c16cd50a8b7b8fada3b218281be42d28f04b4681479794fb462e"
+      }
+    ]
+  },
+  "files": {
+    "genome_reference.json": {
+      "format": "json",
+      "data": {
+        "assembly": "dm6",
+        "authority": "Researcher explicitly confirmed dm6 for ROIs 092 and 093 in this conversation on 2026-10-22.",
+        "chromosome_sizes": {
+          "chr2L": 23513712
+        },
+        "chromosome_sizes_source": "https://hgdownload.soe.ucsc.edu/goldenPath/dm6/bigZips/dm6.chrom.sizes",
+        "scope": "chr2L only; sufficient for the provided BED, not a complete assembly reference.",
+        "previous_metadata": "Original ECSV mm10 is preserved as inherited/conflicting metadata, not assembly authority."
+      }
+    },
+    "experiment/HR38_3kb_Exp276.bed": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: efd788299802c16cd50a8b7b8fada3b218281be42d28f04b4681479794fb462e"
+    },
+    "stores/localizations/b91328790abe4a17a4a400ddd069e97f/provenance.json": {
+      "format": "json",
+      "data": {
+        "schema_version": 1,
+        "phase": "localization_merge_only",
+        "run_id": "b91328790abe4a17a4a400ddd069e97f",
+        "pearson_run_id": "43f648fb02464564b6f57efd609ba69a",
+        "results_sha256": "faf70a50073f49a8909ab0897db6054daf10be2b044d2bf1e0b940808939e77d",
+        "approval_revision": "790b893d4774440a9e3b41e269bef11d",
+        "approval_fingerprint": "29214e54c8d6ba885eb057aa86c0af90d66833d4188d1541aa7772c149335dc9",
+        "approval_snapshot": {
+          "schema_version": 1,
+          "pearson_run_id": "43f648fb02464564b6f57efd609ba69a",
+          "revision": "790b893d4774440a9e3b41e269bef11d",
+          "status": "APPROVED",
+          "reason": "Explicit human review decision received from the trusted MCP host",
+          "updated_at": "2026-10-22T13:59:53.880961+00:00",
+          "evidence": {
+            "pearson_run_id": "43f648fb02464564b6f57efd609ba69a",
+            "results_sha256": "faf70a50073f49a8909ab0897db6054daf10be2b044d2bf1e0b940808939e77d",
+            "report_path": "@FIXTURE@/stores/pearson/43f648fb02464564b6f57efd609ba69a/pearson_qc.md",
+            "report_sha256": "82d1d54d341b82b98dd895c06e65198a127e5ac61d7058bf6ed25579acbc995b",
+            "figure_sha256": "6124187f3d7e993ee236f97f64aff2172109d3c5f3de179c051e79446e3c079f",
+            "native_matrix_sha256": "482ad62601cc7a72a1245e019e596268aced3d2dc685cd4e5a83e6058f37ae54",
+            "collection_references": [
+              {
+                "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+                "manifest_sha256": "1322de6a7bf63c64c7fddc21f251a6829fa0496c526c6002432dc70dc6c22839"
+              }
+            ],
+            "datasets": [
+              {
+                "index": 0,
+                "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+                "manifest_sha256": "1322de6a7bf63c64c7fddc21f251a6829fa0496c526c6002432dc70dc6c22839",
+                "filename": "Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+                "path": "@FIXTURE@/stores/collections/3139d2b036f14060a44bb76ea858b5c9/Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+                "sha256": "23c432213a0f07c753549d3be0a0aecd6599388f982336aa36f5292270ae6b3a",
+                "roi": "92",
+                "rows": 46296
+              },
+              {
+                "index": 1,
+                "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+                "manifest_sha256": "1322de6a7bf63c64c7fddc21f251a6829fa0496c526c6002432dc70dc6c22839",
+                "filename": "Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+                "path": "@FIXTURE@/stores/collections/3139d2b036f14060a44bb76ea858b5c9/Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+                "sha256": "0d99ba52cfc454bff611e434a160f6b00580ac09b7d304a819de3be0bcaae3ce",
+                "roi": "93",
+                "rows": 34900
+              }
+            ],
+            "parameters": {
+              "output_format": "png",
+              "correlation_threshold": null
+            },
+            "native_module_sha256": "db5df6db26c701d86f4f0c3d3e0c680a3479be18188536e2dbc03823dd3b9041"
+          },
+          "fingerprint": "29214e54c8d6ba885eb057aa86c0af90d66833d4188d1541aa7772c149335dc9",
+          "selected_dataset_indices": [
+            0,
+            1
+          ],
+          "selected_datasets": [
+            {
+              "index": 0,
+              "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+              "manifest_sha256": "1322de6a7bf63c64c7fddc21f251a6829fa0496c526c6002432dc70dc6c22839",
+              "filename": "Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+              "path": "@FIXTURE@/stores/collections/3139d2b036f14060a44bb76ea858b5c9/Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+              "sha256": "23c432213a0f07c753549d3be0a0aecd6599388f982336aa36f5292270ae6b3a",
+              "roi": "92",
+              "rows": 46296
+            },
+            {
+              "index": 1,
+              "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+              "manifest_sha256": "1322de6a7bf63c64c7fddc21f251a6829fa0496c526c6002432dc70dc6c22839",
+              "filename": "Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+              "path": "@FIXTURE@/stores/collections/3139d2b036f14060a44bb76ea858b5c9/Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+              "sha256": "0d99ba52cfc454bff611e434a160f6b00580ac09b7d304a819de3be0bcaae3ce",
+              "roi": "93",
+              "rows": 34900
+            }
+          ],
+          "selected_collection_references": [
+            {
+              "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+              "manifest_sha256": "1322de6a7bf63c64c7fddc21f251a6829fa0496c526c6002432dc70dc6c22839"
+            }
+          ],
+          "previous_status": null,
+          "decision_source": "MCP_HOST_ELICITATION"
+        },
+        "selected_dataset_indices": [
+          0,
+          1
+        ],
+        "localization_collections": [
+          {
+            "collection_run_id": "b44bbac19977491484e0400f905bc9b6",
+            "manifest_sha256": "a824ec351e92435e97aaa0a30a7ebd3e46bb3091b84fda888022757e252be4a6"
+          }
+        ],
+        "authorization_scope": "human-approved-original-experiment-and-tracing-ROI-selection",
+        "localization_evidence_scope": "execution-snapshot-hashes-not-Pearson-reviewed-localization-bytes",
+        "merge_policy": "native-localization-merge-v1",
+        "sources": [
+          {
+            "approved_trace_index": 0,
+            "trace_collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+            "trace_filename": "Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+            "trace_sha256": "23c432213a0f07c753549d3be0a0aecd6599388f982336aa36f5292270ae6b3a",
+            "trace_source": "@FIXTURE@/experiment/092/tracing/data/Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+            "experiment_root": "@FIXTURE@/experiment",
+            "source_roi_directory": "092",
+            "source_relative": "092/localize_3d/data/localizations_3D_barcode.ecsv",
+            "source": "@FIXTURE@/experiment/092/localize_3d/data/localizations_3D_barcode.ecsv",
+            "roi": "92",
+            "collection_run_id": "b44bbac19977491484e0400f905bc9b6",
+            "manifest_sha256": "a824ec351e92435e97aaa0a30a7ebd3e46bb3091b84fda888022757e252be4a6",
+            "filename": "localizations_3D_barcode_092.ecsv",
+            "sha256": "1f45d67451af4c3899c51d5b3a1e31e3ec74141e9b075d23fc0cd66220905489",
+            "rows": 61420,
+            "row_start": 0,
+            "row_stop_exclusive": 61420,
+            "row_count": 61420,
+            "roi_mapping": {
+              "92": [
+                "92"
+              ]
+            },
+            "source_metadata_yaml": "comments: [filtered, registered]\n",
+            "source_column_metadata_yaml": "'Barcode #':\n  description: null\n  format: null\n  meta: {}\n  unit: null\nBuid:\n  description: null\n  format: null\n  meta: {}\n  unit: null\n'CellID #':\n  description: null\n  format: null\n  meta: {}\n  unit: null\n'ROI #':\n  description: null\n  format: null\n  meta: {}\n  unit: null\nflux:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nid:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nmean_intensity:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nobject_class:\n  description: null\n  format: null\n  meta: {}\n  unit: null\npatch_size:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nroundness:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nskew:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nsnr:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nspot_pixel_percentage:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nxcentroid:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nycentroid:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nzcentroid:\n  description: null\n  format: null\n  meta: {}\n  unit: null\n"
+          },
+          {
+            "approved_trace_index": 1,
+            "trace_collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+            "trace_filename": "Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+            "trace_sha256": "0d99ba52cfc454bff611e434a160f6b00580ac09b7d304a819de3be0bcaae3ce",
+            "trace_source": "@FIXTURE@/experiment/093/tracing/data/Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+            "experiment_root": "@FIXTURE@/experiment",
+            "source_roi_directory": "093",
+            "source_relative": "093/localize_3d/data/localizations_3D_barcode.ecsv",
+            "source": "@FIXTURE@/experiment/093/localize_3d/data/localizations_3D_barcode.ecsv",
+            "roi": "93",
+            "collection_run_id": "b44bbac19977491484e0400f905bc9b6",
+            "manifest_sha256": "a824ec351e92435e97aaa0a30a7ebd3e46bb3091b84fda888022757e252be4a6",
+            "filename": "localizations_3D_barcode_093.ecsv",
+            "sha256": "2a46071db8059c76fc22fd70a5bbec21e64b7ad1a72708c2af12a1d243f80a19",
+            "rows": 41741,
+            "row_start": 61420,
+            "row_stop_exclusive": 103161,
+            "row_count": 41741,
+            "roi_mapping": {
+              "93": [
+                "93"
+              ]
+            },
+            "source_metadata_yaml": "comments: [filtered, registered]\n",
+            "source_column_metadata_yaml": "'Barcode #':\n  description: null\n  format: null\n  meta: {}\n  unit: null\nBuid:\n  description: null\n  format: null\n  meta: {}\n  unit: null\n'CellID #':\n  description: null\n  format: null\n  meta: {}\n  unit: null\n'ROI #':\n  description: null\n  format: null\n  meta: {}\n  unit: null\nflux:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nid:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nmean_intensity:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nobject_class:\n  description: null\n  format: null\n  meta: {}\n  unit: null\npatch_size:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nroundness:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nskew:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nsnr:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nspot_pixel_percentage:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nxcentroid:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nycentroid:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nzcentroid:\n  description: null\n  format: null\n  meta: {}\n  unit: null\n"
+          }
+        ],
+        "native_functions": [
+          "localization_merge.run",
+          "LocalizationTable.append",
+          "LocalizationTable.save"
+        ],
+        "native_module_sha256": "1c1f0127d1d2c4580d6f95ba6203b8e7222e7524f8ef657e8bd6021463afee0e",
+        "native_table_module_sha256": "17ccf6e3520bd5cb0af6560580f770b6be550557c89bda501985cf8c31bafdd0",
+        "traceratops_version": "1.0.1",
+        "merged_sha256": "cd89b37b7cb357f37947903221a37f7ef498ca546b1af9fc031dac0376a824d6",
+        "row_count": 103161,
+        "barcode_count": 29,
+        "roi_count": 2,
+        "localization_id_count": 103161,
+        "merged_metadata_yaml": "comments: [filtered, registered, appended_loc_files=2]\n",
+        "merged_column_metadata_yaml": "'Barcode #':\n  description: null\n  format: null\n  meta: {}\n  unit: null\nBuid:\n  description: null\n  format: null\n  meta: {}\n  unit: null\n'CellID #':\n  description: null\n  format: null\n  meta: {}\n  unit: null\n'ROI #':\n  description: null\n  format: null\n  meta: {}\n  unit: null\nflux:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nid:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nmean_intensity:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nobject_class:\n  description: null\n  format: null\n  meta: {}\n  unit: null\npatch_size:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nroundness:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nskew:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nsnr:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nspot_pixel_percentage:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nxcentroid:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nycentroid:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nzcentroid:\n  description: null\n  format: null\n  meta: {}\n  unit: null\n",
+        "warnings": [
+          "Approval covers the tracing source ROI selection. Localization bytes are bound by collection hashes for this execution, not by the earlier Pearson human decision.",
+          "Coordinate unit or genome assembly is not fully declared; no metadata inference or conversion was performed."
+        ],
+        "artifacts": {
+          "merged": "merged_localizations.ecsv",
+          "native_log": "native.log"
+        }
+      }
+    },
+    "stores/localizations/b91328790abe4a17a4a400ddd069e97f/native.log": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: 43fbe8724376f5695b07f9db7eff7836766eb5da89a92b3781cab4ff529dadd5"
+    },
+    "stores/localizations/b91328790abe4a17a4a400ddd069e97f/merged_localizations.ecsv": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: cd89b37b7cb357f37947903221a37f7ef498ca546b1af9fc031dac0376a824d6"
+    },
+    "stores/baseline/f2d2ad71fc9846d08c066de3c5a664fb/statistics.json": {
+      "format": "json",
+      "data": {
+        "schema_version": 1,
+        "run_id": "f2d2ad71fc9846d08c066de3c5a664fb",
+        "generated_at_utc": "2026-10-23T06:51:54.562972+00:00",
+        "status": "COMPUTED",
+        "scope": "merged_unfiltered_tracing",
+        "trace_merge_run_id": "a2a15cdd6264450aa5f37133bc0269db",
+        "source_file": "@FIXTURE@/stores/traces/a2a15cdd6264450aa5f37133bc0269db/merged_traces.ecsv",
+        "merged_sha256": "fe57ee6f85b022bae9ec8357753ae06854e038359a7305537d7d0f2fe4e2162a",
+        "provenance_sha256": "15cb69540f987628f7a3ea4466f8f9fb32f6c5e33c118819636359e17dff8cd3",
+        "merge_native_log_sha256": "0298a3d3ad7dfdf65f3a04bd27f25f5e235d93fcef2653342e94f3c0902b594a",
+        "pearson_run_id": "43f648fb02464564b6f57efd609ba69a",
+        "pearson_results_sha256": "faf70a50073f49a8909ab0897db6054daf10be2b044d2bf1e0b940808939e77d",
+        "approval_revision": "790b893d4774440a9e3b41e269bef11d",
+        "approval_fingerprint": "29214e54c8d6ba885eb057aa86c0af90d66833d4188d1541aa7772c149335dc9",
+        "selected_dataset_indices": [
+          0,
+          1
+        ],
+        "approved_source_contributions": [
+          {
+            "index": 0,
+            "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+            "manifest_sha256": "1322de6a7bf63c64c7fddc21f251a6829fa0496c526c6002432dc70dc6c22839",
+            "filename": "Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+            "sha256": "23c432213a0f07c753549d3be0a0aecd6599388f982336aa36f5292270ae6b3a",
+            "roi": "92",
+            "rows": 46296,
+            "roi_mapping": {
+              "92": [
+                "92"
+              ]
+            },
+            "experiment_root": "@FIXTURE@/experiment",
+            "original_source": "@FIXTURE@/experiment/092/tracing/data/Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+            "source_relative": "092/tracing/data/Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+            "source_roi_directory": "092"
+          },
+          {
+            "index": 1,
+            "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+            "manifest_sha256": "1322de6a7bf63c64c7fddc21f251a6829fa0496c526c6002432dc70dc6c22839",
+            "filename": "Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+            "sha256": "0d99ba52cfc454bff611e434a160f6b00580ac09b7d304a819de3be0bcaae3ce",
+            "roi": "93",
+            "rows": 34900,
+            "roi_mapping": {
+              "93": [
+                "93"
+              ]
+            },
+            "experiment_root": "@FIXTURE@/experiment",
+            "original_source": "@FIXTURE@/experiment/093/tracing/data/Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+            "source_relative": "093/tracing/data/Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+            "source_roi_directory": "093"
+          }
+        ],
+        "input_mode": "private_read_only_snapshot",
+        "row_count": 81196,
+        "roi_trace_count": 12609,
+        "roi_trace_count_source": "verified_step1b1_provenance",
+        "original_per_roi_statistics": {
+          "status": "RETAINED_SEPARATELY_IN_STEP0",
+          "note": "This run does not recompute, sum or claim to incorporate original per-ROI native statistics."
+        },
+        "traceratops_version": "1.0.1",
+        "parameters": {},
+        "native_function": "traceratops.trace_stats.compute_trace_statistics",
+        "native_module_sha256": "55260b7734f18fefacec3a622404671afc7f899a8d5677b43cea8cff9494782c",
+        "native_table_module_sha256": "f820acb686fe08c84bdd29849320f559f1883b95b2da042c32225a84901b1257",
+        "warnings": [
+          "Trace_ID is nucleus-level; merge preserves repeated barcodes and does not separate alleles or filter observations.",
+          "Trace_ID is nucleus-level; global unique IDs and ROI/Trace_ID pairs are distinct counts, not allele counts."
+        ],
+        "unique_roi_count": 2,
+        "unique_trace_count": 12609,
+        "unique_barcode_count": 29,
+        "traceratops_report": "$ Importing table from pyHiM format\nSuccessfully loaded trace table: @FIXTURE@/stores/traces/a2a15cdd6264450aa5f37133bc0269db/merged_traces.ecsv\nStatistics for @FIXTURE@/stores/traces/a2a15cdd6264450aa5f37133bc0269db/merged_traces.ecsv:\n- Number of unique ROIs: 2\n- Number of unique chromatin traces: 12609\n- Number of unique barcodes: 29",
+        "global_unique_trace_id_count": 12609,
+        "baseline_fingerprint": "289cd4b1356ed4d4cfdadb10888be496e3710936ef33a4f0cc6a4f9cd9a25f70",
+        "execution_seconds": 1.018241539997689
+      }
+    },
+    "stores/baseline/f2d2ad71fc9846d08c066de3c5a664fb/native.log": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: 021701c2919395eb3546024932637b1ea0e339a8ebd4e9eea2a7731f4aeb7e39"
+    },
+    "stores/step0/e3a31507eda2497d9c0cc94283c34dd5/summary.json": {
+      "format": "json",
+      "data": {
+        "trace_stats_status": "COMPLETE",
+        "trace_stats_computed": 2,
+        "trace_stats_not_run": 0,
+        "trace_stats_errors": 0,
+        "status": "PASS",
+        "phase": "full",
+        "full_validation_performed": true,
+        "roi_count": 2,
+        "roi_count_basis": "discovered_folders",
+        "tracing_tables": 2,
+        "localization_tables": 2,
+        "tables_parsed": 4,
+        "ecsv_records_inspected": 184357,
+        "files_inspected": 1395,
+        "complete_file_rois": 2,
+        "rois_with_warnings": 0,
+        "rois_with_missing_files": 0,
+        "rois_with_invalid_ecsv": 0,
+        "error_count": 0,
+        "warning_count": 61,
+        "incomplete_count": 0,
+        "finding_count": 61,
+        "file_counts_by_extension": {
+          ".bed": 1,
+          ".ecsv": 134,
+          ".json": 4,
+          ".log": 128,
+          ".md": 128,
+          ".npy": 372,
+          ".png": 628
+        },
+        "bed_files_discovered": 1,
+        "empty_directory_count": 0,
+        "conclusion": "Step 0 checks passed within the configured policy; downstream analysis was not run.",
+        "run_id": "e3a31507eda2497d9c0cc94283c34dd5",
+        "generated_at_utc": "2026-10-22T12:38:57.559520+00:00",
+        "report_path": "@FIXTURE@/stores/step0/e3a31507eda2497d9c0cc94283c34dd5/summary.json",
+        "summary_path": "@FIXTURE@/stores/step0/e3a31507eda2497d9c0cc94283c34dd5/summary.json",
+        "details_path": "@FIXTURE@/stores/step0/e3a31507eda2497d9c0cc94283c34dd5/details.json",
+        "human_report_path": "@FIXTURE@/stores/step0/e3a31507eda2497d9c0cc94283c34dd5/report.md",
+        "html_report_path": "@FIXTURE@/stores/step0/e3a31507eda2497d9c0cc94283c34dd5/report.html",
+        "validation_sha256": "e5c1628fb7e61981fc115c607ee044a2fdc032658d59ea2485124d8604cfe19e"
+      }
+    },
+    "stores/step0/e3a31507eda2497d9c0cc94283c34dd5/report.html": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: 0ac988848910baf2d8f7bb7178ba7b42b15b4e87934502d98e0cfbcf5c97db62"
+    },
+    "stores/step0/e3a31507eda2497d9c0cc94283c34dd5/report.md": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: 04f0ac597ce87b1963ce7f813b9a99afbb0101c63f1b8e354669787163f97ca7"
+    },
+    "stores/step0/e3a31507eda2497d9c0cc94283c34dd5/details.json": {
+      "format": "json",
+      "data": {
+        "schema_version": 1,
+        "experiment_root": "@FIXTURE@/experiment",
+        "findings": [
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/parameters.json"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT10_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT10_093_ROI_converted_decon_ch01.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT11_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT11_093_ROI_converted_decon_ch01.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT12_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT12_093_ROI_converted_decon_ch01.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT13_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT13_093_ROI_converted_decon_ch01.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT14_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT14_093_ROI_converted_decon_ch01.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT15_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT15_093_ROI_converted_decon_ch01.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT16_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT16_093_ROI_converted_decon_ch01.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT17_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT17_093_ROI_converted_decon_ch01.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT18_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT18_093_ROI_converted_decon_ch01.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT19_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT19_093_ROI_converted_decon_ch01.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT20_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT20_093_ROI_converted_decon_ch01.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT21_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT21_093_ROI_converted_decon_ch01.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT24_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT24_093_ROI_converted_decon_ch01.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT25_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT25_093_ROI_converted_decon_ch01.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT26_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT26_093_ROI_converted_decon_ch01.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT27_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT27_093_ROI_converted_decon_ch01.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT28_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT28_093_ROI_converted_decon_ch01.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT30_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT30_093_ROI_converted_decon_ch01.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT31_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT31_093_ROI_converted_decon_ch01.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT32_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT32_093_ROI_converted_decon_ch01.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT33_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT33_093_ROI_converted_decon_ch01.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT34_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT34_093_ROI_converted_decon_ch01.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT35_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT35_093_ROI_converted_decon_ch01.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT36_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT36_093_ROI_converted_decon_ch01.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT3_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT3_093_ROI_converted_decon_ch01.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT639_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT639_093_ROI_converted_decon_ch01.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT7_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT7_093_ROI_converted_decon_ch01.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT8_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT8_093_ROI_converted_decon_ch01.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT9_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_RT9_093_ROI_converted_decon_ch01.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_mask0_093_ROI_converted_decon_ch00.tif"
+          },
+          {
+            "severity": "WARNING",
+            "code": "SYMLINK_SKIPPED",
+            "message": "Symbolic link was not followed.",
+            "path": "093/scan_001_mask0_093_ROI_converted_decon_ch01.tif"
+          }
+        ],
+        "rois": [
+          {
+            "roi": "92",
+            "directory": "092",
+            "tracing": [
+              "092/tracing/data/Trace_3D_barcode_mask-mask0_ROI-92.ecsv"
+            ],
+            "localization": [
+              "092/localize_3d/data/localizations_3D_barcode.ecsv"
+            ],
+            "tables": [
+              {
+                "path": "092/tracing/data/Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+                "role": "tracing",
+                "roi": "92",
+                "valid": true,
+                "record_count": 46296,
+                "columns": [
+                  "Spot_ID",
+                  "Trace_ID",
+                  "x",
+                  "y",
+                  "z",
+                  "Chrom",
+                  "Chrom_Start",
+                  "Chrom_End",
+                  "ROI #",
+                  "Mask_id",
+                  "Barcode #",
+                  "label"
+                ],
+                "schema": {
+                  "Spot_ID": "<U36",
+                  "Trace_ID": "<U36",
+                  "x": "float32",
+                  "y": "float32",
+                  "z": "float32",
+                  "Chrom": "<U5",
+                  "Chrom_Start": "int64",
+                  "Chrom_End": "int64",
+                  "ROI #": "int64",
+                  "Mask_id": "int64",
+                  "Barcode #": "int64",
+                  "label": "<U20"
+                },
+                "metadata": {
+                  "comments": "['xyz_unit=micron', 'genome_assembly=mm10', '']"
+                },
+                "size_bytes": 7069345,
+                "mtime_ns": 1790241368000000000,
+                "sha256": "23c432213a0f07c753549d3be0a0aecd6599388f982336aa36f5292270ae6b3a",
+                "missing_required_columns": [],
+                "observed_roi_ids": [
+                  "92"
+                ],
+                "observed_barcodes": [
+                  "3",
+                  "7",
+                  "8",
+                  "9",
+                  "10",
+                  "11",
+                  "12",
+                  "13",
+                  "14",
+                  "15",
+                  "16",
+                  "17",
+                  "18",
+                  "19",
+                  "20",
+                  "21",
+                  "24",
+                  "25",
+                  "26",
+                  "27",
+                  "28",
+                  "30",
+                  "31",
+                  "32",
+                  "33",
+                  "34",
+                  "35",
+                  "36",
+                  "639"
+                ],
+                "unique_barcode_count": 29,
+                "expected_barcodes": [
+                  "3",
+                  "7",
+                  "8",
+                  "9",
+                  "10",
+                  "11",
+                  "12",
+                  "13",
+                  "14",
+                  "15",
+                  "16",
+                  "17",
+                  "18",
+                  "19",
+                  "20",
+                  "21",
+                  "24",
+                  "25",
+                  "26",
+                  "27",
+                  "28",
+                  "30",
+                  "31",
+                  "32",
+                  "33",
+                  "34",
+                  "35",
+                  "36",
+                  "639"
+                ],
+                "missing_barcodes": [],
+                "unexpected_barcodes": [],
+                "barcodes_not_in_bed": [],
+                "unique_trace_count": 6776
+              },
+              {
+                "path": "092/localize_3d/data/localizations_3D_barcode.ecsv",
+                "role": "localization",
+                "roi": "92",
+                "valid": true,
+                "record_count": 61420,
+                "columns": [
+                  "Buid",
+                  "ROI #",
+                  "CellID #",
+                  "Barcode #",
+                  "id",
+                  "zcentroid",
+                  "xcentroid",
+                  "ycentroid",
+                  "snr",
+                  "spot_pixel_percentage",
+                  "skew",
+                  "patch_size",
+                  "object_class",
+                  "mean_intensity",
+                  "flux",
+                  "roundness"
+                ],
+                "schema": {
+                  "Buid": "<U36",
+                  "ROI #": "int64",
+                  "CellID #": "int64",
+                  "Barcode #": "int64",
+                  "id": "int64",
+                  "zcentroid": "float32",
+                  "xcentroid": "float32",
+                  "ycentroid": "float32",
+                  "snr": "float32",
+                  "spot_pixel_percentage": "float32",
+                  "skew": "float32",
+                  "patch_size": "int64",
+                  "object_class": "int64",
+                  "mean_intensity": "float32",
+                  "flux": "float32",
+                  "roundness": "float32"
+                },
+                "metadata": {
+                  "comments": "['filtered', 'registered']"
+                },
+                "size_bytes": 8643435,
+                "mtime_ns": 1790241197000000000,
+                "sha256": "1f45d67451af4c3899c51d5b3a1e31e3ec74141e9b075d23fc0cd66220905489",
+                "missing_required_columns": [],
+                "observed_roi_ids": [
+                  "92"
+                ],
+                "observed_barcodes": [
+                  "3",
+                  "7",
+                  "8",
+                  "9",
+                  "10",
+                  "11",
+                  "12",
+                  "13",
+                  "14",
+                  "15",
+                  "16",
+                  "17",
+                  "18",
+                  "19",
+                  "20",
+                  "21",
+                  "24",
+                  "25",
+                  "26",
+                  "27",
+                  "28",
+                  "30",
+                  "31",
+                  "32",
+                  "33",
+                  "34",
+                  "35",
+                  "36",
+                  "639"
+                ],
+                "unique_barcode_count": 29,
+                "expected_barcodes": [
+                  "3",
+                  "7",
+                  "8",
+                  "9",
+                  "10",
+                  "11",
+                  "12",
+                  "13",
+                  "14",
+                  "15",
+                  "16",
+                  "17",
+                  "18",
+                  "19",
+                  "20",
+                  "21",
+                  "24",
+                  "25",
+                  "26",
+                  "27",
+                  "28",
+                  "30",
+                  "31",
+                  "32",
+                  "33",
+                  "34",
+                  "35",
+                  "36",
+                  "639"
+                ],
+                "missing_barcodes": [],
+                "unexpected_barcodes": [],
+                "barcodes_not_in_bed": []
+              }
+            ],
+            "tracing_discovery_method": "filename",
+            "localization_discovery_method": "filename",
+            "trace_stats": {
+              "status": "COMPUTED",
+              "roi": "92",
+              "roi_directory": "092",
+              "scope": "original_individual_roi_tracing",
+              "reason": null,
+              "source_relative": "092/tracing/data/Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+              "input_sha256": "23c432213a0f07c753549d3be0a0aecd6599388f982336aa36f5292270ae6b3a",
+              "source_file": "@FIXTURE@/experiment/092/tracing/data/Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+              "traceratops_version": "1.0.1",
+              "unique_roi_count": 1,
+              "unique_trace_count": 6776,
+              "unique_barcode_count": 29,
+              "traceratops_report": "$ Importing table from pyHiM format\nSuccessfully loaded trace table: @FIXTURE@/experiment/092/tracing/data/Trace_3D_barcode_mask-mask0_ROI-92.ecsv\nStatistics for @FIXTURE@/experiment/092/tracing/data/Trace_3D_barcode_mask-mask0_ROI-92.ecsv:\n- Number of unique ROIs: 1\n- Number of unique chromatin traces: 6776\n- Number of unique barcodes: 29",
+              "input_mode": "private_read_only_snapshot",
+              "native_module_sha256": "55260b7734f18fefacec3a622404671afc7f899a8d5677b43cea8cff9494782c",
+              "warnings": [],
+              "native_stderr": ""
+            }
+          },
+          {
+            "roi": "93",
+            "directory": "093",
+            "tracing": [
+              "093/tracing/data/Trace_3D_barcode_mask-mask0_ROI-93.ecsv"
+            ],
+            "localization": [
+              "093/localize_3d/data/localizations_3D_barcode.ecsv"
+            ],
+            "tables": [
+              {
+                "path": "093/tracing/data/Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+                "role": "tracing",
+                "roi": "93",
+                "valid": true,
+                "record_count": 34900,
+                "columns": [
+                  "Spot_ID",
+                  "Trace_ID",
+                  "x",
+                  "y",
+                  "z",
+                  "Chrom",
+                  "Chrom_Start",
+                  "Chrom_End",
+                  "ROI #",
+                  "Mask_id",
+                  "Barcode #",
+                  "label"
+                ],
+                "schema": {
+                  "Spot_ID": "<U36",
+                  "Trace_ID": "<U36",
+                  "x": "float32",
+                  "y": "float32",
+                  "z": "float32",
+                  "Chrom": "<U5",
+                  "Chrom_Start": "int64",
+                  "Chrom_End": "int64",
+                  "ROI #": "int64",
+                  "Mask_id": "int64",
+                  "Barcode #": "int64",
+                  "label": "<U20"
+                },
+                "metadata": {
+                  "comments": "['xyz_unit=micron', 'genome_assembly=mm10', '']"
+                },
+                "size_bytes": 5330925,
+                "mtime_ns": 1790247901000000000,
+                "sha256": "0d99ba52cfc454bff611e434a160f6b00580ac09b7d304a819de3be0bcaae3ce",
+                "missing_required_columns": [],
+                "observed_roi_ids": [
+                  "93"
+                ],
+                "observed_barcodes": [
+                  "3",
+                  "7",
+                  "8",
+                  "9",
+                  "10",
+                  "11",
+                  "12",
+                  "13",
+                  "14",
+                  "15",
+                  "16",
+                  "17",
+                  "18",
+                  "19",
+                  "20",
+                  "21",
+                  "24",
+                  "25",
+                  "26",
+                  "27",
+                  "28",
+                  "30",
+                  "31",
+                  "32",
+                  "33",
+                  "34",
+                  "35",
+                  "36",
+                  "639"
+                ],
+                "unique_barcode_count": 29,
+                "expected_barcodes": [
+                  "3",
+                  "7",
+                  "8",
+                  "9",
+                  "10",
+                  "11",
+                  "12",
+                  "13",
+                  "14",
+                  "15",
+                  "16",
+                  "17",
+                  "18",
+                  "19",
+                  "20",
+                  "21",
+                  "24",
+                  "25",
+                  "26",
+                  "27",
+                  "28",
+                  "30",
+                  "31",
+                  "32",
+                  "33",
+                  "34",
+                  "35",
+                  "36",
+                  "639"
+                ],
+                "missing_barcodes": [],
+                "unexpected_barcodes": [],
+                "barcodes_not_in_bed": [],
+                "unique_trace_count": 5833
+              },
+              {
+                "path": "093/localize_3d/data/localizations_3D_barcode.ecsv",
+                "role": "localization",
+                "roi": "93",
+                "valid": true,
+                "record_count": 41741,
+                "columns": [
+                  "Buid",
+                  "ROI #",
+                  "CellID #",
+                  "Barcode #",
+                  "id",
+                  "zcentroid",
+                  "xcentroid",
+                  "ycentroid",
+                  "snr",
+                  "spot_pixel_percentage",
+                  "skew",
+                  "patch_size",
+                  "object_class",
+                  "mean_intensity",
+                  "flux",
+                  "roundness"
+                ],
+                "schema": {
+                  "Buid": "<U36",
+                  "ROI #": "int64",
+                  "CellID #": "int64",
+                  "Barcode #": "int64",
+                  "id": "int64",
+                  "zcentroid": "float32",
+                  "xcentroid": "float32",
+                  "ycentroid": "float32",
+                  "snr": "float32",
+                  "spot_pixel_percentage": "float32",
+                  "skew": "float32",
+                  "patch_size": "int64",
+                  "object_class": "int64",
+                  "mean_intensity": "float32",
+                  "flux": "float32",
+                  "roundness": "float32"
+                },
+                "metadata": {
+                  "comments": "['filtered', 'registered']"
+                },
+                "size_bytes": 5865559,
+                "mtime_ns": 1790247765000000000,
+                "sha256": "2a46071db8059c76fc22fd70a5bbec21e64b7ad1a72708c2af12a1d243f80a19",
+                "missing_required_columns": [],
+                "observed_roi_ids": [
+                  "93"
+                ],
+                "observed_barcodes": [
+                  "3",
+                  "7",
+                  "8",
+                  "9",
+                  "10",
+                  "11",
+                  "12",
+                  "13",
+                  "14",
+                  "15",
+                  "16",
+                  "17",
+                  "18",
+                  "19",
+                  "20",
+                  "21",
+                  "24",
+                  "25",
+                  "26",
+                  "27",
+                  "28",
+                  "30",
+                  "31",
+                  "32",
+                  "33",
+                  "34",
+                  "35",
+                  "36",
+                  "639"
+                ],
+                "unique_barcode_count": 29,
+                "expected_barcodes": [
+                  "3",
+                  "7",
+                  "8",
+                  "9",
+                  "10",
+                  "11",
+                  "12",
+                  "13",
+                  "14",
+                  "15",
+                  "16",
+                  "17",
+                  "18",
+                  "19",
+                  "20",
+                  "21",
+                  "24",
+                  "25",
+                  "26",
+                  "27",
+                  "28",
+                  "30",
+                  "31",
+                  "32",
+                  "33",
+                  "34",
+                  "35",
+                  "36",
+                  "639"
+                ],
+                "missing_barcodes": [],
+                "unexpected_barcodes": [],
+                "barcodes_not_in_bed": []
+              }
+            ],
+            "tracing_discovery_method": "filename",
+            "localization_discovery_method": "filename",
+            "trace_stats": {
+              "status": "COMPUTED",
+              "roi": "93",
+              "roi_directory": "093",
+              "scope": "original_individual_roi_tracing",
+              "reason": null,
+              "source_relative": "093/tracing/data/Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+              "input_sha256": "0d99ba52cfc454bff611e434a160f6b00580ac09b7d304a819de3be0bcaae3ce",
+              "source_file": "@FIXTURE@/experiment/093/tracing/data/Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+              "traceratops_version": "1.0.1",
+              "unique_roi_count": 1,
+              "unique_trace_count": 5833,
+              "unique_barcode_count": 29,
+              "traceratops_report": "$ Importing table from pyHiM format\nSuccessfully loaded trace table: @FIXTURE@/experiment/093/tracing/data/Trace_3D_barcode_mask-mask0_ROI-93.ecsv\nStatistics for @FIXTURE@/experiment/093/tracing/data/Trace_3D_barcode_mask-mask0_ROI-93.ecsv:\n- Number of unique ROIs: 1\n- Number of unique chromatin traces: 5833\n- Number of unique barcodes: 29",
+              "input_mode": "private_read_only_snapshot",
+              "native_module_sha256": "55260b7734f18fefacec3a622404671afc7f899a8d5677b43cea8cff9494782c",
+              "warnings": [],
+              "native_stderr": ""
+            }
+          }
+        ],
+        "files": [],
+        "phase": "full",
+        "input_authorized": true,
+        "rules_source": "explicit_tool_arguments",
+        "rules": {
+          "roi_pattern": "^[0-9]+$",
+          "required_directories": [
+            "tracing/data",
+            "localize_3d"
+          ],
+          "optional_directories": [],
+          "allowed_top_level_directories": null,
+          "trace_glob": "tracing/data/Trace_3D_barcode_mask-mask0_ROI-*.ecsv",
+          "localization_globs": [
+            "localize_3d/data/localizations_3D_barcode.ecsv",
+            "localize_3d/localizations_3D_barcode.ecsv"
+          ],
+          "required_trace_columns": [
+            "Spot_ID",
+            "Trace_ID",
+            "x",
+            "y",
+            "z",
+            "ROI #",
+            "Barcode #"
+          ],
+          "required_localization_columns": [
+            "Buid",
+            "ROI #",
+            "Barcode #",
+            "xcentroid",
+            "ycentroid",
+            "zcentroid"
+          ],
+          "allowed_trace_columns": null,
+          "allowed_localization_columns": null,
+          "expected_roi_ids": [
+            "92",
+            "93"
+          ],
+          "expected_barcodes": null,
+          "barcode_source": "Researcher-confirmed experiment BED column four; ROIs 092/093",
+          "bed_file": "HR38_3kb_Exp276.bed",
+          "bed_barcode_column": 4,
+          "bed_required": true,
+          "require_each_barcode": false,
+          "max_depth": 12,
+          "max_entries": 100000,
+          "max_table_bytes": 100000000,
+          "max_records": 5000000,
+          "skip_directories": [
+            "full_pwd",
+            "PWD_comparison",
+            ".git",
+            ".venv"
+          ]
+        },
+        "directories": [],
+        "empty_directories": [],
+        "file_counts_by_extension": {
+          ".bed": 1,
+          ".ecsv": 134,
+          ".json": 4,
+          ".log": 128,
+          ".md": 128,
+          ".npy": 372,
+          ".png": 628
+        },
+        "bed": {
+          "file": "HR38_3kb_Exp276.bed",
+          "existence": "PASS",
+          "mapping_status": "PASS",
+          "barcodes": [
+            "3",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "30",
+            "31",
+            "32",
+            "33",
+            "34",
+            "35",
+            "36",
+            "639"
+          ],
+          "sha256": "efd788299802c16cd50a8b7b8fada3b218281be42d28f04b4681479794fb462e"
+        },
+        "expected_barcodes": [
+          "3",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17",
+          "18",
+          "19",
+          "20",
+          "21",
+          "24",
+          "25",
+          "26",
+          "27",
+          "28",
+          "30",
+          "31",
+          "32",
+          "33",
+          "34",
+          "35",
+          "36",
+          "639"
+        ],
+        "barcode_source": "Researcher-confirmed experiment BED column four; ROIs 092/093",
+        "status": "PASS",
+        "summary": {
+          "trace_stats_status": "COMPLETE",
+          "trace_stats_computed": 2,
+          "trace_stats_not_run": 0,
+          "trace_stats_errors": 0,
+          "status": "PASS",
+          "phase": "full",
+          "full_validation_performed": true,
+          "roi_count": 2,
+          "roi_count_basis": "discovered_folders",
+          "tracing_tables": 2,
+          "localization_tables": 2,
+          "tables_parsed": 4,
+          "ecsv_records_inspected": 184357,
+          "files_inspected": 1395,
+          "complete_file_rois": 2,
+          "rois_with_warnings": 0,
+          "rois_with_missing_files": 0,
+          "rois_with_invalid_ecsv": 0,
+          "error_count": 0,
+          "warning_count": 61,
+          "incomplete_count": 0,
+          "finding_count": 61,
+          "file_counts_by_extension": {
+            ".bed": 1,
+            ".ecsv": 134,
+            ".json": 4,
+            ".log": 128,
+            ".md": 128,
+            ".npy": 372,
+            ".png": 628
+          },
+          "bed_files_discovered": 1,
+          "empty_directory_count": 0,
+          "conclusion": "Step 0 checks passed within the configured policy; downstream analysis was not run.",
+          "run_id": "e3a31507eda2497d9c0cc94283c34dd5",
+          "generated_at_utc": "2026-10-22T12:38:57.559520+00:00",
+          "report_path": "@FIXTURE@/stores/step0/e3a31507eda2497d9c0cc94283c34dd5/summary.json",
+          "summary_path": "@FIXTURE@/stores/step0/e3a31507eda2497d9c0cc94283c34dd5/summary.json",
+          "details_path": "@FIXTURE@/stores/step0/e3a31507eda2497d9c0cc94283c34dd5/details.json",
+          "human_report_path": "@FIXTURE@/stores/step0/e3a31507eda2497d9c0cc94283c34dd5/report.md",
+          "html_report_path": "@FIXTURE@/stores/step0/e3a31507eda2497d9c0cc94283c34dd5/report.html"
+        }
+      }
+    },
+    "stores/collections/b44bbac19977491484e0400f905bc9b6/localizations_3D_barcode_092.ecsv": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: 1f45d67451af4c3899c51d5b3a1e31e3ec74141e9b075d23fc0cd66220905489"
+    },
+    "stores/collections/b44bbac19977491484e0400f905bc9b6/native.log": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: 5ed7e60c353c6e5a781df37df9843ac018fbb74992ad669d5122b9f68f848fc7"
+    },
+    "stores/collections/b44bbac19977491484e0400f905bc9b6/localizations_3D_barcode_093.ecsv": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: 2a46071db8059c76fc22fd70a5bbec21e64b7ad1a72708c2af12a1d243f80a19"
+    },
+    "stores/collections/b44bbac19977491484e0400f905bc9b6/manifest.json": {
+      "format": "json",
+      "data": {
+        "schema_version": 1,
+        "run_id": "b44bbac19977491484e0400f905bc9b6",
+        "phase": "collection_only",
+        "experiment_root": "@FIXTURE@/experiment",
+        "table_kind": "localization",
+        "parameters": {
+          "example_file": "localizations_3D_barcode.ecsv",
+          "variable_part": null,
+          "force": false,
+          "rename": true
+        },
+        "scope": {
+          "skipped_symlinks": 61,
+          "excluded_directories": 0
+        },
+        "traceratops_version": "1.0.1",
+        "native_module_sha256": "c73d57668278418ff2bd66d5e4320fabf1a3c41ab30411cc5b57eb79be6c412d",
+        "native_functions": [
+          "build_pattern",
+          "collect_files",
+          "scan_subdirectories",
+          "dest_name"
+        ],
+        "files": [
+          {
+            "source": "@FIXTURE@/experiment/092/localize_3d/data/localizations_3D_barcode.ecsv",
+            "source_relative": "092/localize_3d/data/localizations_3D_barcode.ecsv",
+            "roi": "92",
+            "source_roi_directory": "092",
+            "sha256": "1f45d67451af4c3899c51d5b3a1e31e3ec74141e9b075d23fc0cd66220905489",
+            "size_bytes": 8643435,
+            "mtime_ns": 1790241197000000000,
+            "rows": 61420,
+            "columns": [
+              "Buid",
+              "ROI #",
+              "CellID #",
+              "Barcode #",
+              "id",
+              "zcentroid",
+              "xcentroid",
+              "ycentroid",
+              "snr",
+              "spot_pixel_percentage",
+              "skew",
+              "patch_size",
+              "object_class",
+              "mean_intensity",
+              "flux",
+              "roundness"
+            ],
+            "empty_table": false,
+            "destination": "@FIXTURE@/stores/collections/b44bbac19977491484e0400f905bc9b6/localizations_3D_barcode_092.ecsv",
+            "destination_name": "localizations_3D_barcode_092.ecsv",
+            "destination_sha256": "1f45d67451af4c3899c51d5b3a1e31e3ec74141e9b075d23fc0cd66220905489",
+            "valid_ecsv": true
+          },
+          {
+            "source": "@FIXTURE@/experiment/093/localize_3d/data/localizations_3D_barcode.ecsv",
+            "source_relative": "093/localize_3d/data/localizations_3D_barcode.ecsv",
+            "roi": "93",
+            "source_roi_directory": "093",
+            "sha256": "2a46071db8059c76fc22fd70a5bbec21e64b7ad1a72708c2af12a1d243f80a19",
+            "size_bytes": 5865559,
+            "mtime_ns": 1790247765000000000,
+            "rows": 41741,
+            "columns": [
+              "Buid",
+              "ROI #",
+              "CellID #",
+              "Barcode #",
+              "id",
+              "zcentroid",
+              "xcentroid",
+              "ycentroid",
+              "snr",
+              "spot_pixel_percentage",
+              "skew",
+              "patch_size",
+              "object_class",
+              "mean_intensity",
+              "flux",
+              "roundness"
+            ],
+            "empty_table": false,
+            "destination": "@FIXTURE@/stores/collections/b44bbac19977491484e0400f905bc9b6/localizations_3D_barcode_093.ecsv",
+            "destination_name": "localizations_3D_barcode_093.ecsv",
+            "destination_sha256": "2a46071db8059c76fc22fd70a5bbec21e64b7ad1a72708c2af12a1d243f80a19",
+            "valid_ecsv": true
+          }
+        ],
+        "next_action": "STOP_REVIEW_COLLECTION"
+      }
+    },
+    "stores/collections/3139d2b036f14060a44bb76ea858b5c9/Trace_3D_barcode_mask-mask0_ROI-92.ecsv": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: 23c432213a0f07c753549d3be0a0aecd6599388f982336aa36f5292270ae6b3a"
+    },
+    "stores/collections/3139d2b036f14060a44bb76ea858b5c9/native.log": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: ceac380a7e2940f92a7435cd0a1a877cf60dbd294c4600fff401c75c9f3db61a"
+    },
+    "stores/collections/3139d2b036f14060a44bb76ea858b5c9/Trace_3D_barcode_mask-mask0_ROI-93.ecsv": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: 0d99ba52cfc454bff611e434a160f6b00580ac09b7d304a819de3be0bcaae3ce"
+    },
+    "stores/collections/3139d2b036f14060a44bb76ea858b5c9/manifest.json": {
+      "format": "json",
+      "data": {
+        "schema_version": 1,
+        "run_id": "3139d2b036f14060a44bb76ea858b5c9",
+        "phase": "collection_only",
+        "experiment_root": "@FIXTURE@/experiment",
+        "table_kind": "tracing",
+        "parameters": {
+          "example_file": "Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+          "variable_part": "92",
+          "force": false,
+          "rename": false
+        },
+        "scope": {
+          "skipped_symlinks": 61,
+          "excluded_directories": 0
+        },
+        "traceratops_version": "1.0.1",
+        "native_module_sha256": "c73d57668278418ff2bd66d5e4320fabf1a3c41ab30411cc5b57eb79be6c412d",
+        "native_functions": [
+          "build_pattern",
+          "collect_files",
+          "scan_subdirectories",
+          "dest_name"
+        ],
+        "files": [
+          {
+            "source": "@FIXTURE@/experiment/092/tracing/data/Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+            "source_relative": "092/tracing/data/Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+            "roi": "92",
+            "source_roi_directory": "092",
+            "sha256": "23c432213a0f07c753549d3be0a0aecd6599388f982336aa36f5292270ae6b3a",
+            "size_bytes": 7069345,
+            "mtime_ns": 1790241368000000000,
+            "rows": 46296,
+            "columns": [
+              "Spot_ID",
+              "Trace_ID",
+              "x",
+              "y",
+              "z",
+              "Chrom",
+              "Chrom_Start",
+              "Chrom_End",
+              "ROI #",
+              "Mask_id",
+              "Barcode #",
+              "label"
+            ],
+            "empty_table": false,
+            "destination": "@FIXTURE@/stores/collections/3139d2b036f14060a44bb76ea858b5c9/Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+            "destination_name": "Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+            "destination_sha256": "23c432213a0f07c753549d3be0a0aecd6599388f982336aa36f5292270ae6b3a",
+            "valid_ecsv": true
+          },
+          {
+            "source": "@FIXTURE@/experiment/093/tracing/data/Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+            "source_relative": "093/tracing/data/Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+            "roi": "93",
+            "source_roi_directory": "093",
+            "sha256": "0d99ba52cfc454bff611e434a160f6b00580ac09b7d304a819de3be0bcaae3ce",
+            "size_bytes": 5330925,
+            "mtime_ns": 1790247901000000000,
+            "rows": 34900,
+            "columns": [
+              "Spot_ID",
+              "Trace_ID",
+              "x",
+              "y",
+              "z",
+              "Chrom",
+              "Chrom_Start",
+              "Chrom_End",
+              "ROI #",
+              "Mask_id",
+              "Barcode #",
+              "label"
+            ],
+            "empty_table": false,
+            "destination": "@FIXTURE@/stores/collections/3139d2b036f14060a44bb76ea858b5c9/Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+            "destination_name": "Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+            "destination_sha256": "0d99ba52cfc454bff611e434a160f6b00580ac09b7d304a819de3be0bcaae3ce",
+            "valid_ecsv": true
+          }
+        ],
+        "next_action": "STOP_REVIEW_COLLECTION"
+      }
+    },
+    "stores/analysis/a399f1dbf1d547878825b563bdb3a815/analysis.json": {
+      "format": "json",
+      "data": {
+        "schema_version": 1,
+        "run_id": "a399f1dbf1d547878825b563bdb3a815",
+        "status": "ANALYZED",
+        "scope": "merged_unfiltered_tracing",
+        "generated_at_utc": "2026-10-23T06:52:02.709309+00:00",
+        "baseline_run_id": "f2d2ad71fc9846d08c066de3c5a664fb",
+        "baseline_sha256": "41391e26a6a5ae4f59c94c383a672f376bee966754f4b04934d2f0aceada856a",
+        "annotation_run_id": "2e4f2da254b64a9fb5589cec640797d1",
+        "annotation_sha256": "39d299a59acbe4f73c2c43081650bacc17824f1ccd90607d88466829af04bfee",
+        "analysis_input_sha256": "843fb0f17a6a87984bcce6a654f4dddfecba6c96c9d4fb943f36d940e7a9e9f9",
+        "baseline_fingerprint": "289cd4b1356ed4d4cfdadb10888be496e3710936ef33a4f0cc6a4f9cd9a25f70",
+        "baseline_native_log_sha256": "021701c2919395eb3546024932637b1ea0e339a8ebd4e9eea2a7731f4aeb7e39",
+        "trace_merge_run_id": "a2a15cdd6264450aa5f37133bc0269db",
+        "merged_sha256": "fe57ee6f85b022bae9ec8357753ae06854e038359a7305537d7d0f2fe4e2162a",
+        "merge_provenance_sha256": "15cb69540f987628f7a3ea4466f8f9fb32f6c5e33c118819636359e17dff8cd3",
+        "approval_revision": "790b893d4774440a9e3b41e269bef11d",
+        "approval_fingerprint": "29214e54c8d6ba885eb057aa86c0af90d66833d4188d1541aa7772c149335dc9",
+        "pearson_run_id": "43f648fb02464564b6f57efd609ba69a",
+        "pearson_results_sha256": "faf70a50073f49a8909ab0897db6054daf10be2b044d2bf1e0b940808939e77d",
+        "selected_dataset_indices": [
+          0,
+          1
+        ],
+        "approved_source_contributions": [
+          {
+            "index": 0,
+            "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+            "manifest_sha256": "1322de6a7bf63c64c7fddc21f251a6829fa0496c526c6002432dc70dc6c22839",
+            "filename": "Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+            "sha256": "23c432213a0f07c753549d3be0a0aecd6599388f982336aa36f5292270ae6b3a",
+            "roi": "92",
+            "rows": 46296,
+            "roi_mapping": {
+              "92": [
+                "92"
+              ]
+            },
+            "experiment_root": "@FIXTURE@/experiment",
+            "original_source": "@FIXTURE@/experiment/092/tracing/data/Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+            "source_relative": "092/tracing/data/Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+            "source_roi_directory": "092"
+          },
+          {
+            "index": 1,
+            "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+            "manifest_sha256": "1322de6a7bf63c64c7fddc21f251a6829fa0496c526c6002432dc70dc6c22839",
+            "filename": "Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+            "sha256": "0d99ba52cfc454bff611e434a160f6b00580ac09b7d304a819de3be0bcaae3ce",
+            "roi": "93",
+            "rows": 34900,
+            "roi_mapping": {
+              "93": [
+                "93"
+              ]
+            },
+            "experiment_root": "@FIXTURE@/experiment",
+            "original_source": "@FIXTURE@/experiment/093/tracing/data/Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+            "source_relative": "093/tracing/data/Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+            "source_roi_directory": "093"
+          }
+        ],
+        "input_checks": {
+          "global_trace_id_count": 12609,
+          "roi_trace_count": 12609,
+          "genomic_barcode_order": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "chromosome": "chr2L",
+          "coordinate_units": [
+            "micron"
+          ]
+        },
+        "warnings": [
+          "Native trace grouping is global Trace_ID; cross-ROI collisions are rejected, and IDs are never relabeled.",
+          "Repeated barcodes are preserved; native neighbor pairing can be ambiguous and does not separate alleles.",
+          "Native relative-frequency figure bins cover multiplicities 1\u20138; complete native returned multiplicities are saved separately.",
+          "Barcode IDs were replaced by native Traceratops using BED column five; localization barcode IDs remain original. Use barcode_mapping.json for cross-table interpretation and Spot_ID/Buid for spot identity.",
+          "Assembly is supplied by the configured researcher-confirmed reference, not inferred from native defaults; inherited assembly metadata is corrected only in the new derivative."
+        ],
+        "native_function": "traceratops.trace_analyzer.process_traces",
+        "traceratops_version": "1.0.1",
+        "native_analyzer_sha256": "9a99c6f11dbea1900c03ce698b10fb1e898fda63e6feb8263b951bb81cf1db50",
+        "native_table_module_sha256": "f820acb686fe08c84bdd29849320f559f1883b95b2da042c32225a84901b1257",
+        "worker_sha256": "e2b9fa07bae06d82cfbd002f9bf9f1b479270ccdb7702b9d95eb33131d9ad925",
+        "parameters": {
+          "output_format": "png",
+          "neighbor_distance_range": "auto",
+          "random_seed": 0,
+          "plotXYZ": false
+        },
+        "numerical_capture": "Unmodified native return values and inputs/results supplied to native plotting calls; no scientific recalculation.",
+        "neighbor_statistics": {
+          "status": "AVAILABLE",
+          "observation_count": 34140,
+          "mean_dx": 0.0003778849495574832,
+          "mean_dy": -0.0033270244020968676,
+          "mean_dz": -0.016753625124692917,
+          "std_dx": 0.1832684874534607,
+          "std_dy": 0.1840914785861969,
+          "std_dz": 0.5716622471809387
+        },
+        "artifact_manifest_sha256": "e31696bb7f2cb64a0b2fa79f8a7a3aaefadafa999e212c102c2740170cef6dbc",
+        "execution_seconds": 11.831847377001395,
+        "artifacts": {
+          "manifest": "artifacts.json",
+          "numerical_metadata": "numerical_outputs.json",
+          "numerical_arrays": "numerical_outputs.npz"
+        }
+      }
+    },
+    "stores/analysis/a399f1dbf1d547878825b563bdb3a815/trace_first_neighbor_distances.png": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: 585e2f0feb7969ca3f3f899f80ef241721a25acbc2500187b7d00af5362ed9e1"
+    },
+    "stores/analysis/a399f1dbf1d547878825b563bdb3a815/trace_kde_projections.png": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: ecdbef691f6871ebbe42019f85ede8c8e532ea10b709a401273ec303662798b2"
+    },
+    "stores/analysis/a399f1dbf1d547878825b563bdb3a815/numerical_outputs.npz": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: 3e3b28798a0b319c46fef6c46764337906bd108d09e82686796595aadcb11c62"
+    },
+    "stores/analysis/a399f1dbf1d547878825b563bdb3a815/trace_barcode_detection.png": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: 52ebbfba326474ecde122dd894e8ab3d31915f0ff8dd63439349f4f0ab72969a"
+    },
+    "stores/analysis/a399f1dbf1d547878825b563bdb3a815/stdout.log": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: d5b316b498651b254a871d45eb181ea826dec4c51703d361253ed13932c45a6b"
+    },
+    "stores/analysis/a399f1dbf1d547878825b563bdb3a815/trace_relative_barcode_frequencies.png": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: dda0b184b8a385b3d2ff065bf881505a9318bb9c2b41616511ef2538e87a144b"
+    },
+    "stores/analysis/a399f1dbf1d547878825b563bdb3a815/artifacts.json": {
+      "format": "json",
+      "data": [
+        {
+          "name": "numerical_outputs.json",
+          "sha256": "8e5ec3dd8cfa4672e1859aa93621e3ea9d430a304ea511eee1706aacba880c8d",
+          "size_bytes": 5283
+        },
+        {
+          "name": "numerical_outputs.npz",
+          "sha256": "3e3b28798a0b319c46fef6c46764337906bd108d09e82686796595aadcb11c62",
+          "size_bytes": 2839624
+        },
+        {
+          "name": "stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size_bytes": 0
+        },
+        {
+          "name": "stdout.log",
+          "sha256": "d5b316b498651b254a871d45eb181ea826dec4c51703d361253ed13932c45a6b",
+          "size_bytes": 637
+        },
+        {
+          "name": "trace_barcode_detection.png",
+          "sha256": "52ebbfba326474ecde122dd894e8ab3d31915f0ff8dd63439349f4f0ab72969a",
+          "size_bytes": 76937
+        },
+        {
+          "name": "trace_first_neighbor_distances.png",
+          "sha256": "585e2f0feb7969ca3f3f899f80ef241721a25acbc2500187b7d00af5362ed9e1",
+          "size_bytes": 110206
+        },
+        {
+          "name": "trace_kde_projections.png",
+          "sha256": "ecdbef691f6871ebbe42019f85ede8c8e532ea10b709a401273ec303662798b2",
+          "size_bytes": 140759
+        },
+        {
+          "name": "trace_relative_barcode_frequencies.png",
+          "sha256": "dda0b184b8a385b3d2ff065bf881505a9318bb9c2b41616511ef2538e87a144b",
+          "size_bytes": 34072
+        },
+        {
+          "name": "trace_trace_statistics.png",
+          "sha256": "5993fbfbeea053a50d8a65acbf61cdb83a4accd9fce966703ab4e281b8298287",
+          "size_bytes": 83947
+        }
+      ]
+    },
+    "stores/analysis/a399f1dbf1d547878825b563bdb3a815/trace_trace_statistics.png": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: 5993fbfbeea053a50d8a65acbf61cdb83a4accd9fce966703ab4e281b8298287"
+    },
+    "stores/analysis/a399f1dbf1d547878825b563bdb3a815/numerical_outputs.json": {
+      "format": "json",
+      "data": {
+        "status": "COMPLETE",
+        "seed": 0,
+        "numpy_version": "2.5.3",
+        "matplotlib_version": "3.11.2",
+        "capture_policy": "native-return-values-and-native-plotting-inputs-v1",
+        "plot_calls": [],
+        "returned_values": {
+          "neighbor_statistics": {
+            "mean_dx": 0.0003778849495574832,
+            "mean_dy": -0.0033270244020968676,
+            "mean_dz": -0.016753625124692917,
+            "std_dx": 0.1832684874534607,
+            "std_dy": 0.1840914785861969,
+            "std_dz": 0.5716622471809387
+          },
+          "barcode_multiplicities": {
+            "2": "a0054_multiplicities",
+            "5": "a0055_multiplicities",
+            "7": "a0056_multiplicities",
+            "8": "a0057_multiplicities",
+            "9": "a0058_multiplicities",
+            "11": "a0059_multiplicities",
+            "12": "a0060_multiplicities",
+            "15": "a0061_multiplicities",
+            "16": "a0062_multiplicities",
+            "17": "a0063_multiplicities",
+            "19": "a0064_multiplicities",
+            "1": "a0065_multiplicities",
+            "10": "a0066_multiplicities",
+            "14": "a0067_multiplicities",
+            "23": "a0068_multiplicities",
+            "3": "a0069_multiplicities",
+            "20": "a0070_multiplicities",
+            "21": "a0071_multiplicities",
+            "13": "a0072_multiplicities",
+            "28": "a0073_multiplicities",
+            "4": "a0074_multiplicities",
+            "6": "a0075_multiplicities",
+            "18": "a0076_multiplicities",
+            "22": "a0077_multiplicities",
+            "24": "a0078_multiplicities",
+            "25": "a0079_multiplicities",
+            "27": "a0080_multiplicities",
+            "26": "a0081_multiplicities",
+            "29": "a0082_multiplicities"
+          }
+        },
+        "warnings": [],
+        "error": null
+      }
+    },
+    "stores/analysis/a399f1dbf1d547878825b563bdb3a815/stderr.log": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stores/traces/a2a15cdd6264450aa5f37133bc0269db/merged_traces.ecsv": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: fe57ee6f85b022bae9ec8357753ae06854e038359a7305537d7d0f2fe4e2162a"
+    },
+    "stores/traces/a2a15cdd6264450aa5f37133bc0269db/provenance.json": {
+      "format": "json",
+      "data": {
+        "schema_version": 1,
+        "run_id": "a2a15cdd6264450aa5f37133bc0269db",
+        "phase": "trace_merge_only",
+        "pearson_run_id": "43f648fb02464564b6f57efd609ba69a",
+        "results_sha256": "faf70a50073f49a8909ab0897db6054daf10be2b044d2bf1e0b940808939e77d",
+        "approval_revision": "790b893d4774440a9e3b41e269bef11d",
+        "approval_fingerprint": "29214e54c8d6ba885eb057aa86c0af90d66833d4188d1541aa7772c149335dc9",
+        "approval_snapshot": {
+          "schema_version": 1,
+          "pearson_run_id": "43f648fb02464564b6f57efd609ba69a",
+          "revision": "790b893d4774440a9e3b41e269bef11d",
+          "status": "APPROVED",
+          "reason": "Explicit human review decision received from the trusted MCP host",
+          "updated_at": "2026-10-22T13:59:53.880961+00:00",
+          "evidence": {
+            "pearson_run_id": "43f648fb02464564b6f57efd609ba69a",
+            "results_sha256": "faf70a50073f49a8909ab0897db6054daf10be2b044d2bf1e0b940808939e77d",
+            "report_path": "@FIXTURE@/stores/pearson/43f648fb02464564b6f57efd609ba69a/pearson_qc.md",
+            "report_sha256": "82d1d54d341b82b98dd895c06e65198a127e5ac61d7058bf6ed25579acbc995b",
+            "figure_sha256": "6124187f3d7e993ee236f97f64aff2172109d3c5f3de179c051e79446e3c079f",
+            "native_matrix_sha256": "482ad62601cc7a72a1245e019e596268aced3d2dc685cd4e5a83e6058f37ae54",
+            "collection_references": [
+              {
+                "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+                "manifest_sha256": "1322de6a7bf63c64c7fddc21f251a6829fa0496c526c6002432dc70dc6c22839"
+              }
+            ],
+            "datasets": [
+              {
+                "index": 0,
+                "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+                "manifest_sha256": "1322de6a7bf63c64c7fddc21f251a6829fa0496c526c6002432dc70dc6c22839",
+                "filename": "Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+                "path": "@FIXTURE@/stores/collections/3139d2b036f14060a44bb76ea858b5c9/Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+                "sha256": "23c432213a0f07c753549d3be0a0aecd6599388f982336aa36f5292270ae6b3a",
+                "roi": "92",
+                "rows": 46296
+              },
+              {
+                "index": 1,
+                "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+                "manifest_sha256": "1322de6a7bf63c64c7fddc21f251a6829fa0496c526c6002432dc70dc6c22839",
+                "filename": "Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+                "path": "@FIXTURE@/stores/collections/3139d2b036f14060a44bb76ea858b5c9/Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+                "sha256": "0d99ba52cfc454bff611e434a160f6b00580ac09b7d304a819de3be0bcaae3ce",
+                "roi": "93",
+                "rows": 34900
+              }
+            ],
+            "parameters": {
+              "output_format": "png",
+              "correlation_threshold": null
+            },
+            "native_module_sha256": "db5df6db26c701d86f4f0c3d3e0c680a3479be18188536e2dbc03823dd3b9041"
+          },
+          "fingerprint": "29214e54c8d6ba885eb057aa86c0af90d66833d4188d1541aa7772c149335dc9",
+          "selected_dataset_indices": [
+            0,
+            1
+          ],
+          "selected_datasets": [
+            {
+              "index": 0,
+              "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+              "manifest_sha256": "1322de6a7bf63c64c7fddc21f251a6829fa0496c526c6002432dc70dc6c22839",
+              "filename": "Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+              "path": "@FIXTURE@/stores/collections/3139d2b036f14060a44bb76ea858b5c9/Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+              "sha256": "23c432213a0f07c753549d3be0a0aecd6599388f982336aa36f5292270ae6b3a",
+              "roi": "92",
+              "rows": 46296
+            },
+            {
+              "index": 1,
+              "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+              "manifest_sha256": "1322de6a7bf63c64c7fddc21f251a6829fa0496c526c6002432dc70dc6c22839",
+              "filename": "Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+              "path": "@FIXTURE@/stores/collections/3139d2b036f14060a44bb76ea858b5c9/Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+              "sha256": "0d99ba52cfc454bff611e434a160f6b00580ac09b7d304a819de3be0bcaae3ce",
+              "roi": "93",
+              "rows": 34900
+            }
+          ],
+          "selected_collection_references": [
+            {
+              "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+              "manifest_sha256": "1322de6a7bf63c64c7fddc21f251a6829fa0496c526c6002432dc70dc6c22839"
+            }
+          ],
+          "previous_status": null,
+          "decision_source": "MCP_HOST_ELICITATION"
+        },
+        "selected_dataset_indices": [
+          0,
+          1
+        ],
+        "collection_references": [
+          {
+            "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+            "manifest_sha256": "1322de6a7bf63c64c7fddc21f251a6829fa0496c526c6002432dc70dc6c22839"
+          }
+        ],
+        "pearson_parameters": {
+          "output_format": "png",
+          "correlation_threshold": null
+        },
+        "merge_policy": "native-trace-merge-v1",
+        "native_functions": [
+          "trace_merge.load_traces",
+          "ChromatinTraceTable.save"
+        ],
+        "native_module_sha256": "03add5450b2c4f69864f082fac9bbffd59f218b88fe7be3a8449ff6708aea6f1",
+        "native_table_module_sha256": "f820acb686fe08c84bdd29849320f559f1883b95b2da042c32225a84901b1257",
+        "traceratops_version": "1.0.1",
+        "sources": [
+          {
+            "index": 0,
+            "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+            "manifest_sha256": "1322de6a7bf63c64c7fddc21f251a6829fa0496c526c6002432dc70dc6c22839",
+            "filename": "Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+            "path": "@FIXTURE@/stores/collections/3139d2b036f14060a44bb76ea858b5c9/Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+            "sha256": "23c432213a0f07c753549d3be0a0aecd6599388f982336aa36f5292270ae6b3a",
+            "roi": "92",
+            "rows": 46296,
+            "row_start": 0,
+            "row_stop_exclusive": 46296,
+            "row_count": 46296,
+            "roi_mapping": {
+              "92": [
+                "92"
+              ]
+            },
+            "source_metadata_yaml": "comments: [xyz_unit=micron, genome_assembly=mm10, '']\n",
+            "source_column_metadata_yaml": "'Barcode #':\n  description: null\n  format: null\n  meta: {}\n  unit: null\nChrom:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nChrom_End:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nChrom_Start:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nMask_id:\n  description: null\n  format: null\n  meta: {}\n  unit: null\n'ROI #':\n  description: null\n  format: null\n  meta: {}\n  unit: null\nSpot_ID:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nTrace_ID:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nlabel:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nx:\n  description: null\n  format: null\n  meta: {}\n  unit: null\ny:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nz:\n  description: null\n  format: null\n  meta: {}\n  unit: null\n"
+          },
+          {
+            "index": 1,
+            "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+            "manifest_sha256": "1322de6a7bf63c64c7fddc21f251a6829fa0496c526c6002432dc70dc6c22839",
+            "filename": "Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+            "path": "@FIXTURE@/stores/collections/3139d2b036f14060a44bb76ea858b5c9/Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+            "sha256": "0d99ba52cfc454bff611e434a160f6b00580ac09b7d304a819de3be0bcaae3ce",
+            "roi": "93",
+            "rows": 34900,
+            "row_start": 46296,
+            "row_stop_exclusive": 81196,
+            "row_count": 34900,
+            "roi_mapping": {
+              "93": [
+                "93"
+              ]
+            },
+            "source_metadata_yaml": "comments: [xyz_unit=micron, genome_assembly=mm10, '']\n",
+            "source_column_metadata_yaml": "'Barcode #':\n  description: null\n  format: null\n  meta: {}\n  unit: null\nChrom:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nChrom_End:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nChrom_Start:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nMask_id:\n  description: null\n  format: null\n  meta: {}\n  unit: null\n'ROI #':\n  description: null\n  format: null\n  meta: {}\n  unit: null\nSpot_ID:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nTrace_ID:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nlabel:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nx:\n  description: null\n  format: null\n  meta: {}\n  unit: null\ny:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nz:\n  description: null\n  format: null\n  meta: {}\n  unit: null\n"
+          }
+        ],
+        "merged_metadata_yaml": "comments: [xyz_unit=micron, genome_assembly=mm10, appended_trace_files=2]\n",
+        "merged_column_metadata_yaml": "'Barcode #':\n  description: null\n  format: null\n  meta: {}\n  unit: null\nChrom:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nChrom_End:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nChrom_Start:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nMask_id:\n  description: null\n  format: null\n  meta: {}\n  unit: null\n'ROI #':\n  description: null\n  format: null\n  meta: {}\n  unit: null\nSpot_ID:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nTrace_ID:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nlabel:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nx:\n  description: null\n  format: null\n  meta: {}\n  unit: null\ny:\n  description: null\n  format: null\n  meta: {}\n  unit: null\nz:\n  description: null\n  format: null\n  meta: {}\n  unit: null\n",
+        "merged_sha256": "fe57ee6f85b022bae9ec8357753ae06854e038359a7305537d7d0f2fe4e2162a",
+        "row_count": 81196,
+        "output_roi_dtype": "int64",
+        "barcode_count": 29,
+        "trace_count": 12609,
+        "roi_trace_count": 12609,
+        "roi_count": 2,
+        "warnings": [
+          "Trace_ID is nucleus-level; merge preserves repeated barcodes and does not separate alleles or filter observations."
+        ],
+        "artifacts": {
+          "merged": "merged_traces.ecsv",
+          "native_log": "native.log"
+        }
+      }
+    },
+    "stores/traces/a2a15cdd6264450aa5f37133bc0269db/native.log": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: 0298a3d3ad7dfdf65f3a04bd27f25f5e235d93fcef2653342e94f3c0902b594a"
+    },
+    "stores/pearson/.scientific-approvals/43f648fb02464564b6f57efd609ba69a.json": {
+      "format": "json",
+      "data": {
+        "schema_version": 1,
+        "pearson_run_id": "43f648fb02464564b6f57efd609ba69a",
+        "revision": "790b893d4774440a9e3b41e269bef11d",
+        "status": "APPROVED",
+        "reason": "Explicit human review decision received from the trusted MCP host",
+        "updated_at": "2026-10-22T13:59:53.880961+00:00",
+        "evidence": {
+          "pearson_run_id": "43f648fb02464564b6f57efd609ba69a",
+          "results_sha256": "faf70a50073f49a8909ab0897db6054daf10be2b044d2bf1e0b940808939e77d",
+          "report_path": "@FIXTURE@/stores/pearson/43f648fb02464564b6f57efd609ba69a/pearson_qc.md",
+          "report_sha256": "82d1d54d341b82b98dd895c06e65198a127e5ac61d7058bf6ed25579acbc995b",
+          "figure_sha256": "6124187f3d7e993ee236f97f64aff2172109d3c5f3de179c051e79446e3c079f",
+          "native_matrix_sha256": "482ad62601cc7a72a1245e019e596268aced3d2dc685cd4e5a83e6058f37ae54",
+          "collection_references": [
+            {
+              "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+              "manifest_sha256": "1322de6a7bf63c64c7fddc21f251a6829fa0496c526c6002432dc70dc6c22839"
+            }
+          ],
+          "datasets": [
+            {
+              "index": 0,
+              "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+              "manifest_sha256": "1322de6a7bf63c64c7fddc21f251a6829fa0496c526c6002432dc70dc6c22839",
+              "filename": "Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+              "path": "@FIXTURE@/stores/collections/3139d2b036f14060a44bb76ea858b5c9/Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+              "sha256": "23c432213a0f07c753549d3be0a0aecd6599388f982336aa36f5292270ae6b3a",
+              "roi": "92",
+              "rows": 46296
+            },
+            {
+              "index": 1,
+              "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+              "manifest_sha256": "1322de6a7bf63c64c7fddc21f251a6829fa0496c526c6002432dc70dc6c22839",
+              "filename": "Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+              "path": "@FIXTURE@/stores/collections/3139d2b036f14060a44bb76ea858b5c9/Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+              "sha256": "0d99ba52cfc454bff611e434a160f6b00580ac09b7d304a819de3be0bcaae3ce",
+              "roi": "93",
+              "rows": 34900
+            }
+          ],
+          "parameters": {
+            "output_format": "png",
+            "correlation_threshold": null
+          },
+          "native_module_sha256": "db5df6db26c701d86f4f0c3d3e0c680a3479be18188536e2dbc03823dd3b9041"
+        },
+        "fingerprint": "29214e54c8d6ba885eb057aa86c0af90d66833d4188d1541aa7772c149335dc9",
+        "selected_dataset_indices": [
+          0,
+          1
+        ],
+        "selected_datasets": [
+          {
+            "index": 0,
+            "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+            "manifest_sha256": "1322de6a7bf63c64c7fddc21f251a6829fa0496c526c6002432dc70dc6c22839",
+            "filename": "Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+            "path": "@FIXTURE@/stores/collections/3139d2b036f14060a44bb76ea858b5c9/Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+            "sha256": "23c432213a0f07c753549d3be0a0aecd6599388f982336aa36f5292270ae6b3a",
+            "roi": "92",
+            "rows": 46296
+          },
+          {
+            "index": 1,
+            "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+            "manifest_sha256": "1322de6a7bf63c64c7fddc21f251a6829fa0496c526c6002432dc70dc6c22839",
+            "filename": "Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+            "path": "@FIXTURE@/stores/collections/3139d2b036f14060a44bb76ea858b5c9/Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+            "sha256": "0d99ba52cfc454bff611e434a160f6b00580ac09b7d304a819de3be0bcaae3ce",
+            "roi": "93",
+            "rows": 34900
+          }
+        ],
+        "selected_collection_references": [
+          {
+            "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+            "manifest_sha256": "1322de6a7bf63c64c7fddc21f251a6829fa0496c526c6002432dc70dc6c22839"
+          }
+        ],
+        "previous_status": null,
+        "decision_source": "MCP_HOST_ELICITATION"
+      }
+    },
+    "stores/pearson/43f648fb02464564b6f57efd609ba69a/results.json": {
+      "format": "json",
+      "data": {
+        "schema_version": 1,
+        "run_id": "43f648fb02464564b6f57efd609ba69a",
+        "phase": "pearson_qc_only",
+        "review_required": true,
+        "collection_references": [
+          {
+            "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+            "manifest_sha256": "1322de6a7bf63c64c7fddc21f251a6829fa0496c526c6002432dc70dc6c22839"
+          }
+        ],
+        "datasets": [
+          {
+            "index": 0,
+            "label": "Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+            "roi": "92",
+            "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+            "rows": 46296,
+            "distance_pair_count": 406,
+            "repeated_trace_barcode_groups": 1330
+          },
+          {
+            "index": 1,
+            "label": "Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+            "roi": "93",
+            "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+            "rows": 34900,
+            "distance_pair_count": 406,
+            "repeated_trace_barcode_groups": 603
+          }
+        ],
+        "comparisons": [
+          {
+            "first": 0,
+            "second": 1,
+            "pearson_r": 0.8691053986549377,
+            "shared_non_nan_pairs": 406
+          }
+        ],
+        "files": [
+          "@FIXTURE@/stores/collections/3139d2b036f14060a44bb76ea858b5c9/Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+          "@FIXTURE@/stores/collections/3139d2b036f14060a44bb76ea858b5c9/Trace_3D_barcode_mask-mask0_ROI-93.ecsv"
+        ],
+        "warnings": [
+          "Dataset 0: 1330 repeated trace/barcode groups; native Pearson keeps the last row per barcode, without allele separation.",
+          "Dataset 1: 603 repeated trace/barcode groups; native Pearson keeps the last row per barcode, without allele separation.",
+          "Native figure uses a fixed 0\u20131 color range; negative correlations remain in the numerical output and may be clipped visually.",
+          "Trace_ID represents a segmented nucleus, not necessarily a single chromosome. Correlation is not biological equivalence or approval to merge."
+        ],
+        "traceratops_version": "1.0.1",
+        "native_module_sha256": "db5df6db26c701d86f4f0c3d3e0c680a3479be18188536e2dbc03823dd3b9041",
+        "native_functions": [
+          "silent_load_trace",
+          "accumulate_distances",
+          "compare_distance_maps",
+          "plot_correlation_matrix"
+        ],
+        "parameters": {
+          "output_format": "png",
+          "correlation_threshold": null
+        },
+        "artifacts": {
+          "figure": "trace_correlation_matrix.png",
+          "native_matrix": "trace_correlation_matrix.npy"
+        },
+        "next_action": "STOP_FOR_USER_REVIEW"
+      }
+    },
+    "stores/pearson/43f648fb02464564b6f57efd609ba69a/trace_correlation_matrix.npy": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: 482ad62601cc7a72a1245e019e596268aced3d2dc685cd4e5a83e6058f37ae54"
+    },
+    "stores/pearson/43f648fb02464564b6f57efd609ba69a/native.log": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: 2fef1c256db76b36d6856c0d0685b046b85806a563c23c64de66a40092208c5e"
+    },
+    "stores/pearson/43f648fb02464564b6f57efd609ba69a/pearson_qc.md": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: 82d1d54d341b82b98dd895c06e65198a127e5ac61d7058bf6ed25579acbc995b"
+    },
+    "stores/pearson/43f648fb02464564b6f57efd609ba69a/trace_correlation_matrix.png": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: 6124187f3d7e993ee236f97f64aff2172109d3c5f3de179c051e79446e3c079f"
+    },
+    "stores/localization-analysis/c1649f4ba0ff4d049b2210db39e85016/analysis.json": {
+      "format": "json",
+      "data": {
+        "schema_version": 1,
+        "status": "ANALYZED",
+        "run_id": "c1649f4ba0ff4d049b2210db39e85016",
+        "scope": "merged_unfiltered_localization",
+        "generated_at_utc": "2026-10-23T07:17:52.199411+00:00",
+        "localization_merge_run_id": "b91328790abe4a17a4a400ddd069e97f",
+        "merged_sha256": "cd89b37b7cb357f37947903221a37f7ef498ca546b1af9fc031dac0376a824d6",
+        "provenance_sha256": "ea353902cb3a731a74f256748c510cdb37a614b0616809284576d250f3243423",
+        "merge_native_log_sha256": "43fbe8724376f5695b07f9db7eff7836766eb5da89a92b3781cab4ff529dadd5",
+        "source_file": "@FIXTURE@/stores/localizations/b91328790abe4a17a4a400ddd069e97f/merged_localizations.ecsv",
+        "pearson_run_id": "43f648fb02464564b6f57efd609ba69a",
+        "pearson_results_sha256": "faf70a50073f49a8909ab0897db6054daf10be2b044d2bf1e0b940808939e77d",
+        "approval_revision": "790b893d4774440a9e3b41e269bef11d",
+        "approval_fingerprint": "29214e54c8d6ba885eb057aa86c0af90d66833d4188d1541aa7772c149335dc9",
+        "selected_dataset_indices": [
+          0,
+          1
+        ],
+        "approved_roi_mapping": [
+          {
+            "approved_trace_index": 0,
+            "trace_collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+            "trace_filename": "Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+            "trace_sha256": "23c432213a0f07c753549d3be0a0aecd6599388f982336aa36f5292270ae6b3a",
+            "trace_source": "@FIXTURE@/experiment/092/tracing/data/Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+            "experiment_root": "@FIXTURE@/experiment",
+            "source_roi_directory": "092",
+            "source_relative": "092/localize_3d/data/localizations_3D_barcode.ecsv",
+            "source": "@FIXTURE@/experiment/092/localize_3d/data/localizations_3D_barcode.ecsv",
+            "roi": "92",
+            "collection_run_id": "b44bbac19977491484e0400f905bc9b6",
+            "manifest_sha256": "a824ec351e92435e97aaa0a30a7ebd3e46bb3091b84fda888022757e252be4a6",
+            "filename": "localizations_3D_barcode_092.ecsv",
+            "sha256": "1f45d67451af4c3899c51d5b3a1e31e3ec74141e9b075d23fc0cd66220905489",
+            "rows": 61420
+          },
+          {
+            "approved_trace_index": 1,
+            "trace_collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+            "trace_filename": "Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+            "trace_sha256": "0d99ba52cfc454bff611e434a160f6b00580ac09b7d304a819de3be0bcaae3ce",
+            "trace_source": "@FIXTURE@/experiment/093/tracing/data/Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+            "experiment_root": "@FIXTURE@/experiment",
+            "source_roi_directory": "093",
+            "source_relative": "093/localize_3d/data/localizations_3D_barcode.ecsv",
+            "source": "@FIXTURE@/experiment/093/localize_3d/data/localizations_3D_barcode.ecsv",
+            "roi": "93",
+            "collection_run_id": "b44bbac19977491484e0400f905bc9b6",
+            "manifest_sha256": "a824ec351e92435e97aaa0a30a7ebd3e46bb3091b84fda888022757e252be4a6",
+            "filename": "localizations_3D_barcode_093.ecsv",
+            "sha256": "2a46071db8059c76fc22fd70a5bbec21e64b7ad1a72708c2af12a1d243f80a19",
+            "rows": 41741
+          }
+        ],
+        "counts": {
+          "row_count": 103161,
+          "barcode_count": 29,
+          "roi_count": 2,
+          "localization_id_count": 103161
+        },
+        "barcode_namespace": "original",
+        "tracing_annotation": {
+          "annotation_run_id": "2e4f2da254b64a9fb5589cec640797d1",
+          "annotation_sha256": "39d299a59acbe4f73c2c43081650bacc17824f1ccd90607d88466829af04bfee",
+          "bed_sha256": "efd788299802c16cd50a8b7b8fada3b218281be42d28f04b4681479794fb462e",
+          "mapping_path": "@FIXTURE@/stores/annotations/2e4f2da254b64a9fb5589cec640797d1/barcode_mapping.json",
+          "mapping_sha256": "ae859992ca2a6c54d1a80ff621045acf068fb6018158de703bcf0467d27bb41c",
+          "annotated_trace_namespace": "BED replacement barcode IDs",
+          "localization_namespace": "original barcode IDs",
+          "spot_identity_join": "Spot_ID/Buid, never barcode alone"
+        },
+        "native_function": "traceratops.localization_analyzer.run",
+        "traceratops_version": "1.0.1",
+        "native_module_sha256": "34b659337bec32f70b97b5f0727c64427c8496f761d3ea3dc841fd5f55444b8a",
+        "native_table_module_sha256": "17ccf6e3520bd5cb0af6560580f770b6be550557c89bda501985cf8c31bafdd0",
+        "worker_sha256": "2969a4317ee4961e98391aadd7548987e79ae5b90289a4087226dc1bcbe38b7f",
+        "parameters": {
+          "output_format": "png",
+          "filtering": false,
+          "barcode_replacement": false
+        },
+        "figure": "localization_distribution_fluxes.png",
+        "warnings": [
+          "Approval covers the tracing source ROI selection. Localization bytes are bound by collection hashes for this execution, not by the earlier Pearson human decision.",
+          "Coordinate unit or genome assembly is not fully declared; no metadata inference or conversion was performed.",
+          "Localizations retain original barcode IDs. Annotated traces use BED replacement IDs; use the saved mapping for labels and Spot_ID/Buid for spot correspondence.",
+          "No additional filtering, coordinate conversion or barcode replacement was applied. Supplied upstream filtered/registered metadata is retained.",
+          "The native analyzer returns no statistics object. Saved numerical evidence contains native plot inputs/counts and returned Matplotlib geometry, not new acceptance metrics.",
+          "Native z_centroid values use the supplied units; missing localization unit/assembly declarations are not inferred from tracing metadata."
+        ],
+        "artifact_manifest_sha256": "11079186c776752923df40c7a48869dc3e68275f8a4448905051b33976349d9e",
+        "execution_seconds": 6.271275587001583
+      }
+    },
+    "stores/localization-analysis/c1649f4ba0ff4d049b2210db39e85016/localization_distribution_fluxes.png": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: 97fd838a10408597195d91c8bed8ac88ba9b60e98028af0bfd2ec70af39b95f9"
+    },
+    "stores/localization-analysis/c1649f4ba0ff4d049b2210db39e85016/numerical_outputs.npz": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: d7bf452da9cfece7ff088da8a772327edca35b74ef47dbc4208d0e04d614aab2"
+    },
+    "stores/localization-analysis/c1649f4ba0ff4d049b2210db39e85016/stdout.log": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: 989dd574fb11d06fc74fff85f6982514f379eb8d679dd0bb2ea9ad2df6270f45"
+    },
+    "stores/localization-analysis/c1649f4ba0ff4d049b2210db39e85016/artifacts.json": {
+      "format": "json",
+      "data": [
+        {
+          "name": "localization_distribution_fluxes.png",
+          "sha256": "97fd838a10408597195d91c8bed8ac88ba9b60e98028af0bfd2ec70af39b95f9",
+          "size_bytes": 282774
+        },
+        {
+          "name": "numerical_outputs.json",
+          "sha256": "9a7e3495e8ba8828c3546c725677b5abbc6d55ba733b13f70c4a62b949c822bb",
+          "size_bytes": 4536
+        },
+        {
+          "name": "numerical_outputs.npz",
+          "sha256": "d7bf452da9cfece7ff088da8a772327edca35b74ef47dbc4208d0e04d614aab2",
+          "size_bytes": 3465827
+        },
+        {
+          "name": "stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "size_bytes": 0
+        },
+        {
+          "name": "stdout.log",
+          "sha256": "989dd574fb11d06fc74fff85f6982514f379eb8d679dd0bb2ea9ad2df6270f45",
+          "size_bytes": 19
+        }
+      ]
+    },
+    "stores/localization-analysis/c1649f4ba0ff4d049b2210db39e85016/numerical_outputs.json": {
+      "format": "json",
+      "data": {
+        "schema_version": 1,
+        "status": "COMPLETE",
+        "native_return_value": null,
+        "native_barcode_counts": [
+          {
+            "barcode": 3,
+            "count": 6241
+          },
+          {
+            "barcode": 7,
+            "count": 5647
+          },
+          {
+            "barcode": 8,
+            "count": 6337
+          },
+          {
+            "barcode": 9,
+            "count": 1237
+          },
+          {
+            "barcode": 10,
+            "count": 4789
+          },
+          {
+            "barcode": 11,
+            "count": 2927
+          },
+          {
+            "barcode": 12,
+            "count": 2479
+          },
+          {
+            "barcode": 13,
+            "count": 4987
+          },
+          {
+            "barcode": 14,
+            "count": 4502
+          },
+          {
+            "barcode": 15,
+            "count": 2109
+          },
+          {
+            "barcode": 16,
+            "count": 3183
+          },
+          {
+            "barcode": 17,
+            "count": 5599
+          },
+          {
+            "barcode": 18,
+            "count": 2721
+          },
+          {
+            "barcode": 19,
+            "count": 3348
+          },
+          {
+            "barcode": 20,
+            "count": 3266
+          },
+          {
+            "barcode": 21,
+            "count": 3811
+          },
+          {
+            "barcode": 24,
+            "count": 3973
+          },
+          {
+            "barcode": 25,
+            "count": 344
+          },
+          {
+            "barcode": 26,
+            "count": 3286
+          },
+          {
+            "barcode": 27,
+            "count": 3765
+          },
+          {
+            "barcode": 28,
+            "count": 2947
+          },
+          {
+            "barcode": 30,
+            "count": 4042
+          },
+          {
+            "barcode": 31,
+            "count": 2059
+          },
+          {
+            "barcode": 32,
+            "count": 3563
+          },
+          {
+            "barcode": 33,
+            "count": 4386
+          },
+          {
+            "barcode": 34,
+            "count": 3282
+          },
+          {
+            "barcode": 35,
+            "count": 3427
+          },
+          {
+            "barcode": 36,
+            "count": 4637
+          },
+          {
+            "barcode": 639,
+            "count": 267
+          }
+        ],
+        "plot_calls": [],
+        "warnings": [],
+        "numpy_version": "2.5.3",
+        "matplotlib_version": "3.11.2",
+        "capture": "Native plot inputs and returned Matplotlib violin/offset values; no added scientific calculations."
+      }
+    },
+    "stores/localization-analysis/c1649f4ba0ff4d049b2210db39e85016/stderr.log": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stores/annotations/2e4f2da254b64a9fb5589cec640797d1/annotated_traces.ecsv": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: 843fb0f17a6a87984bcce6a654f4dddfecba6c96c9d4fb943f36d940e7a9e9f9"
+    },
+    "stores/annotations/2e4f2da254b64a9fb5589cec640797d1/native_annotated.ecsv": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: 21fe61d74f6b2e38c00fcd3f2f97042d39aa70e44bc3d7931abef68b920dbdff"
+    },
+    "stores/annotations/2e4f2da254b64a9fb5589cec640797d1/native.log": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: 62207c47ef744f6183eab129b9d4f20f458c6f19d48967f0a474697c6e454007"
+    },
+    "stores/annotations/2e4f2da254b64a9fb5589cec640797d1/barcode_mapping.json": {
+      "format": "json",
+      "data": [
+        {
+          "original_barcode": 3,
+          "replacement_barcode": 1,
+          "chromosome": "chr2L",
+          "start": 20654527,
+          "end": 20657526
+        },
+        {
+          "original_barcode": 7,
+          "replacement_barcode": 2,
+          "chromosome": "chr2L",
+          "start": 20657527,
+          "end": 20660526
+        },
+        {
+          "original_barcode": 8,
+          "replacement_barcode": 3,
+          "chromosome": "chr2L",
+          "start": 20660527,
+          "end": 20663526
+        },
+        {
+          "original_barcode": 9,
+          "replacement_barcode": 4,
+          "chromosome": "chr2L",
+          "start": 20663527,
+          "end": 20666526
+        },
+        {
+          "original_barcode": 10,
+          "replacement_barcode": 5,
+          "chromosome": "chr2L",
+          "start": 20666527,
+          "end": 20669526
+        },
+        {
+          "original_barcode": 11,
+          "replacement_barcode": 6,
+          "chromosome": "chr2L",
+          "start": 20669527,
+          "end": 20672526
+        },
+        {
+          "original_barcode": 12,
+          "replacement_barcode": 7,
+          "chromosome": "chr2L",
+          "start": 20672527,
+          "end": 20675526
+        },
+        {
+          "original_barcode": 13,
+          "replacement_barcode": 8,
+          "chromosome": "chr2L",
+          "start": 20675527,
+          "end": 20678526
+        },
+        {
+          "original_barcode": 14,
+          "replacement_barcode": 9,
+          "chromosome": "chr2L",
+          "start": 20678527,
+          "end": 20681526
+        },
+        {
+          "original_barcode": 15,
+          "replacement_barcode": 10,
+          "chromosome": "chr2L",
+          "start": 20681527,
+          "end": 20684526
+        },
+        {
+          "original_barcode": 16,
+          "replacement_barcode": 11,
+          "chromosome": "chr2L",
+          "start": 20684527,
+          "end": 20687526
+        },
+        {
+          "original_barcode": 17,
+          "replacement_barcode": 12,
+          "chromosome": "chr2L",
+          "start": 20687527,
+          "end": 20690526
+        },
+        {
+          "original_barcode": 18,
+          "replacement_barcode": 13,
+          "chromosome": "chr2L",
+          "start": 20690527,
+          "end": 20693526
+        },
+        {
+          "original_barcode": 19,
+          "replacement_barcode": 14,
+          "chromosome": "chr2L",
+          "start": 20693527,
+          "end": 20696526
+        },
+        {
+          "original_barcode": 20,
+          "replacement_barcode": 15,
+          "chromosome": "chr2L",
+          "start": 20696527,
+          "end": 20699526
+        },
+        {
+          "original_barcode": 21,
+          "replacement_barcode": 16,
+          "chromosome": "chr2L",
+          "start": 20699527,
+          "end": 20702526
+        },
+        {
+          "original_barcode": 24,
+          "replacement_barcode": 17,
+          "chromosome": "chr2L",
+          "start": 20702527,
+          "end": 20705526
+        },
+        {
+          "original_barcode": 25,
+          "replacement_barcode": 18,
+          "chromosome": "chr2L",
+          "start": 20705527,
+          "end": 20708526
+        },
+        {
+          "original_barcode": 26,
+          "replacement_barcode": 19,
+          "chromosome": "chr2L",
+          "start": 20708527,
+          "end": 20711526
+        },
+        {
+          "original_barcode": 27,
+          "replacement_barcode": 20,
+          "chromosome": "chr2L",
+          "start": 20711527,
+          "end": 20714526
+        },
+        {
+          "original_barcode": 28,
+          "replacement_barcode": 21,
+          "chromosome": "chr2L",
+          "start": 20714527,
+          "end": 20717526
+        },
+        {
+          "original_barcode": 30,
+          "replacement_barcode": 22,
+          "chromosome": "chr2L",
+          "start": 20717527,
+          "end": 20720526
+        },
+        {
+          "original_barcode": 31,
+          "replacement_barcode": 23,
+          "chromosome": "chr2L",
+          "start": 20720527,
+          "end": 20723526
+        },
+        {
+          "original_barcode": 32,
+          "replacement_barcode": 24,
+          "chromosome": "chr2L",
+          "start": 20723527,
+          "end": 20726526
+        },
+        {
+          "original_barcode": 33,
+          "replacement_barcode": 25,
+          "chromosome": "chr2L",
+          "start": 20726527,
+          "end": 20729526
+        },
+        {
+          "original_barcode": 34,
+          "replacement_barcode": 26,
+          "chromosome": "chr2L",
+          "start": 20729527,
+          "end": 20732526
+        },
+        {
+          "original_barcode": 35,
+          "replacement_barcode": 27,
+          "chromosome": "chr2L",
+          "start": 20732527,
+          "end": 20735526
+        },
+        {
+          "original_barcode": 36,
+          "replacement_barcode": 28,
+          "chromosome": "chr2L",
+          "start": 20735527,
+          "end": 20738526
+        },
+        {
+          "original_barcode": 639,
+          "replacement_barcode": 29,
+          "chromosome": "chr2L",
+          "start": 20738527,
+          "end": 20741526
+        }
+      ]
+    },
+    "stores/annotations/2e4f2da254b64a9fb5589cec640797d1/annotation.json": {
+      "format": "json",
+      "data": {
+        "schema_version": 1,
+        "status": "ANNOTATED",
+        "run_id": "2e4f2da254b64a9fb5589cec640797d1",
+        "baseline_run_id": "f2d2ad71fc9846d08c066de3c5a664fb",
+        "baseline_sha256": "41391e26a6a5ae4f59c94c383a672f376bee966754f4b04934d2f0aceada856a",
+        "baseline_fingerprint": "289cd4b1356ed4d4cfdadb10888be496e3710936ef33a4f0cc6a4f9cd9a25f70",
+        "merged_sha256": "fe57ee6f85b022bae9ec8357753ae06854e038359a7305537d7d0f2fe4e2162a",
+        "merge_provenance_sha256": "15cb69540f987628f7a3ea4466f8f9fb32f6c5e33c118819636359e17dff8cd3",
+        "approval_revision": "790b893d4774440a9e3b41e269bef11d",
+        "approval_fingerprint": "29214e54c8d6ba885eb057aa86c0af90d66833d4188d1541aa7772c149335dc9",
+        "pearson_run_id": "43f648fb02464564b6f57efd609ba69a",
+        "selected_dataset_indices": [
+          0,
+          1
+        ],
+        "experiment_root": "@FIXTURE@/experiment",
+        "bed_relative": "HR38_3kb_Exp276.bed",
+        "bed_path": "@FIXTURE@/experiment/HR38_3kb_Exp276.bed",
+        "bed_sha256": "efd788299802c16cd50a8b7b8fada3b218281be42d28f04b4681479794fb462e",
+        "reference_path": "@FIXTURE@/genome_reference.json",
+        "reference_sha256": "a321d6f1b804bb58244afcacf31854c07bde7c0159aaa9eba0024b95b94caba6",
+        "reference": {
+          "assembly": "dm6",
+          "authority": "Researcher explicitly confirmed dm6 for ROIs 092 and 093 in this conversation on 2026-10-22.",
+          "chromosome_sizes": {
+            "chr2L": 23513712
+          },
+          "chromosome_sizes_source": "https://hgdownload.soe.ucsc.edu/goldenPath/dm6/bigZips/dm6.chrom.sizes",
+          "scope": "chr2L only; sufficient for the provided BED, not a complete assembly reference.",
+          "previous_metadata": "Original ECSV mm10 is preserved as inherited/conflicting metadata, not assembly authority."
+        },
+        "assembly": "dm6",
+        "input_metadata_yaml": "comments: [xyz_unit=micron, genome_assembly=mm10, appended_trace_files=2]\n",
+        "output_metadata_yaml": "comments: [xyz_unit=micron, appended_trace_files=2, Genomic coordinates imputed from\n    BED file. 81196/81196 rows matched., genome_assembly=dm6]\n",
+        "native_function": "traceratops.trace_genomic_coordinates.impute_genomic_coordinates",
+        "native_module_sha256": "748821a2a3a2c41c8b1cebd0b6c6bfb7c53f0391348209a07a53fb4b6a5c3228",
+        "native_table_module_sha256": "f820acb686fe08c84bdd29849320f559f1883b95b2da042c32225a84901b1257",
+        "traceratops_version": "1.0.1",
+        "native_barcode_replacement": true,
+        "native_mapping_override": false,
+        "native_output_sha256": "21fe61d74f6b2e38c00fcd3f2f97042d39aa70e44bc3d7931abef68b920dbdff",
+        "annotated_sha256": "843fb0f17a6a87984bcce6a654f4dddfecba6c96c9d4fb943f36d940e7a9e9f9",
+        "mapping_sha256": "ae859992ca2a6c54d1a80ff621045acf068fb6018158de703bcf0467d27bb41c",
+        "native_log_sha256": "62207c47ef744f6183eab129b9d4f20f458c6f19d48967f0a474697c6e454007",
+        "mapping_coverage": {
+          "observed_original_barcodes": 29,
+          "mapped_original_barcodes": 29,
+          "mapped_rows": 81196,
+          "total_rows": 81196,
+          "unused_bed_barcodes": []
+        },
+        "row_count": 81196,
+        "barcode_count": 29,
+        "approved_source_contributions": [
+          {
+            "index": 0,
+            "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+            "manifest_sha256": "1322de6a7bf63c64c7fddc21f251a6829fa0496c526c6002432dc70dc6c22839",
+            "filename": "Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+            "sha256": "23c432213a0f07c753549d3be0a0aecd6599388f982336aa36f5292270ae6b3a",
+            "roi": "92",
+            "rows": 46296,
+            "roi_mapping": {
+              "92": [
+                "92"
+              ]
+            },
+            "experiment_root": "@FIXTURE@/experiment",
+            "original_source": "@FIXTURE@/experiment/092/tracing/data/Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+            "source_relative": "092/tracing/data/Trace_3D_barcode_mask-mask0_ROI-92.ecsv",
+            "source_roi_directory": "092"
+          },
+          {
+            "index": 1,
+            "collection_run_id": "3139d2b036f14060a44bb76ea858b5c9",
+            "manifest_sha256": "1322de6a7bf63c64c7fddc21f251a6829fa0496c526c6002432dc70dc6c22839",
+            "filename": "Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+            "sha256": "0d99ba52cfc454bff611e434a160f6b00580ac09b7d304a819de3be0bcaae3ce",
+            "roi": "93",
+            "rows": 34900,
+            "roi_mapping": {
+              "93": [
+                "93"
+              ]
+            },
+            "experiment_root": "@FIXTURE@/experiment",
+            "original_source": "@FIXTURE@/experiment/093/tracing/data/Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+            "source_relative": "093/tracing/data/Trace_3D_barcode_mask-mask0_ROI-93.ecsv",
+            "source_roi_directory": "093"
+          }
+        ],
+        "warnings": [
+          "Barcode IDs were replaced by native Traceratops using BED column five; localization barcode IDs remain original. Use barcode_mapping.json for cross-table interpretation and Spot_ID/Buid for spot identity.",
+          "Assembly is supplied by the configured researcher-confirmed reference, not inferred from native defaults; inherited assembly metadata is corrected only in the new derivative."
+        ],
+        "execution_seconds": 2.838687122999545
+      }
+    },
+    "experiment/093/tracing/data/Trace_3D_barcode_mask-mask0_ROI-93.ecsv": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: 0d99ba52cfc454bff611e434a160f6b00580ac09b7d304a819de3be0bcaae3ce"
+    },
+    "experiment/093/localize_3d/data/localizations_3D_barcode.ecsv": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: 2a46071db8059c76fc22fd70a5bbec21e64b7ad1a72708c2af12a1d243f80a19"
+    },
+    "experiment/092/tracing/data/Trace_3D_barcode_mask-mask0_ROI-92.ecsv": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: 23c432213a0f07c753549d3be0a0aecd6599388f982336aa36f5292270ae6b3a"
+    },
+    "experiment/092/localize_3d/data/localizations_3D_barcode.ecsv": {
+      "format": "text",
+      "data": "opaque saved artifact fixture: 1f45d67451af4c3899c51d5b3a1e31e3ec74141e9b075d23fc0cd66220905489"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 ---
 name: him-data-diagnosis
-description: Validate pyHiM experiment directories, trace/localization ECSV schemas and barcode coverage, explain deterministic Step 0 quality reports, and explicitly collect ROI ECSV files or perform native Pearson QC with Traceratops and request human scientific review.
+description: Validate pyHiM experiment data and guide explicitly requested native Traceratops pipeline and QC stages, including human scientific review, verified merged-data analysis and compact artifact evidence.
 metadata:
   short-description: pyHiM experiment validation and quality reports
 ---
@@ -108,7 +108,7 @@ Every check revalidates bound evidence; never treat a saved state JSON as an
 unchecked authorization. Read [scientific approval](../../references/scientific-approval.md)
 for host requirements, trust boundary, stale decisions and future merge integration.
 Stop after review unless tracing merge is separately requested. Localization
-merging is a separately requested Step 1b.2 operation; downstream analyzers remain unimplemented.
+merging and both analyzers are separately requested operations with their own evidence checks.
 There is no selected-numerical-retrieval MCP tool for saved Pearson results yet;
 that remains a documented enhancement. Do not add retrieval calls or rerun QC just
 to retrieve its saved numbers.
@@ -168,8 +168,8 @@ unfiltered trace_stats AND trace_analyzer/localization_analyzer on their respect
 merged unfiltered inputs, and precede filtering. It must combine Step 0/per-ROI
 statistics, Pearson and approval, both merges/provenance, merged statistics, and both
 analyzers' available numbers, warnings and saved figures. Trace executes science;
-report formats validated artifact references without recalculation. These later
-integrations remain unimplemented. Keep simple Step 0/Pearson reports in trace.
+report formats validated artifact references without recalculation. The comprehensive report is available through the saved-artifact workflow below.
+Keep simple Step 0/Pearson reports in trace.
 
 
 ## Explicit Step 1c merged statistics
@@ -212,3 +212,28 @@ Return the mapping and new annotated artifact references. Supply annotation run 
 and checksum with the original baseline to trace_analyzer. Keep localization barcode
 IDs unchanged and describe their original namespace explicitly. Changed evidence
 requires validation, and new Pearson evidence requires genuine human approval.
+
+
+## Explicit verified localization_analyzer
+
+For approved merged localization QC, read [localization analyzer](../../references/localization-analyzer.md).
+Reuse the existing localization_analyzer tool with the merge run ID and exact ECSV/
+provenance hashes. Include the existing tracing annotation ID/checksum to bind the
+barcode-mapping reference when available. The registered-dataset mode is retained
+for compatibility and is not workflow approval. Never rename localization barcodes
+or infer z units/assembly from tracing metadata. Preserve native figures and full
+plot arrays locally, return compact references, and link the completed run into the
+existing experiment view. No further filtering is applied; upstream filtered/
+registered metadata remains visible. Stop before comprehensive reporting/filtering.
+
+## Comprehensive pre-filtering QC composition
+
+After both analyzers, read [report composition](../../references/comprehensive-qc-report.md).
+Use report `generate_experiment_qc_report` once with the host-provisioned manifest ID
+and checksum. It verifies saved sources and current human approval; do not send
+complete JSON results, arrays, tables or images to the model. Return the HTML path
+and compact status. Missing evidence or stale approval must be resolved in the
+scientific workflow, never repaired by reporting. COMPLETE_WITH_LIMITATIONS is not
+biological acceptance. Keep original/localization and annotated/replacement barcode
+IDs distinct, pooled localization ROIs and undeclared z units explicit. Stop before
+filtering unless separately authorized.

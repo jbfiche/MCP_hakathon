@@ -63,3 +63,10 @@ one validation call. Use its `human_report_path` or `html_report_path`, or retri
 those paths with trace `get_validation_summary`. No reporting server is required
 for Step 0. The report server retains the richer comparison/PDF tools. See the
 [Step 0 interface](../references/step0.md) for artifact paths and migration details.
+
+## Comprehensive pre-filtering experiment QC
+
+The report server now exposes `generate_experiment_qc_report` for a host-provisioned
+manifest ID/checksum after both native analyzers. One call verifies the saved
+scientific evidence and current approval, then formats HTML without recalculation.
+Simple Step 0/Pearson reports stay in trace. See [configuration and evidence rules](../references/comprehensive-qc-report.md).

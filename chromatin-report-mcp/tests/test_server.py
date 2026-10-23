@@ -112,6 +112,7 @@ async def test_publishes_report_tools_and_latest_report_resource(client: Client)
     assert sorted(tool.name for tool in tools) == sorted([
         "write_comparison_report",
         "write_comparison_pdf",
+        "generate_experiment_qc_report",
     ])
     assert all(tool.output_schema is not None for tool in tools)
     assert [resource.uri for resource in resources] == ["report://latest"]
